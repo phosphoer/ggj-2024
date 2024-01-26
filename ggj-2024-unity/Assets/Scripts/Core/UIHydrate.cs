@@ -30,7 +30,7 @@ public class UIHydrate : MonoBehaviour
   private System.Action _finishCallback;
 
   private const float kHydrateTime = 0.45f;
-  private const float kDehydrateTime = 0.45f;
+  private const float kDehydrateTime = 0.20f;
 
   [ContextMenu("Hydrate")]
   public void HydrateIfNecesssary()
@@ -52,7 +52,7 @@ public class UIHydrate : MonoBehaviour
     _isDehydrated = false;
     _isAnimating = true;
     _finishCallback = finishCallback;
-    _animationTimer = 0;
+    _animationTimer = _enableRandomDelay ? Random.Range(0f, 0.25f) : 0;
     enabled = true;
     gameObject.SetActive(true);
     _targetTransform.localScale = Vector3.zero;
@@ -64,7 +64,7 @@ public class UIHydrate : MonoBehaviour
     _isDehydrated = true;
     _isAnimating = true;
     _finishCallback = finishCallback;
-    _animationTimer = 0;
+    _animationTimer = _enableRandomDelay ? Random.Range(0f, 0.25f) : 0;
     enabled = true;
     gameObject.SetActive(true);
   }
@@ -108,7 +108,7 @@ public class UIHydrate : MonoBehaviour
     var curve = _isHydrated ? GameGlobals.Instance.UIHydrateCurve : GameGlobals.Instance.UIDehydrateCurve;
     float animT = Mathf.Clamp01(_animationTimer / duration);
     float tCurve = curve.Evaluate(animT);
-    _targetTransform.localScale = Vector3.one * tCurve;
+    _targetTransform.localScale = _startScale * tCurve;
 
     if (animT >= 1)
     {
