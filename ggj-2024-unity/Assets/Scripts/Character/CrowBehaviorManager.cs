@@ -26,7 +26,7 @@ public class CrowBehavior : MonoBehaviour
 
     _actor.MoveAxis = new Vector2(horizontalAxis, forwardAxis);
 
-    if (!_actor.IsFlying())
+    if (!_actor.CanTakeOff())
     {
       bool takeOff = _rewiredPlayer.GetButtonDown(RewiredConsts.Action.Jump);
       if (takeOff)
