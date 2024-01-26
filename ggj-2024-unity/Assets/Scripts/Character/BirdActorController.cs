@@ -22,6 +22,20 @@ public class BirdActorController : MonoBehaviour, ICharacterController
   private float JumpPreGroundingGraceTime = 0f;
   public bool AllowJumpingWhenSliding = true;
 
+  public enum MovementMode
+  {
+    Walking,
+    Falling,
+    TakeOff,
+    Flying,
+    Landing,
+    Perching,
+    Perched
+  }
+
+  [SerializeField]
+  private MovementMode _movementMode = MovementMode.Walking;
+
   [SerializeField]
   private KinematicCharacterMotor _motor = null;
 
@@ -213,6 +227,11 @@ public class BirdActorController : MonoBehaviour, ICharacterController
     }
   }
 
+  public bool CanTakeOff()
+  {
+    return _movementMode == MovementMode.Walking;
+  }
+
   public bool IsColliderValidForCollisions(Collider coll)
   {
     return true;
@@ -236,6 +255,10 @@ public class BirdActorController : MonoBehaviour, ICharacterController
 
   protected void OnLanded()
   {
+    //TODO: Trigger landing particle FX
+    //TODO: Trigger landing sound
+
+    _movementMode= MovementMode.Walking;
   }
 
   protected void OnLeaveStableGround()
