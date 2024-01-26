@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using KinematicCharacterController;
 
-public class BirdCharacterController : MonoBehaviour, ICharacterController
+public class BirdActorController : MonoBehaviour, ICharacterController
 {
   public KinematicCharacterMotor Motor => _motor;
   public Vector3 LastAirVelocity => _lastAirVelocity;
