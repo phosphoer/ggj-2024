@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerActorController : Singleton<PlayerActorController>
 {
@@ -12,6 +13,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   private Rewired.Player _rewiredPlayer;
   private CameraControllerPlayer _cameraPlayer;
+  private List<ItemDefinition> _inventory = new();
 
   private void Awake()
   {
