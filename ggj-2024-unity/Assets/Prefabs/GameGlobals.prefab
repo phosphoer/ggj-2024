@@ -45,74 +45,77 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIHydrateCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0.0029754639
-        value: 0
-        inSlope: 3.9409955
-        outSlope: 3.9409955
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.307609
-        value: 1.2005594
-        inSlope: 0.0011158988
-        outSlope: 0.0011158988
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.3267104
-      - serializedVersion: 3
-        time: 0.50430095
-        value: 0.90422636
-        inSlope: -0.0002544766
-        outSlope: -0.0002544766
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.7690738
-      - serializedVersion: 3
-        time: 0.80505997
-        value: 1.0639734
-        inSlope: -0.018220335
-        outSlope: -0.018220335
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 1
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: -0
-        outSlope: -0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.3881543
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    UIDehydrateCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: -1
-        outSlope: -1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: -1
-        outSlope: -1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0029754639
+      value: 0
+      inSlope: 3.9409955
+      outSlope: 3.9409955
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.307609
+      value: 1.2005594
+      inSlope: 0.0011158988
+      outSlope: 0.0011158988
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3267104
+    - serializedVersion: 3
+      time: 0.50430095
+      value: 0.90422636
+      inSlope: -0.0002544766
+      outSlope: -0.0002544766
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.7690738
+    - serializedVersion: 3
+      time: 0.80505997
+      value: 1.0639734
+      inSlope: -0.018220335
+      outSlope: -0.018220335
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0
+      outSlope: -0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3881543
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UIDehydrateCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 3.7436037
+      outSlope: 3.7436037
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.032894738
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.04726001
+      outSlope: -0.04726001
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20394737
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
