@@ -9,6 +9,9 @@ public class PlayerActorController : Singleton<PlayerActorController>
   private ActorController _actor = null;
 
   [SerializeField]
+  private InteractionController _interactionController = null;
+
+  [SerializeField]
   private CameraControllerPlayer _cameraPlayerPrefab = null;
 
   private Rewired.Player _rewiredPlayer;
