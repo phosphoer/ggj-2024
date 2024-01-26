@@ -213,6 +213,11 @@ public class BirdActorController : MonoBehaviour, ICharacterController
     }
   }
 
+  public bool IsFlying()
+  {
+    return _isJumpQueued || _jumpedThisFrame || !Motor.GroundingStatus.IsStableOnGround;
+  }
+
   public bool IsColliderValidForCollisions(Collider coll)
   {
     return true;

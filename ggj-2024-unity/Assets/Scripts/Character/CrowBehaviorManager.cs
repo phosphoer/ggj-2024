@@ -23,7 +23,17 @@ public class CrowBehavior : MonoBehaviour
   {
     float forwardAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveForwardAxis);
     float horizontalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveHorizontalAxis);
+
     _actor.MoveAxis = new Vector2(horizontalAxis, forwardAxis);
+
+    if (!_actor.IsFlying())
+    {
+      bool takeOff = _rewiredPlayer.GetButtonDown(RewiredConsts.Action.Jump);
+      if (takeOff)
+      {
+        _actor.Jump();
+      }
+    }
   }
 
 }
