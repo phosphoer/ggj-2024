@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class CrowBehavior : MonoBehaviour
 {
-    public enum BehaviorType
-    {
+  [SerializeField]
+  private BirdActorController _actor = null;
 
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  private Rewired.Player _rewiredPlayer;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  public enum BehaviorType
+  {
+
+  }
+
+  private void Awake()
+  {
+    _rewiredPlayer = Rewired.ReInput.players.GetPlayer(0);
+  }
+
+  private void Update()
+  {
+    float forwardAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveForwardAxis);
+    float horizontalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveHorizontalAxis);
+    _actor.MoveAxis = new Vector2(horizontalAxis, forwardAxis);
+  }
+
 }
