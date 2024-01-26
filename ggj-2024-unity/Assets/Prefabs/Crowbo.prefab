@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actor: {fileID: 3215897674524226828}
+  _cameraPlayerPrefab: {fileID: 1950268338973255397, guid: ba7fedb4f69f44a158b5eb1f53fd9498, type: 3}
 --- !u!114 &3215897674524226828
 MonoBehaviour:
   m_ObjectHideFlags: 0

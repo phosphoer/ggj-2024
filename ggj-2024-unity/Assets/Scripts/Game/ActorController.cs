@@ -41,7 +41,6 @@ public class ActorController : MonoBehaviour, ICharacterController
   private bool _jumpConsumed;
   private float _timeSinceLastAbleToJump;
   private Vector3 _lastAirVelocity;
-  private Collider[] _probedColliders = new Collider[8];
 
   public void Jump()
   {
