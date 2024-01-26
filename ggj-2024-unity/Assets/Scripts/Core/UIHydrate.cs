@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 public class UIHydrate : MonoBehaviour
 {
+  public event System.Action Hydrated;
   public event System.Action Dehydrated;
 
-  public bool IsAnimating => _currentRoutine != null;
+  public bool IsAnimating => _isAnimating;
   public bool IsHydrated => _isHydrated;
 
   public bool HydrateOnEnable = false;
@@ -21,153 +22,51 @@ public class UIHydrate : MonoBehaviour
   [SerializeField]
   private bool _enableRandomDelay = false;
 
-  private Coroutine _currentRoutine;
-  private Coroutine _showTimedRoutine;
   private Vector3 _startScale;
-  private List<IEnumerator> _childEnumerators;
   private bool _isHydrated;
+  private bool _isDehydrated;
+  private bool _isAnimating;
+  private float _animationTimer;
+  private System.Action _finishCallback;
 
   private const float kHydrateTime = 0.45f;
-  private const float kDehydrateTime = 0.2f;
+  private const float kDehydrateTime = 0.45f;
 
-  public static Coroutine Hydrate(Transform transform, float duration = kHydrateTime)
-  {
-    return CoroutineRoot.Instance.StartCoroutine(HydrateAsync(transform));
-  }
-
-  public Coroutine ShowTimed(float duration)
-  {
-    if (_showTimedRoutine != null)
-    {
-      CoroutineRoot.Instance.StopCoroutine(_showTimedRoutine);
-      _showTimedRoutine = null;
-    }
-
-    _showTimedRoutine = CoroutineRoot.Instance.StartCoroutine(ShowTimedAsync(duration));
-    return _showTimedRoutine;
-  }
-
+  [ContextMenu("Hydrate")]
   public void HydrateIfNecesssary()
   {
     if (!_isHydrated)
       Hydrate();
   }
 
-  public Coroutine Hydrate()
-  {
-    // Debug.Log($"Calling hydrate on {name}", gameObject);
-    _isHydrated = true;
-
-    if (_currentRoutine != null)
-    {
-      // Debug.Log($"Stopping existing routine on {name}", gameObject);
-      CoroutineRoot.Instance.StopCoroutine(_currentRoutine);
-      _currentRoutine = null;
-    }
-
-    gameObject.SetActive(true);
-    _currentRoutine = CoroutineRoot.Instance.StartCoroutine(HydrateRoutine());
-    return _currentRoutine;
-  }
-
+  [ContextMenu("Dehydrate")]
   public void DehydrateIfNecessary()
   {
     if (_isHydrated)
       Dehydrate();
   }
 
-  public Coroutine Dehydrate(System.Action finishCallback = null)
+  public void Hydrate(System.Action finishCallback = null)
   {
-    // Debug.Log($"Calling dehydrate on {name}", gameObject);
+    _isHydrated = true;
+    _isDehydrated = false;
+    _isAnimating = true;
+    _finishCallback = finishCallback;
+    _animationTimer = 0;
+    enabled = true;
+    gameObject.SetActive(true);
+    _targetTransform.localScale = Vector3.zero;
+  }
+
+  public void Dehydrate(System.Action finishCallback = null)
+  {
     _isHydrated = false;
-
-    if (_currentRoutine != null)
-    {
-      // Debug.Log($"Stopping existing routine on {name}", gameObject);
-      CoroutineRoot.Instance.StopCoroutine(_currentRoutine);
-      _currentRoutine = null;
-    }
-
-    _currentRoutine = CoroutineRoot.Instance.StartCoroutine(DehydrateRoutine(finishCallback));
-    return _currentRoutine;
-  }
-
-  private IEnumerator HydrateRoutine()
-  {
-    if (_targetTransform == null)
-    {
-      _targetTransform = transform;
-    }
-
-    // Wait for global assets lol
-    while (GameGlobals.Instance == null)
-    {
-      _targetTransform.localScale = Vector3.zero;
-      yield return null;
-    }
-
-    Vector3 startScale = _startScale * GameGlobals.Instance.UIHydrateCurve.Evaluate(0);
-    Vector3 endScale = _startScale * GameGlobals.Instance.UIHydrateCurve.Evaluate(1);
-    _targetTransform.localScale = startScale;
-
-    if (_enableRandomDelay)
-    {
-      float waitTime = Random.Range(0, 0.3f);
-      for (float time = 0; time < waitTime; time += Time.unscaledDeltaTime)
-        yield return null;
-    }
-
-    for (float time = 0; time < kHydrateTime && _targetTransform != null; time += Time.unscaledDeltaTime)
-    {
-      float t = time / kHydrateTime;
-      float tCurve = GameGlobals.Instance.UIHydrateCurve.Evaluate(t);
-      _targetTransform.localScale = _startScale * tCurve;
-      yield return null;
-    }
-
-    if (_targetTransform != null)
-      _targetTransform.localScale = endScale;
-
-    _currentRoutine = null;
-  }
-
-  private IEnumerator DehydrateRoutine(System.Action finishCallback = null)
-  {
-    if (_targetTransform == null)
-    {
-      _targetTransform = transform;
-    }
-
-    if (_targetTransform == null)
-      yield break;
-
-    Vector3 startScale = _startScale * GameGlobals.Instance.UIDehydrateCurve.Evaluate(0);
-    Vector3 endScale = _startScale * GameGlobals.Instance.UIDehydrateCurve.Evaluate(1);
-    _targetTransform.localScale = startScale;
-
-    if (_enableRandomDelay)
-    {
-      float waitTime = Random.Range(0, 0.3f);
-      for (float time = 0; time < waitTime; time += Time.unscaledDeltaTime)
-        yield return null;
-    }
-
-    for (float time = 0; time < kDehydrateTime && _targetTransform != null; time += Time.unscaledDeltaTime)
-    {
-      float t = time / kDehydrateTime;
-      float tCurve = GameGlobals.Instance.UIDehydrateCurve.Evaluate(t);
-      _targetTransform.localScale = _startScale * tCurve;
-      yield return null;
-    }
-
-    if (_targetTransform != null)
-      _targetTransform.localScale = endScale;
-
-    gameObject.SetActive(false);
-
-    _currentRoutine = null;
-    finishCallback?.Invoke();
-    Dehydrated?.Invoke();
+    _isDehydrated = true;
+    _isAnimating = true;
+    _finishCallback = finishCallback;
+    _animationTimer = 0;
+    enabled = true;
+    gameObject.SetActive(true);
   }
 
   private void Awake()
@@ -180,8 +79,9 @@ public class UIHydrate : MonoBehaviour
     if (StartDehydrated)
     {
       _targetTransform.localScale = Vector3.zero;
-      gameObject.SetActive(false);
       _isHydrated = false;
+      enabled = false;
+      gameObject.SetActive(false);
     }
     else
     {
@@ -191,7 +91,7 @@ public class UIHydrate : MonoBehaviour
 
   private void OnEnable()
   {
-    if (HydrateOnEnable)
+    if (HydrateOnEnable && !_isDehydrated)
     {
       Hydrate();
     }
@@ -199,36 +99,33 @@ public class UIHydrate : MonoBehaviour
 
   private void OnDisable()
   {
-    _isHydrated = false;
   }
 
-  private IEnumerator ShowTimedAsync(float duration)
+  private void Update()
   {
-    yield return Hydrate();
+    _animationTimer += Time.unscaledDeltaTime;
+    float duration = _isHydrated ? kHydrateTime : kDehydrateTime;
+    var curve = _isHydrated ? GameGlobals.Instance.UIHydrateCurve : GameGlobals.Instance.UIDehydrateCurve;
+    float animT = Mathf.Clamp01(_animationTimer / duration);
+    float tCurve = curve.Evaluate(animT);
+    _targetTransform.localScale = Vector3.one * tCurve;
 
-    for (float time = 0; time < duration; time += Time.unscaledDeltaTime)
+    if (animT >= 1)
     {
-      yield return null;
+      _isAnimating = false;
+      enabled = false;
+
+      if (_isHydrated)
+      {
+        Hydrated?.Invoke();
+        _finishCallback?.Invoke();
+      }
+      else
+      {
+        Dehydrated?.Invoke();
+        _finishCallback?.Invoke();
+        gameObject.SetActive(false);
+      }
     }
-
-    yield return Dehydrate();
-  }
-
-  private static IEnumerator HydrateAsync(Transform transform, float duration = kHydrateTime)
-  {
-    Vector3 startScale = Vector3.one * GameGlobals.Instance.UIHydrateCurve.Evaluate(0);
-    Vector3 endScale = Vector3.one * GameGlobals.Instance.UIHydrateCurve.Evaluate(1);
-    transform.localScale = startScale;
-
-    for (float time = 0; time < duration && transform != null; time += Time.unscaledDeltaTime)
-    {
-      float t = time / duration;
-      float tCurve = GameGlobals.Instance.UIHydrateCurve.Evaluate(t);
-      transform.localScale = Vector3.one * tCurve;
-      yield return null;
-    }
-
-    if (transform != null)
-      transform.localScale = endScale;
   }
 }
