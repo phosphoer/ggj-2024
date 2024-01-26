@@ -26,15 +26,6 @@ public class ActorController : MonoBehaviour, ICharacterController
   [SerializeField]
   private KinematicCharacterMotor _motor = null;
 
-  [SerializeField]
-  private Transform _visualRoot = null;
-
-  [SerializeField]
-  private float _standHeight = 1.6f;
-
-  [SerializeField]
-  private float _standCapsuleHeight = 2f;
-
   private bool _isJumpQueued;
   private bool _jumpedThisFrame;
   private float _timeSinceJumpRequested;
