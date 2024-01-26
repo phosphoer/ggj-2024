@@ -666,6 +666,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 781667427}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2607579964061312581, guid: aa5353878db9b0c45a430a11d8c4bb63, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6346757732273655960}
     - targetCorrespondingSourceObject: {fileID: 3808116972125257765, guid: aa5353878db9b0c45a430a11d8c4bb63, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1613028367}
@@ -673,6 +676,38 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1613028368}
   m_SourcePrefab: {fileID: 100100000, guid: aa5353878db9b0c45a430a11d8c4bb63, type: 3}
+--- !u!1 &6346757732273655959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2607579964061312581, guid: aa5353878db9b0c45a430a11d8c4bb63, type: 3}
+  m_PrefabInstance: {fileID: 6346757732273655958}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6346757732273655960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346757732273655959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998fb7c955d7596468b8f23345d3bef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveAxis: {x: 0, y: 0}
+  IsSprinting: 0
+  Drag: 1
+  MoveAirAccel: 5
+  MoveAccel: 5
+  AirSpeed: 3
+  MoveSpeed: 5
+  SprintSpeed: 10
+  JumpPower: 1
+  JumpScalableForwardSpeed: 1
+  AllowJumpingWhenSliding: 1
+  _motor: {fileID: 0}
+  _visualRoot: {fileID: 0}
+  _standHeight: 1.6
+  _standCapsuleHeight: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
