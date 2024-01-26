@@ -16,23 +16,15 @@ public class ActorController : MonoBehaviour, ICharacterController
   public float AirSpeed = 3;
   public float MoveSpeed = 5;
   public float SprintSpeed = 10;
+  public float RotateSpeed = 5;
   public float JumpPower = 1;
   public float JumpScalableForwardSpeed = 1;
-  private float JumpPostGroundingGraceTime = 0f;
-  private float JumpPreGroundingGraceTime = 0f;
+  public float JumpPostGroundingGraceTime = 0f;
+  public float JumpPreGroundingGraceTime = 0f;
   public bool AllowJumpingWhenSliding = true;
 
   [SerializeField]
   private KinematicCharacterMotor _motor = null;
-
-  [SerializeField]
-  private Transform _visualRoot = null;
-
-  [SerializeField]
-  private float _standHeight = 1.6f;
-
-  [SerializeField]
-  private float _standCapsuleHeight = 2f;
 
   private bool _isJumpQueued;
   private bool _jumpedThisFrame;
@@ -40,7 +32,6 @@ public class ActorController : MonoBehaviour, ICharacterController
   private bool _jumpConsumed;
   private float _timeSinceLastAbleToJump;
   private Vector3 _lastAirVelocity;
-  private Collider[] _probedColliders = new Collider[8];
 
   public void Jump()
   {
@@ -59,13 +50,19 @@ public class ActorController : MonoBehaviour, ICharacterController
 
   public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
   {
+    Vector3 moveDir = Motor.Velocity.WithY(0);
+    if (moveDir.sqrMagnitude > 0)
+    {
+      Quaternion desiredRot = Quaternion.LookRotation(moveDir);
+      currentRotation = Mathfx.Damp(currentRotation, desiredRot, 0.25f, deltaTime * RotateSpeed);
+    }
   }
 
   public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
   {
     // Calculate move direction
-    Vector3 walkDirection = transform.forward.WithY(0).normalized;
-    Vector3 strafeDirection = transform.right.WithY(0).normalized;
+    Vector3 walkDirection = MainCamera.Instance.transform.forward.WithY(0).normalized;
+    Vector3 strafeDirection = MainCamera.Instance.transform.right.WithY(0).normalized;
     Vector3 moveVec = Vector3.ClampMagnitude((walkDirection * MoveAxis.y + strafeDirection * MoveAxis.x), 1);
 
     // Ground movement
