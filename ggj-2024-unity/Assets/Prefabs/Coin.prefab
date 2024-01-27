@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5333213099606870610}
   - component: {fileID: 653736672694760218}
   - component: {fileID: 1857699758967336166}
-  - component: {fileID: 381723106725462452}
+  - component: {fileID: 4290734276785809089}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &381723106725462452
-CapsuleCollider:
+--- !u!65 &4290734276785809089
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,10 +102,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &3926109952714884673
 GameObject:
@@ -118,6 +116,7 @@ GameObject:
   - component: {fileID: 564992992455511903}
   - component: {fileID: 4831289622720345662}
   - component: {fileID: 3764291745636900105}
+  - component: {fileID: 665673183959500653}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -155,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactableUIPrefab: {fileID: 8806826485105270308, guid: 220aad5cc92714ff7993c2fe115a3b46, type: 3}
   _interactionUIAnchor: {fileID: 0}
-  _interactionUIHeight: 0.5
+  _interactionUIHeight: 1
   _interactionText: Interact
   _interactionRadius: 2
   _requiresLineOfSight: 0
@@ -176,3 +175,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDefinition: {fileID: 11400000, guid: a92ae152688b84c07ae43058acbfb768, type: 2}
   _interactable: {fileID: 4831289622720345662}
+  _rb: {fileID: 665673183959500653}
+--- !u!54 &665673183959500653
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3926109952714884673}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

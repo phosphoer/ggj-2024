@@ -3,10 +3,15 @@ using System.Collections.Generic;
 
 public class ItemController : MonoBehaviour
 {
+  public Rigidbody Rigidbody => _rb;
+
   public ItemDefinition ItemDefinition;
 
   [SerializeField]
   private Interactable _interactable = null;
+
+  [SerializeField]
+  private Rigidbody _rb = null;
 
   private List<Collider> _childColliders = new();
 

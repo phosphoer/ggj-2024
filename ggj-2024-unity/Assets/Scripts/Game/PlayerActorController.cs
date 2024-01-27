@@ -47,6 +47,15 @@ public class PlayerActorController : Singleton<PlayerActorController>
         _interactionController.TriggerInteraction();
       }
     }
+
+    // Toss items 
+    if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Toss))
+    {
+      if (_inventory.Items.Count > 0)
+      {
+        _inventory.TossItem(_inventory.Items[0], (transform.forward + Vector3.up) * 2);
+      }
+    }
   }
 
   private void OnItemAdded(ItemDefinition definition)
