@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using KinematicCharacterController;
 
-public class BirdActorController : MonoBehaviour, ICharacterController
+public class BirdMovementController : MonoBehaviour, ICharacterController
 {
   public KinematicCharacterMotor Motor => _motor;
   public Vector3 LastAirVelocity => _lastAirVelocity;
@@ -55,6 +55,21 @@ public class BirdActorController : MonoBehaviour, ICharacterController
   private bool _hasReachedTakeoffApex= false;
   private Vector3 _lastAirVelocity;
   private Collider[] _probedColliders = new Collider[8];
+
+  public float GetSpeed()
+  {
+    return _motor.Velocity.magnitude;
+  }
+
+  public bool IsMoving()
+  {
+    return GetSpeed() > 0.01f;
+  }
+
+  public bool IsStationary()
+  {
+    return !IsMoving();
+  }
 
   public bool CanTakeOff()
   {

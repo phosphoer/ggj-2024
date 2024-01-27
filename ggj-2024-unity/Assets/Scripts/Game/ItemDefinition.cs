@@ -4,5 +4,5 @@ using UnityEngine;
 public class ItemDefinition : ScriptableObject
 {
   public string Name = "An Item";
-  public GameObject Prefab = null;
+  public ItemController Prefab = null;
 }
