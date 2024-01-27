@@ -6,7 +6,7 @@ public class PerchController : MonoBehaviour
 {
   private CrowBehaviorManager _owningBird = null;
 
-  bool IsPerchReserved()
+  public bool IsPerchReserved()
   {
     return _owningBird != null;
   }
