@@ -45,11 +45,12 @@ public class InventoryController : MonoBehaviour
 
   public void AddItem(ItemController item)
   {
-    if (!_pendingItemPickups.Contains(item))
+    if (!item.IsBeingCollected && !_pendingItemPickups.Contains(item))
     {
       item.SetCollidersEnabled(false);
       item.SetPhysicsEnabled(false);
       item.SetInteractionEnabled(false);
+      item.IsBeingCollected = true;
       _pendingItemPickups.Add(item);
       _pendingItemPickupTimers.Add(0);
       _pendingItemPickupOrigins.Add(item.transform.position);
@@ -85,6 +86,7 @@ public class InventoryController : MonoBehaviour
       itemController.transform.position = _itemSpawnAnchor.position;
       itemController.transform.rotation = Random.rotation;
       itemController.Rigidbody.AddForce(force, ForceMode.VelocityChange);
+      itemController.WasThrown = true;
       itemController.SetInteractionEnabled(false);
       itemController.SetCollidersEnabled(false);
       itemController.StartCoroutine(Tween.DelayCall(1, () =>
