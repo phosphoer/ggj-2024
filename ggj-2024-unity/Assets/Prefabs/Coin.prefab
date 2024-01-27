@@ -157,7 +157,7 @@ MonoBehaviour:
   _interactionUIAnchor: {fileID: 0}
   _interactionUIHeight: 0.5
   _interactionText: Interact
-  _interactionRadius: 1
+  _interactionRadius: 2
   _requiresLineOfSight: 0
   _autoInteract: 0
   _enableInteraction: 1
