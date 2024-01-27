@@ -16,7 +16,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   private Rewired.Player _rewiredPlayer;
   private CameraControllerPlayer _cameraPlayer;
-  private List<ItemDefinition> _inventory = new();
+  private List<ItemDefinition> _inventory = new List<ItemDefinition>();
 
   private void Awake()
   {
