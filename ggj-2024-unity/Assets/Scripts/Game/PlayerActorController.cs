@@ -15,6 +15,9 @@ public class PlayerActorController : Singleton<PlayerActorController>
   private ActorController _actor = null;
 
   [SerializeField]
+  private Animator _animator = null;
+
+  [SerializeField]
   private InteractionController _interactionController = null;
 
   [SerializeField]
@@ -28,6 +31,11 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   private Rewired.Player _rewiredPlayer;
   private CameraControllerPlayer _cameraPlayer;
+
+  private static readonly int kAnimMoveSpeed = Animator.StringToHash("MoveSpeed");
+  private static readonly int kAnimIsPickingUp = Animator.StringToHash("IsPickingUp");
+  private static readonly int kAnimIsCalling = Animator.StringToHash("IsCalling");
+  private static readonly int kAnimIsAttacking = Animator.StringToHash("IsAttacking");
 
   private void Awake()
   {
@@ -45,6 +53,9 @@ public class PlayerActorController : Singleton<PlayerActorController>
     float forwardAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveForwardAxis);
     float horizontalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveHorizontalAxis);
     _actor.MoveAxis = new Vector2(horizontalAxis, forwardAxis);
+
+    float moveSpeed = Mathf.Clamp01(_actor.Motor.Velocity.magnitude);
+    _animator.SetFloat(kAnimMoveSpeed, moveSpeed);
 
     // If there's something we can interact with 
     if (_interactionController.ClosestInteractable != null)
@@ -91,10 +102,10 @@ public class PlayerActorController : Singleton<PlayerActorController>
     }
 
     // Camera controls
-    float cameraHorizontalAxis = Mathf.Clamp(_rewiredPlayer.GetAxis(RewiredConsts.Action.CameraHorizontalAxis), -1, 1);
-    float cameraVerticalAxis = Mathf.Clamp(_rewiredPlayer.GetAxis(RewiredConsts.Action.CameraVerticalAxis), -1, 1);
-    _cameraPlayer.AxisX = cameraHorizontalAxis;
-    _cameraPlayer.AxisY = cameraVerticalAxis;
+    float cameraHorizontalAxis = Mathf.Clamp(_rewiredPlayer.GetAxis(RewiredConsts.Action.CameraHorizontalAxis), -1f, 1f);
+    float cameraVerticalAxis = Mathf.Clamp(_rewiredPlayer.GetAxis(RewiredConsts.Action.CameraVerticalAxis), -1f, 1f);
+    _cameraPlayer.AxisX += cameraHorizontalAxis * Time.deltaTime * 100;
+    _cameraPlayer.AxisY += cameraVerticalAxis * Time.deltaTime * 100;
   }
 
   private void OnItemAdded(ItemDefinition definition)

@@ -28,9 +28,13 @@ public class CameraControllerPlayer : CameraControllerBase
 
   public override void CameraUpdate()
   {
-    _angleYaw += AxisX * Time.deltaTime * 1500;
-    _anglePitch += AxisY * Time.deltaTime * -1500;
+    AxisX = Mathf.Clamp(AxisX, -1, 1);
+    AxisY = Mathf.Clamp(AxisY, -1, 1);
 
+    _angleYaw += AxisX * Time.deltaTime * 200;
+    _angleYaw = _angleYaw % 360;
+
+    _anglePitch += AxisY * Time.deltaTime * -100;
     _anglePitch = Mathf.Clamp(_anglePitch, 0, 60);
 
     _yawRoot.localRotation = Quaternion.Euler(0, _angleYaw, 0);
@@ -39,5 +43,8 @@ public class CameraControllerPlayer : CameraControllerBase
     Vector3 targetPos = TargetTransform.position + LookOffset;
     transform.position = targetPos;
     MountPoint.LookAt(TargetTransform.position + LookOffset);
+
+    AxisX = Mathfx.Damp(AxisX, 0, 0.25f, Time.deltaTime * 10);
+    AxisY = Mathfx.Damp(AxisY, 0, 0.25f, Time.deltaTime * 10);
   }
 }
