@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class ItemController : MonoBehaviour
 {
+  public static IReadOnlyList<ItemController> Instances => _instances;
+
   public Rigidbody Rigidbody => _rb;
 
   public ItemDefinition ItemDefinition;
@@ -14,6 +16,7 @@ public class ItemController : MonoBehaviour
   private Rigidbody _rb = null;
 
   private List<Collider> _childColliders = new();
+  private static List<ItemController> _instances = new();
 
   public void SetCollidersEnabled(bool collidersEnabled)
   {
@@ -34,8 +37,14 @@ public class ItemController : MonoBehaviour
   private void Awake()
   {
     _interactable.InteractionTriggered += OnInteraction;
+    _instances.Add(this);
 
     GetComponentsInChildren<Collider>(_childColliders);
+  }
+
+  private void OnDestroy()
+  {
+    _instances.Remove(this);
   }
 
   private void OnInteraction(InteractionController controller)
