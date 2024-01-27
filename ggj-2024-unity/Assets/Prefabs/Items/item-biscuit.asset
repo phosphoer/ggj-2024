@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31cc4c727ef9b44ef8bdcddb5805aafa, type: 3}
-  m_Name: item-goldsaucer
+  m_Name: item-biscuit
   m_EditorClassIdentifier: 
-  Name: Gold Saucer
-  Prefab: {fileID: 5595659566637781942, guid: a1d61fb1419bb8841908145e4a7c738d, type: 3}
+  Name: Bug Biscuit
+  Prefab: {fileID: 5595659566637781942, guid: 90dc727c0b4e19045a488d5594ea33aa, type: 3}
   IsIngredient: 0
   IsCrowFood: 1
-  CrowXP: 25
+  CrowXP: 10

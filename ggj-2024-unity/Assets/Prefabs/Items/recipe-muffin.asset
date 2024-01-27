@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
-  m_Name: recipe-ramen
+  m_Name: recipe-muffin
   m_EditorClassIdentifier: 
-  Name: Ramen
-  Result: {fileID: 11400000, guid: 61820c069199b7b43be4f79e136d4cc8, type: 2}
+  Name: Muck Muffin
+  Result: {fileID: 11400000, guid: c29719f9cfd3d0e4f9f920e59e1926a2, type: 2}
   CookDuration: 5
   Ingredients:
-  - Item: {fileID: 11400000, guid: 178dc156d813e454e8989d217599feb0, type: 2}
-    Count: 3
-  - Item: {fileID: 11400000, guid: 5bef7c06a5ee9b545b8a2876c09ed3e1, type: 2}
+  - Item: {fileID: 11400000, guid: 8c33238707f419148804f1921d911cde, type: 2}
+    Count: 4
+  - Item: {fileID: 11400000, guid: f398260bccc474b1da61dcf7a23f6979, type: 2}
     Count: 2
-  - Item: {fileID: 11400000, guid: bdafc4f3b46da4ebf96b292ea2079843, type: 2}
+  - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
     Count: 2

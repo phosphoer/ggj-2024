@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
-  m_Name: recipe-ramen
+  m_Name: recipe-bugbiscuit
   m_EditorClassIdentifier: 
-  Name: Ramen
-  Result: {fileID: 11400000, guid: 61820c069199b7b43be4f79e136d4cc8, type: 2}
-  CookDuration: 5
+  Name: Bug Biscuit
+  Result: {fileID: 11400000, guid: ba77fe84a97fc1343a9754ae767d9710, type: 2}
+  CookDuration: 10
   Ingredients:
-  - Item: {fileID: 11400000, guid: 178dc156d813e454e8989d217599feb0, type: 2}
+  - Item: {fileID: 11400000, guid: 8c33238707f419148804f1921d911cde, type: 2}
     Count: 3
-  - Item: {fileID: 11400000, guid: 5bef7c06a5ee9b545b8a2876c09ed3e1, type: 2}
-    Count: 2
-  - Item: {fileID: 11400000, guid: bdafc4f3b46da4ebf96b292ea2079843, type: 2}
-    Count: 2
+  - Item: {fileID: 11400000, guid: 723376d26001bcc4bb5629f69ab36fbf, type: 2}
+    Count: 3
+  - Item: {fileID: 11400000, guid: e44a7c1cd321e4ccd8019ae423022d62, type: 2}
+    Count: 3

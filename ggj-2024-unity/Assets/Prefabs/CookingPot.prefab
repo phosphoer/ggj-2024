@@ -15247,6 +15247,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d1da350e0caf974ebcbcacce831996d, type: 2}
   - {fileID: 11400000, guid: 20cac852ba405384fbfda7d9bdaeed54, type: 2}
   - {fileID: 11400000, guid: e66e32fdaeb749f48bc98634da8f0fd0, type: 2}
+  - {fileID: 11400000, guid: 4213b0a63572cc543981b6e370d94fae, type: 2}
+  - {fileID: 11400000, guid: 91c0c190b6560554ab56ccbc0c3105d3, type: 2}
   _invalidRecipe: {fileID: 11400000, guid: 073a6e18cfae44819abcde664e5ef72d, type: 2}
 --- !u!114 &8175518535255797117
 MonoBehaviour:
