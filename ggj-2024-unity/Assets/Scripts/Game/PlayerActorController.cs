@@ -52,6 +52,11 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   private void Update()
   {
+    // Reset some animator state 
+    _animator.SetBool(kAnimIsCalling, false);
+    _animator.SetBool(kAnimIsAttacking, false);
+    _animator.SetBool(kAnimIsPickingUp, false);
+
     // Move
     float forwardAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveForwardAxis);
     float horizontalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveHorizontalAxis);
@@ -65,6 +70,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     {
       if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Interact))
       {
+        _animator.SetBool(kAnimIsPickingUp, true);
         _interactionController.TriggerInteraction();
       }
     }
@@ -97,11 +103,13 @@ public class PlayerActorController : Singleton<PlayerActorController>
     // Caw ?
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Caw))
     {
+      _animator.SetBool(kAnimIsCalling, true);
     }
 
     // Attack
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Attack))
     {
+      _animator.SetBool(kAnimIsAttacking, true);
     }
 
     // Camera controls

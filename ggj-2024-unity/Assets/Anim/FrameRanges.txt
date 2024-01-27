@@ -1,6 +1,14 @@
-
+	Player:
 Idle: 1 - 60
 Walk: 61 - 90
 Caw: 91 - 150
 PickUp: 151 - 165
 Attack: 166 - 195
+
+	Crow:
+Idle: 
+Walk: 
+Fly:
+TakeOff: 
+Land: 
+Perch: 

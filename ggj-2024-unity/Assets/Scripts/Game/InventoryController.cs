@@ -86,10 +86,17 @@ public class InventoryController : MonoBehaviour
       itemController.transform.rotation = Random.rotation;
       itemController.Rigidbody.AddForce(force, ForceMode.VelocityChange);
       itemController.SetInteractionEnabled(false);
+      itemController.SetCollidersEnabled(false);
       itemController.StartCoroutine(Tween.DelayCall(1, () =>
       {
         if (itemController != null)
           itemController.SetInteractionEnabled(true);
+      }));
+
+      itemController.StartCoroutine(Tween.DelayCall(0.25f, () =>
+      {
+        if (itemController != null)
+          itemController.SetCollidersEnabled(true);
       }));
 
       return itemController;

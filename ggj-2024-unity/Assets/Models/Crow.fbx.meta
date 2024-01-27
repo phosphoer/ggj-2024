@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: e7618cab38a743248b9fc7a9a00bc029
+guid: 52d4a8969e40225448a014a8905aa459
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Crow_Base
+    second: {fileID: 2100000, guid: 66118a1601abb814bb8e301449351093, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Crow_Claws
+    second: {fileID: 2100000, guid: 66118a1601abb814bb8e301449351093, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Crow_Eye
+    second: {fileID: 2100000, guid: aaad2f688c40d524b8b5300d8c006beb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,7 +50,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -90,7 +105,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.015
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

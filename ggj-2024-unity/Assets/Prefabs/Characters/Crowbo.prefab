@@ -61,6 +61,7 @@ MonoBehaviour:
   _inventory: {fileID: 3537565490238447652}
   _inventorySelector: {fileID: 4088988399815621296}
   _cameraPlayerPrefab: {fileID: 1950268338973255397, guid: ba7fedb4f69f44a158b5eb1f53fd9498, type: 3}
+  _staffPerches: []
 --- !u!114 &3215897674524226828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +110,7 @@ MonoBehaviour:
   MaxStableSlopeAngle: 60
   StableGroundLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 9
   DiscreteCollisionEvents: 0
   StepHandling: 1
   MaxStepHeight: 0.5
