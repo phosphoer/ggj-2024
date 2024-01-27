@@ -28,8 +28,8 @@ public class CameraControllerPlayer : CameraControllerBase
 
   public override void CameraUpdate()
   {
-    _angleYaw += AxisX * Time.deltaTime * 500;
-    _anglePitch += AxisY * Time.deltaTime * -500;
+    _angleYaw += AxisX * Time.deltaTime * 1500;
+    _anglePitch += AxisY * Time.deltaTime * -1500;
 
     _anglePitch = Mathf.Clamp(_anglePitch, 0, 60);
 

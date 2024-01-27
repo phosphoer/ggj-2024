@@ -5,4 +5,5 @@ public class ItemDefinition : ScriptableObject
 {
   public string Name = "An Item";
   public ItemController Prefab = null;
+  public bool IsIngredient = true;
 }

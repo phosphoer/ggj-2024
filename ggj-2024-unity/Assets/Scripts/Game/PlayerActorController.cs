@@ -61,7 +61,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
       Debug.Log($"Toss pressed, inventory visible = {_inventorySelector.IsVisible}");
       if (_inventorySelector.IsVisible && _inventorySelector.SelectedItem != null)
       {
-        _inventory.TossItem(_inventorySelector.SelectedItem, (transform.forward + Vector3.up) * 5);
+        _inventory.TossItem(_inventorySelector.SelectedItem, (transform.forward + Vector3.up) * 4);
         _inventorySelector.Hide();
       }
       else if (!_inventorySelector.IsVisible)
@@ -91,8 +91,8 @@ public class PlayerActorController : Singleton<PlayerActorController>
     }
 
     // Camera controls
-    float cameraHorizontalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.CameraHorizontalAxis);
-    float cameraVerticalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.CameraVerticalAxis);
+    float cameraHorizontalAxis = Mathf.Clamp(_rewiredPlayer.GetAxis(RewiredConsts.Action.CameraHorizontalAxis), -1, 1);
+    float cameraVerticalAxis = Mathf.Clamp(_rewiredPlayer.GetAxis(RewiredConsts.Action.CameraVerticalAxis), -1, 1);
     _cameraPlayer.AxisX = cameraHorizontalAxis;
     _cameraPlayer.AxisY = cameraVerticalAxis;
   }
