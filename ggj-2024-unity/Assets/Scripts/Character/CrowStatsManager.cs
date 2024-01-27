@@ -2,16 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrowStats : MonoBehaviour
+public class CrowStatsManager : MonoBehaviour
 {
-  // Start is called before the first frame update
-  void Start()
-  {
+  private int _xp= 0;
 
-  }
-
-  // Update is called once per frame
-  void Update()
+  public void ApplyItemStats(ItemController item)
   {
 
   }

@@ -8,6 +8,7 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     Wander = 0,
     Idle,
+    SeekFood,
     ApproachPlayer,
     Attack,
     Dead,
@@ -32,6 +33,8 @@ public class CrowBehaviorManager : MonoBehaviour
   public BirdMovementController BirdMovement => _birdMovement;
   public BirdPerceptionComponent Perception => _perceptionComponent;
   public BirdAnimatorController BirdAnimator => _birdAnimator;
+  public InventoryController InventoryController => _inventoryController;
+  public CrowStatsManager StatsManager => _statsManager;
 
   [SerializeField]
   private BirdPerceptionComponent _perceptionComponent = null;
@@ -41,6 +44,12 @@ public class CrowBehaviorManager : MonoBehaviour
 
   [SerializeField]
   private BirdMovementController _birdMovement = null;
+
+  [SerializeField]
+  private InventoryController _inventoryController = null;
+
+  [SerializeField]
+  private CrowStatsManager _statsManager = null;
 
   [SerializeField]
   private SoundBank _cawSound = null;
@@ -64,6 +73,8 @@ public class CrowBehaviorManager : MonoBehaviour
   public float IdleMinDuration = 0.5f;
   public float IdleMaxDuration = 3.0f;
   private float _idleDuration = 0.0f;
+  //-- Seek Food --
+  public float EatFoodRange = 0.25f;
   //-- Wander --
   public float WanderRange = 10.0f;
   //-- PlayerApproach --
@@ -169,6 +180,9 @@ public class CrowBehaviorManager : MonoBehaviour
     case BehaviorState.Idle:
       nextBehavior = UpdateBehavior_Idle();
       break;
+    case BehaviorState.SeekFood:
+      nextBehavior = UpdateBehavior_SeekFood();
+      break;
     case BehaviorState.Wander:
       nextBehavior = UpdateBehavior_Wander();
       break;
@@ -211,13 +225,39 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     BehaviorState nextBehavior = BehaviorState.Idle;
 
-    // Spotted the player
-    if (_perceptionComponent.CanHearPlayer)
+    // If we spot food, go to it!
+    if (_perceptionComponent.SeesNearbyFood)
     {
-      nextBehavior = BehaviorState.ApproachPlayer;
+      nextBehavior = BehaviorState.SeekFood;
     }
     // Been in idle too long, go somewhere else
     else if (_timeInBehavior >= _idleDuration)
+    {
+      nextBehavior = BehaviorState.Wander;
+    }
+
+    return nextBehavior;
+  }
+
+  BehaviorState UpdateBehavior_SeekFood()
+  {
+    BehaviorState nextBehavior = BehaviorState.SeekFood;
+
+    // Still has valid food to approach
+    if (_perceptionComponent.NearbyFood)
+    {
+      ItemController nearbyFood= _perceptionComponent.NearbyFood;
+      float foodDistance = Vector3.Distance(transform.position, nearbyFood.transform.position);
+
+      if (foodDistance <= EatFoodRange)
+      {
+        _statsManager.ApplyItemStats(nearbyFood);
+        _inventoryController.AddItem(nearbyFood);
+        nextBehavior = BehaviorState.Wander;
+      }
+    }
+    // No more food, go back to wandering
+    else
     {
       nextBehavior = BehaviorState.Wander;
     }
@@ -229,10 +269,10 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     BehaviorState nextBehavior = BehaviorState.Wander;
 
-    // Spotted the player
-    if (_perceptionComponent.CanHearPlayer)
+    // If we spot food, go to it!
+    if (_perceptionComponent.SeesNearbyFood)
     {
-      nextBehavior = BehaviorState.ApproachPlayer;
+      nextBehavior = BehaviorState.SeekFood;
     }
     // Have we reached our path destination, chill for a bit
     else if (IsPathFinished || CantMakePathProgress)
@@ -294,10 +334,9 @@ public class CrowBehaviorManager : MonoBehaviour
       break;
     case BehaviorState.Wander:
       break;
+    case BehaviorState.SeekFood:
+      break;
     case BehaviorState.ApproachPlayer:
-      // Stop forcing line of sight checks 
-      _perceptionComponent.ForceLineOfSightCheck = false;
-      _perceptionComponent.ResetPlayerSpotTimer();
       break;
     //case BehaviorState.Cower:
     //  break;
@@ -335,13 +374,23 @@ public class CrowBehaviorManager : MonoBehaviour
         Vector3 PerchLocation= PerchTransform != null ? PerchTransform.position : Vector3.zero; 
 
         _throttleUrgency = 1.0f; // full speed
-        _pathRefreshPeriod = 2.0f; // refresh path every 2 seconds while persuing player
-                                   // Force on line of sight checks even when player is out of vision cone
-        _perceptionComponent.ForceLineOfSightCheck = true;
+        _pathRefreshPeriod = 2.0f; // refresh path every 2 seconds while approaching the player
 
         // Head to a perch location on the player's staff
         // If this fails we take care of it in approach update
         RecomputePathTo(PerchLocation, PerchTransform, PathDestinationType.PlayerStaff);
+      }
+      break;
+    case BehaviorState.SeekFood:
+      {
+        ItemController food= _perceptionComponent.NearbyFood;
+        Vector3 foodLocation= food != null ? food.transform.position : Vector3.zero; 
+
+        _throttleUrgency = 1.0f; // full speed
+        _pathRefreshPeriod = -1.0f; // manual refresh
+
+        // Head to the food!!
+        RecomputePathTo(foodLocation, null, PathDestinationType.Ground);
       }
       break;
     //case BehaviorState.Cower:
