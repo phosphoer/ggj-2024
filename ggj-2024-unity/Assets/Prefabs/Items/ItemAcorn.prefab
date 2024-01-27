@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7315635702482469463}
   - component: {fileID: 8524868197567310144}
   - component: {fileID: 6199331995004199862}
-  - component: {fileID: 1975021811793185243}
+  - component: {fileID: 195552683108096713}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1975021811793185243
-BoxCollider:
+--- !u!136 &195552683108096713
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,9 +102,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.22949287, y: 0.09546014, z: 1.0930424}
-  m_Center: {x: 0.06126739, y: 0.0060558654, z: 0.030290395}
+  serializedVersion: 2
+  m_Radius: 0.07470369
+  m_Height: 0.18863654
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.09431827, z: 0}
 --- !u!1 &8854779869908706096
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47f4433062d84f25a6fe057d0276ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemDefinition: {fileID: 11400000, guid: f398260bccc474b1da61dcf7a23f6979, type: 2}
+  ItemDefinition: {fileID: 11400000, guid: 8c33238707f419148804f1921d911cde, type: 2}
   _interactable: {fileID: 87506204956846299}
   _rb: {fileID: 2874904481558846707}
 --- !u!54 &2874904481558846707
