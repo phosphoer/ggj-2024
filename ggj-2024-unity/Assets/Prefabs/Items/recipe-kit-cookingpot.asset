@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
+  m_Name: recipe-kit-cookingpot
+  m_EditorClassIdentifier: 
+  Name: Cooking Pot Kit
+  Result: {fileID: 11400000, guid: f291c1b84a8244ee6b6472195fb8b2fc, type: 2}
+  CookDuration: 5
+  Ingredients:
+  - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
+    Count: 5
+  - Item: {fileID: 11400000, guid: f398260bccc474b1da61dcf7a23f6979, type: 2}
+    Count: 5
+  - Item: {fileID: 11400000, guid: a92ae152688b84c07ae43058acbfb768, type: 2}
+    Count: 5
