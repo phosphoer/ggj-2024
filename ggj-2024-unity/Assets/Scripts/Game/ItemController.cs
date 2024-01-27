@@ -6,6 +6,7 @@ public class ItemController : MonoBehaviour
   public static IReadOnlyList<ItemController> Instances => _instances;
 
   public Rigidbody Rigidbody => _rb;
+  public bool WasThrown { get; set; }
 
   public ItemDefinition ItemDefinition;
 
