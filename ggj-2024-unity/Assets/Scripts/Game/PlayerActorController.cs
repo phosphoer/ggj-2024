@@ -56,6 +56,17 @@ public class PlayerActorController : Singleton<PlayerActorController>
         _inventory.TossItem(_inventory.Items[0], (transform.forward + Vector3.up) * 2);
       }
     }
+
+    // Caw ?
+    if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Caw))
+    {
+
+    }
+
+    // Attack
+    if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Attack))
+    {
+    }
   }
 
   private void OnItemAdded(ItemDefinition definition)
