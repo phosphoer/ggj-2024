@@ -226,7 +226,7 @@ public class CrowBehaviorManager : MonoBehaviour
     BehaviorState nextBehavior = BehaviorState.Idle;
 
     // If we spot food, go to it!
-    if (_perceptionComponent.SeesNearbyFood)
+    if (_perceptionComponent.SeesNearbyFood && !_perceptionComponent.NearbyFood.IsBeingCollected)
     {
       nextBehavior = BehaviorState.SeekFood;
     }
@@ -244,7 +244,7 @@ public class CrowBehaviorManager : MonoBehaviour
     BehaviorState nextBehavior = BehaviorState.SeekFood;
 
     // Still has valid food to approach
-    if (_perceptionComponent.NearbyFood)
+    if (_perceptionComponent.NearbyFood && !_perceptionComponent.NearbyFood.IsBeingCollected)
     {
       ItemController nearbyFood= _perceptionComponent.NearbyFood;
       float foodDistance = Vector3.Distance(transform.position, nearbyFood.transform.position);
@@ -270,7 +270,7 @@ public class CrowBehaviorManager : MonoBehaviour
     BehaviorState nextBehavior = BehaviorState.Wander;
 
     // If we spot food, go to it!
-    if (_perceptionComponent.SeesNearbyFood)
+    if (_perceptionComponent.SeesNearbyFood && !_perceptionComponent.NearbyFood.IsBeingCollected)
     {
       nextBehavior = BehaviorState.SeekFood;
     }

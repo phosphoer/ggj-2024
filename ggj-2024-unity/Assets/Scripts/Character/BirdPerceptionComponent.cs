@@ -42,7 +42,7 @@ public class BirdPerceptionComponent : MonoBehaviour
     float closestDistance= 0.0f;
     foreach (ItemController item in ItemController.Instances)
     {
-      if (item.ItemDefinition.IsCrowFood)
+      if (item.ItemDefinition.IsCrowFood && !item.IsBeingCollected)
       {
         float foodDistance = Vector3.Distance(transform.position, item.transform.position);
         if (_nearbyFood == null || foodDistance < closestDistance)
