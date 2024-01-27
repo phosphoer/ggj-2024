@@ -56,14 +56,20 @@ public class BirdAnimatorController : MonoBehaviour
 
   public void PlayEmote(EmoteState emote)
   {
-    _animator.SetFloat(kAnimEmoteState, (float)emote);
-    _animator.SetTrigger(kAnimEmote);
+    if (_animator != null)
+    {
+      _animator.SetFloat(kAnimEmoteState, (float)emote);
+      _animator.SetTrigger(kAnimEmote);
+    }
   }
 
   private void Update()
   {
-    _animator.SetBool(kAnimIsDead, _isDead);
-    _animator.SetFloat(kAnimLocomotionSpeed, Mathfx.Damp(_animator.GetFloat(kAnimLocomotionSpeed), (float)_currentLocomotionSpeed, 0.25f, Time.deltaTime * 5));
-    _animator.SetFloat(kAnimLocomotionState, Mathfx.Damp(_animator.GetFloat(kAnimLocomotionState), (float)_currentLocomotionState, 0.25f, Time.deltaTime * 5));
+    if (_animator != null)
+    {
+      _animator.SetBool(kAnimIsDead, _isDead);
+      _animator.SetFloat(kAnimLocomotionSpeed, Mathfx.Damp(_animator.GetFloat(kAnimLocomotionSpeed), (float)_currentLocomotionSpeed, 0.25f, Time.deltaTime * 5));
+      _animator.SetFloat(kAnimLocomotionState, Mathfx.Damp(_animator.GetFloat(kAnimLocomotionState), (float)_currentLocomotionState, 0.25f, Time.deltaTime * 5));
+    }
   }
 }
