@@ -15216,14 +15216,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5709473950088974247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc303ece2df946a4acb6aa8925cb7f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 430a347bf3b09417f8f086abece1b1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: {fileID: 8175518535255797117}
   _inventory: {fileID: 6654555734094256727}
-  _fxCookingBubbles: {fileID: 5034412068609235493}
-  _fxCookingFire: {fileID: 5395982010828070012}
-  _cookingSlots:
+  _fxConstruction:
+  - {fileID: 5034412068609235493}
+  - {fileID: 5395982010828070012}
+  _ingredientSlots:
   - {fileID: 4635359937281500287}
   - {fileID: 4456594526356227204}
   - {fileID: 1025606786879260503}

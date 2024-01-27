@@ -6,9 +6,10 @@ PickUp: 151 - 165
 Attack: 166 - 195
 
 	Crow:
-Idle: 
-Walk: 
-Fly:
-TakeOff: 
-Land: 
+Idle: 1 - 120
+Walk: 121 - 135
+TakeOff: 136 - 165
+Fly: 166 - 185
+Land: 186 - 215
 Perch: 
+Caw: 
