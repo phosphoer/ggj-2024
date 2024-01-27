@@ -8,6 +8,6 @@ public class CrowStatsManager : MonoBehaviour
 
   public void ApplyItemStats(ItemController item)
   {
-
+    _xp+= item.ItemDefinition.CrowXP;
   }
 }

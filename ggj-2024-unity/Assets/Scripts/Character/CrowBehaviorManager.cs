@@ -74,7 +74,7 @@ public class CrowBehaviorManager : MonoBehaviour
   public float IdleMaxDuration = 3.0f;
   private float _idleDuration = 0.0f;
   //-- Seek Food --
-  public float EatFoodRange = 0.25f;
+  public float EatFoodRange = 3.0f;
   //-- Wander --
   public float WanderRange = 10.0f;
   //-- PlayerApproach --
