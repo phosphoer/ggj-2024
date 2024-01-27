@@ -7,6 +7,7 @@ public class ItemController : MonoBehaviour
 
   public Rigidbody Rigidbody => _rb;
   public bool WasThrown { get; set; }
+  public bool IsBeingCollected { get; set; }
 
   public ItemDefinition ItemDefinition;
 

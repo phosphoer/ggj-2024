@@ -45,11 +45,12 @@ public class InventoryController : MonoBehaviour
 
   public void AddItem(ItemController item)
   {
-    if (!_pendingItemPickups.Contains(item))
+    if (!item.IsBeingCollected && !_pendingItemPickups.Contains(item))
     {
       item.SetCollidersEnabled(false);
       item.SetPhysicsEnabled(false);
       item.SetInteractionEnabled(false);
+      item.IsBeingCollected = true;
       _pendingItemPickups.Add(item);
       _pendingItemPickupTimers.Add(0);
       _pendingItemPickupOrigins.Add(item.transform.position);
