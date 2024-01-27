@@ -48,9 +48,6 @@ public class PlayerActorController : Singleton<PlayerActorController>
     _cameraPlayer.TargetTransform = transform;
     _inventory.ItemAdded += OnItemAdded;
     _inventory.ItemRemoved += OnItemRemoved;
-
-    // TODO: gather the perches from the staff specifically?
-    _staffPerches= this.GetComponentsInChildren<PerchController>();
   }
 
   private void Update()
@@ -114,7 +111,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     _cameraPlayer.AxisY += cameraVerticalAxis * Time.deltaTime * 100;
   }
 
-  public Transform ReserveStaffPerch(CrowBehavior bird)
+  public Transform ReserveStaffPerch(CrowBehaviorManager bird)
   {
     foreach (PerchController perch in _staffPerches)
     {
@@ -127,7 +124,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     return null;
   }
 
-  public void LeaveStaffPerch(CrowBehavior bird)
+  public void LeaveStaffPerch(CrowBehaviorManager bird)
   {
     foreach (PerchController perch in _staffPerches)
     {

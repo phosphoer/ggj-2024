@@ -145,8 +145,10 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       Vector3 sourceLocation= this.transform.position;
       Vector3 targetLocation= _targetPerchTransform != null ? _targetPerchTransform.position : _targetPerchLocation;
 
+      _timeInMovementMode+= Time.deltaTime;
+
       // Blend into the perch location
-      Mathfx.Damp(sourceLocation, targetLocation, 0.25f, Time.deltaTime);
+      this.transform.position =  Mathfx.Damp(sourceLocation, targetLocation, 0.25f, Time.deltaTime);
 
       if (_timeInMovementMode >= PerchingTime)
       {
@@ -166,8 +168,6 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   public void AfterCharacterUpdate(float deltaTime)
   {
     MovementMode newMovementMode= _movementMode;
-
-    _timeInMovementMode+= deltaTime;
 
     switch (_movementMode)
     {
@@ -228,12 +228,24 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       if (_movementMode == MovementMode.Perched)
       {
         _motor.enabled= true;
+
+        // Detach from the perch
+        if (_targetPerchTransform != null && this.transform.parent == _targetPerchTransform)
+        {
+          this.transform.parent= null;
+          _targetPerchTransform= null;
+        }
       }
 
       // When entering Perching, turn the motor off
       if (newMode == MovementMode.Perching)
       {
         _motor.enabled= false;
+      }
+      // When entering Perched, attach to the target perch transform
+      else if (newMode == MovementMode.Perched && _targetPerchTransform != null)
+      {
+        this.transform.parent= _targetPerchTransform;
       }
 
       _timeInMovementMode= 0.0f;
