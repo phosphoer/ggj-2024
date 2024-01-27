@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31cc4c727ef9b44ef8bdcddb5805aafa, type: 3}
-  m_Name: item-leaf
+  m_Name: item-riceball
   m_EditorClassIdentifier: 
-  Name: Leaf
-  Prefab: {fileID: 5595659566637781942, guid: d4f6800255fbca54cb56becae0d5be0b, type: 3}
-  IsIngredient: 1
+  Name: Rice Treat
+  Prefab: {fileID: 5595659566637781942, guid: 6106844af3cdbdc4bb8cbc921c627580, type: 3}
+  IsIngredient: 0
