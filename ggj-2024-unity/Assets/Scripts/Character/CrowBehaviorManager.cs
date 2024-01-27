@@ -425,7 +425,7 @@ public class CrowBehaviorManager : MonoBehaviour
       Vector3 foodLocation = food != null ? food.transform.position : Vector3.zero;
 
       _throttleUrgency = 1.0f; // full speed
-      _pathRefreshPeriod = -1.0f; // manual refresh
+      _pathRefreshPeriod = 2.0f; // manual refresh
 
       // Head to the food!!
       RecomputePathTo(foodLocation, null, PathDestinationType.Ground);
@@ -444,7 +444,7 @@ public class CrowBehaviorManager : MonoBehaviour
       _throttleUrgency = 0.0f; // Stop and attack in place
       _pathRefreshPeriod = -1.0f; // manual refresh
 
-      _birdAnimator.PlayEmote(BirdAnimatorController.EmoteState.Attack);
+      //_birdAnimator.PlayEmote(BirdAnimatorController.EmoteState.Attack);
       _timeSinceAttack = 0.0f; // We just attacked
 
       // Play death effects to cover the transition
@@ -651,16 +651,8 @@ public class CrowBehaviorManager : MonoBehaviour
 
   void UpdateAnimationParameters()
   {
-    if (_birdMovement.IsMoving())
-    {
-      _birdAnimator.CurrentLocomotionSpeed = _birdMovement.GetSpeed();
-      _birdAnimator.CurrentLocomotionState = BirdAnimatorController.LocomotionState.Move;
-    }
-    else
-    {
-      _birdAnimator.CurrentLocomotionSpeed = 0;
-      _birdAnimator.CurrentLocomotionState = BirdAnimatorController.LocomotionState.Idle;
-    }
+    _birdAnimator.CurrentLocomotionSpeed = _birdMovement.GetSpeed();
+    _birdAnimator.CurrentMovementMode = _birdMovement.MoveMode;
   }
 
   Vector3 GetCurrentPlayerLocation()
