@@ -346,13 +346,51 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2415945325235355997, guid: b61cfefabad855744bf940273f956d5a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4357906697508207524}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b61cfefabad855744bf940273f956d5a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 933805951013977636}
   m_SourcePrefab: {fileID: 100100000, guid: b61cfefabad855744bf940273f956d5a, type: 3}
 --- !u!95 &1992563898202502994 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: b61cfefabad855744bf940273f956d5a, type: 3}
   m_PrefabInstance: {fileID: 5390131347616434883}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2822638720796671857 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7917769122651911602, guid: b61cfefabad855744bf940273f956d5a, type: 3}
+  m_PrefabInstance: {fileID: 5390131347616434883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5047688794274084754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b61cfefabad855744bf940273f956d5a, type: 3}
+  m_PrefabInstance: {fileID: 5390131347616434883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &933805951013977636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5047688794274084754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f15a671220e2d45a0541ca411e0399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FXObjects:
+  - FXKey: Call
+    FXObj: {fileID: 6105069819486056908, guid: 9d207984dff60f94883fc9546db9f592, type: 3}
+    SpawnLocation: {fileID: 2822638720796671857}
+    ParentFX: 1
+  - FXKey: Call
+    FXObj: {fileID: 6105069819486056908, guid: edc9f6c4510d21a45ae5bef0a2179c26, type: 3}
+    SpawnLocation: {fileID: 2822638720796671857}
+    ParentFX: 1
+  - FXKey: Call
+    FXObj: {fileID: 6105069819486056908, guid: 4ea521abd5c74234eb1296b64814a869, type: 3}
+    SpawnLocation: {fileID: 2822638720796671857}
+    ParentFX: 1
 --- !u!4 &5568470705204194600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b61cfefabad855744bf940273f956d5a, type: 3}
