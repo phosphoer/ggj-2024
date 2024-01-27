@@ -86,7 +86,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineMaxThickness: 0.1
-    - _OutlineThickness: 0.002
+    - _OutlineThickness: 0.01
     - _OutlineZTest: 4
     - _OutlineZWrite: 1
     - _Parallax: 0.02
