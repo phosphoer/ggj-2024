@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6279032699332499817}
@@ -154,8 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactableUIPrefab: {fileID: 8806826485105270308, guid: 220aad5cc92714ff7993c2fe115a3b46, type: 3}
   _interactionUIAnchor: {fileID: 0}
-  _interactionUIHeight: 1
-  _interactionText: Interact
+  _interactionUIHeight: 1.5
+  _interactionText: Pickup
   _interactionRadius: 2
   _requiresLineOfSight: 0
   _autoInteract: 0
