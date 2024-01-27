@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 494499819035574083}
   - component: {fileID: 4938950561530806482}
+  - component: {fileID: 5453369037895893024}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -44,3 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2845ea31b6a2454daba9ec4a7b84b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5453369037895893024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3434429697533904515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fbe9fa22a7c62948a552d708eaa2220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
+  _buildOnStart: 1
+  _minBounds: {x: -100, y: -100, z: -100}
+  _maxBounds: {x: 100, y: 100, z: 100}

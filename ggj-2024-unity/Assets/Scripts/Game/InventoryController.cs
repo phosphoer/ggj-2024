@@ -59,10 +59,10 @@ public class InventoryController : MonoBehaviour
     for (int i = 0; i < _pendingItemPickups.Count; ++i)
     {
       ItemController item = _pendingItemPickups[i];
-      item.transform.position = Mathfx.Damp(item.transform.position, transform.position, 0.25f, Time.deltaTime * 8);
+      item.transform.position = Mathfx.Damp(item.transform.position, _itemSpawnAnchor.position, 0.25f, Time.deltaTime * 8);
       item.transform.localScale = Mathfx.Damp(item.transform.localScale, Vector3.zero, 0.25f, Time.deltaTime);
 
-      float dist = Vector3.Distance(item.transform.position, transform.position);
+      float dist = Vector3.Distance(item.transform.position, _itemSpawnAnchor.position);
       if (dist < 0.2f)
       {
         _pendingItemPickups.RemoveAt(i);

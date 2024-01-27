@@ -7,7 +7,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   public KinematicCharacterMotor Motor => _motor;
   public Vector3 LastAirVelocity => _lastAirVelocity;
 
-  public Vector2 MoveAxis;
+  public Vector3 WorldThrottle;
   public bool IsSprinting;
 
   public float Drag = 1;
@@ -189,30 +189,30 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
 
   public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
   {
-    // Calculate move direction
-    Vector3 walkDirection = transform.forward.WithY(0).normalized;
-    Vector3 strafeDirection = transform.right.WithY(0).normalized;
-    Vector3 moveVec = Vector3.ClampMagnitude((walkDirection * MoveAxis.y + strafeDirection * MoveAxis.x), 1);
+    //// Calculate move direction
+    //Vector3 walkDirection = transform.forward.WithY(0).normalized;
+    //Vector3 strafeDirection = transform.right.WithY(0).normalized;
+    //Vector3 moveVec = Vector3.ClampMagnitude((walkDirection * MoveAxis.y + strafeDirection * MoveAxis.x), 1);
 
     switch (_movementMode)
     {
     case MovementMode.Walking:
-      UpdateWalkingVelocity(moveVec, ref currentVelocity, deltaTime);
+      UpdateWalkingVelocity(ref currentVelocity, deltaTime);
       break;
     case MovementMode.Falling:
-      UpdateFallingVelocity(moveVec, ref currentVelocity, deltaTime);
+      UpdateFallingVelocity(ref currentVelocity, deltaTime);
       break;
     case MovementMode.TakeOffWindup:
-      UpdateTakeOffWindUpVelocity(moveVec, ref currentVelocity, deltaTime);
+      UpdateTakeOffWindUpVelocity(ref currentVelocity, deltaTime);
       break;
     case MovementMode.TakeOff:
-      UpdateTakeOffVelocity(moveVec, ref currentVelocity, deltaTime);
+      UpdateTakeOffVelocity(ref currentVelocity, deltaTime);
       break;
     case MovementMode.Flying:
-      UpdateFlyingVelocity(moveVec, ref currentVelocity, deltaTime);
+      UpdateFlyingVelocity(ref currentVelocity, deltaTime);
       break;
     case MovementMode.Landing:
-      UpdateLandingVelocity(moveVec, ref currentVelocity, deltaTime);
+      UpdateLandingVelocity(ref currentVelocity, deltaTime);
       break;
     case MovementMode.Perching:
       break;
@@ -221,7 +221,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     }
   }
 
-  private void UpdateWalkingVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  private void UpdateWalkingVelocity(ref Vector3 currentVelocity, float deltaTime)
   {
     // Ground movement
     if (Motor.GroundingStatus.IsStableOnGround)
@@ -241,8 +241,8 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       currentVelocity = Motor.GetDirectionTangentToSurface(currentVelocity, effectiveGroundNormal) * currentVelocityMagnitude;
 
       // Calculate target velocity
-      Vector3 inputRight = Vector3.Cross(moveVec, Motor.CharacterUp);
-      Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * moveVec.magnitude;
+      Vector3 inputRight = Vector3.Cross(WorldThrottle, Motor.CharacterUp);
+      Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * WorldThrottle.magnitude;
       Vector3 targetMovementVelocity = reorientedInput * currentSpeed;
 
       // Smooth movement Velocity
@@ -250,14 +250,14 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     }
   }
 
-  private void UpdateFallingVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  private void UpdateFallingVelocity(ref Vector3 currentVelocity, float deltaTime)
   {
-    ApplyAirControl(moveVec, ref currentVelocity, deltaTime);
+    ApplyAirControl(ref currentVelocity, deltaTime);
     ApplyGravity(ref currentVelocity, deltaTime);
     ApplyDrag(ref currentVelocity, deltaTime);
   }
 
-  private void UpdateTakeOffWindUpVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  private void UpdateTakeOffWindUpVelocity(ref Vector3 currentVelocity, float deltaTime)
   {
     if (!_firedTakeoffImpulse)
     {
@@ -274,7 +274,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
 
       // Add to the return velocity and reset jump state
       currentVelocity += (jumpDirection * TakeoffPower) - Vector3.Project(currentVelocity, Motor.CharacterUp);
-      currentVelocity += (moveVec * JumpScalableForwardSpeed);
+      currentVelocity += (WorldThrottle * JumpScalableForwardSpeed);
 
       _firedTakeoffImpulse= true;
     }
@@ -283,7 +283,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     ApplyDrag(ref currentVelocity, deltaTime);
   }
 
-  private void UpdateTakeOffVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  private void UpdateTakeOffVelocity(ref Vector3 currentVelocity, float deltaTime)
   {
     ApplyGravity(ref currentVelocity, deltaTime);
     ApplyDrag(ref currentVelocity, deltaTime);
@@ -291,15 +291,15 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     _lastAirVelocity = currentVelocity;
   }
 
-  private void UpdateFlyingVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  private void UpdateFlyingVelocity(ref Vector3 currentVelocity, float deltaTime)
   {
-    ApplyAirControl(moveVec, ref currentVelocity, deltaTime);
+    ApplyAirControl(ref currentVelocity, deltaTime);
     ApplyDrag(ref currentVelocity, deltaTime);
 
     _lastAirVelocity = currentVelocity;
   }
 
-  private void UpdateLandingVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  private void UpdateLandingVelocity(ref Vector3 currentVelocity, float deltaTime)
   {
     ApplyGravity(ref currentVelocity, deltaTime);
     ApplyDrag(ref currentVelocity, deltaTime);
@@ -307,12 +307,12 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     _lastAirVelocity = currentVelocity;
   }
 
-  private void ApplyAirControl(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  private void ApplyAirControl(ref Vector3 currentVelocity, float deltaTime)
   {
     // Add move input
-    if (moveVec.sqrMagnitude > 0f)
+    if (WorldThrottle.sqrMagnitude > 0f)
     {
-      Vector3 addedVelocity = moveVec * MoveAirAccel * deltaTime;
+      Vector3 addedVelocity = WorldThrottle * MoveAirAccel * deltaTime;
       Vector3 currentVelocityOnInputsPlane = Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
 
       // Limit air velocity from inputs

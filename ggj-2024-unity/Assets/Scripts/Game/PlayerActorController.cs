@@ -6,7 +6,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
 {
   public CameraControllerPlayer CameraPlayer => _cameraPlayer;
   public InventoryController Inventory => _inventory;
-  public Transform AIVisibilityTarget => _aiVisibilityTarget;
+  public Transform AIVisibilityTarget => _aiVisibilityTarget != null ? _aiVisibilityTarget : transform;
 
   [SerializeField]
   private Transform _aiVisibilityTarget = null;
@@ -19,6 +19,9 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   [SerializeField]
   private InventoryController _inventory = null;
+
+  [SerializeField]
+  private InventorySelector _inventorySelector = null;
 
   [SerializeField]
   private CameraControllerPlayer _cameraPlayerPrefab = null;
@@ -55,16 +58,31 @@ public class PlayerActorController : Singleton<PlayerActorController>
     // Toss items 
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Toss))
     {
-      if (_inventory.Items.Count > 0)
+      Debug.Log($"Toss pressed, inventory visible = {_inventorySelector.IsVisible}");
+      if (_inventorySelector.IsVisible && _inventorySelector.SelectedItem != null)
       {
-        _inventory.TossItem(_inventory.Items[0], (transform.forward + Vector3.up) * 2);
+        _inventory.TossItem(_inventorySelector.SelectedItem, (transform.forward + Vector3.up) * 5);
+        _inventorySelector.Hide();
       }
+      else if (!_inventorySelector.IsVisible)
+      {
+        _inventorySelector.Show();
+      }
+    }
+
+    // Select item to toss
+    if (_rewiredPlayer.GetNegativeButtonDown(RewiredConsts.Action.SelectItem))
+    {
+      _inventorySelector.SelectPrevious();
+    }
+    if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.SelectItem))
+    {
+      _inventorySelector.SelectNext();
     }
 
     // Caw ?
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Caw))
     {
-
     }
 
     // Attack

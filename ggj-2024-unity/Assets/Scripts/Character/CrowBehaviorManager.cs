@@ -51,6 +51,9 @@ public class CrowBehavior : MonoBehaviour
   private float _idleDuration = 0.0f;
   //-- Wander --
   public float WanderRange = 10.0f;
+  //-- PlayerApproach --
+  public float PlayerApproachTimeOut = 4.0f;
+  public float PlayerApproachRange = 30.0f;
   //-- Attack --
   public float AttackRange = 2.0f;
   public float AttackDuration = 2.0f;
@@ -216,20 +219,15 @@ public class CrowBehavior : MonoBehaviour
   {
     BehaviorState nextBehavior = BehaviorState.ApproachPlayer;
 
-    /*
-    // Within attack range?
-    if (nextBehavior == BehaviorState.Chase)
-    {
-      Vector3 attackTarget = GetCurrentPlayerLocation();
+    Vector3 attackTarget = GetCurrentPlayerLocation();
 
-      if (IsWithingDistanceToTarget2D(attackTarget, AttackRange))
-      {
-        nextBehavior = BehaviorState.Attack;
-      }
+    if (IsWithingDistanceToTarget2D(attackTarget, AttackRange))
+    {
+      nextBehavior = BehaviorState.Attack;
     }
 
     // Can see and keep pathing to the player?
-    if (nextBehavior == BehaviorState.Chase)
+    if (nextBehavior == BehaviorState.ApproachPlayer)
     {
       // Use the current player location rather than stale perception location to prevent oscillation
       Vector3 pathTarget = GetCurrentPlayerLocation();
@@ -240,7 +238,7 @@ public class CrowBehavior : MonoBehaviour
         {
           if (RecomputePathTo(pathTarget))
           {
-            nextBehavior = BehaviorState.Chase;
+            nextBehavior = BehaviorState.ApproachPlayer;
           }
           else
           {
@@ -256,11 +254,10 @@ public class CrowBehavior : MonoBehaviour
       }
       else
       {
-        // Path not stale, keep pursuing
-        nextBehavior = BehaviorState.Chase;
+        // Path not stale, keep approaching
+        nextBehavior = BehaviorState.ApproachPlayer;
       }
     }
-    */
 
     return nextBehavior;
   }
@@ -482,10 +479,13 @@ public class CrowBehavior : MonoBehaviour
       float forwardAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveForwardAxis);
       float horizontalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.MoveHorizontalAxis);
 
-      _birdMovement.MoveAxis = new Vector2(horizontalAxis, forwardAxis);
+      // Calculate move direction
+      Vector3 walkDirection = transform.forward.WithY(0).normalized;
+      Vector3 strafeDirection = transform.right.WithY(0).normalized;
+
+      _birdMovement.WorldThrottle = Vector3.ClampMagnitude(walkDirection*forwardAxis + strafeDirection*horizontalAxis, 1);
 
       bool wantJumpAction = _rewiredPlayer.GetButtonDown(RewiredConsts.Action.Jump);
-
       if (_birdMovement.CanTakeOff() && wantJumpAction)
       {
         _birdMovement.TakeOff();
@@ -497,16 +497,16 @@ public class CrowBehavior : MonoBehaviour
     }
     else
     {
-      Vector3 throttleDirection = Vector3.zero;
+      Vector3 worldThrottleDirection = Vector3.zero;
 
       if (_hasValidThrottleTarget && _throttleUrgency > 0.0f)
       {
-        throttleDirection = _throttleTarget - this.transform.position;
-        throttleDirection.y = 0;
-        throttleDirection = Vector3.Normalize(throttleDirection);
+        worldThrottleDirection = _throttleTarget - this.transform.position;
+        worldThrottleDirection.y = 0;
+        worldThrottleDirection = Vector3.Normalize(worldThrottleDirection);
       }
 
-      _birdMovement.MoveAxis = throttleDirection;
+      _birdMovement.WorldThrottle = worldThrottleDirection;
       _birdMovement.IsSprinting= _throttleUrgency > 0.5f;
     }
   }
