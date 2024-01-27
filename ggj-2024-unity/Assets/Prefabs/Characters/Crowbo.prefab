@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2403523040100072266}
   - component: {fileID: 6312149334234927237}
   - component: {fileID: 670254275369873578}
+  - component: {fileID: 3537565490238447652}
   m_Layer: 0
   m_Name: Crowbo
   m_TagString: Untagged
@@ -52,6 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actor: {fileID: 3215897674524226828}
+  _interactionController: {fileID: 670254275369873578}
+  _inventory: {fileID: 3537565490238447652}
   _cameraPlayerPrefab: {fileID: 1950268338973255397, guid: ba7fedb4f69f44a158b5eb1f53fd9498, type: 3}
 --- !u!114 &3215897674524226828
 MonoBehaviour:
@@ -185,6 +188,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trackedTransform: {fileID: 665415796219854144}
+--- !u!114 &3537565490238447652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534771727403084173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71e7b8dbb723485287ba1285d05089a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3302050794405345448
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +261,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4605c3857b22442f1b5c8b254bf7ebbd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -329,7 +344,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4605c3857b22442f1b5c8b254bf7ebbd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

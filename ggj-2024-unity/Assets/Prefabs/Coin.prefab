@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 050ac86a04d09450da0dca811ea1ecda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   _interactionUIAnchor: {fileID: 0}
   _interactionUIHeight: 0.5
   _interactionText: Interact
-  _interactionRadius: 1
+  _interactionRadius: 2
   _requiresLineOfSight: 0
   _autoInteract: 0
   _enableInteraction: 1
