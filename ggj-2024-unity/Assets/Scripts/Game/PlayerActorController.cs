@@ -29,6 +29,9 @@ public class PlayerActorController : Singleton<PlayerActorController>
   private Rewired.Player _rewiredPlayer;
   private CameraControllerPlayer _cameraPlayer;
 
+  [SerializeField]
+  private PerchController[] _staffPerches = new PerchController[] { };
+
   private void Awake()
   {
     Instance = this;
@@ -37,6 +40,9 @@ public class PlayerActorController : Singleton<PlayerActorController>
     _cameraPlayer.TargetTransform = transform;
     _inventory.ItemAdded += OnItemAdded;
     _inventory.ItemRemoved += OnItemRemoved;
+
+    // TODO: gather the perches from the staff specifically?
+    _staffPerches= this.GetComponentsInChildren<PerchController>();
   }
 
   private void Update()
@@ -88,6 +94,27 @@ public class PlayerActorController : Singleton<PlayerActorController>
     // Attack
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Attack))
     {
+    }
+  }
+
+  public Transform ReserveStaffPerch(CrowBehavior bird)
+  {
+    foreach (PerchController perch in _staffPerches)
+    {
+      if (perch.ReservePerch(bird))
+      {
+        return perch.transform;
+      }
+    }
+
+    return null;
+  }
+
+  public void LeaveStaffPerch(CrowBehavior bird)
+  {
+    foreach (PerchController perch in _staffPerches)
+    {
+      perch.LeavePerch(bird);
     }
   }
 
