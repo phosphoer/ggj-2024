@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _obstacleMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8
   _buildOnStart: 1
   _minBounds: {x: -100, y: -100, z: -100}
   _maxBounds: {x: 100, y: 100, z: 100}
