@@ -48,9 +48,6 @@ public class PlayerActorController : Singleton<PlayerActorController>
     _cameraPlayer.TargetTransform = transform;
     _inventory.ItemAdded += OnItemAdded;
     _inventory.ItemRemoved += OnItemRemoved;
-
-    // TODO: gather the perches from the staff specifically?
-    _staffPerches = this.GetComponentsInChildren<PerchController>();
   }
 
   private void Update()
@@ -105,6 +102,9 @@ public class PlayerActorController : Singleton<PlayerActorController>
     // Caw ?
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Caw))
     {
+      // Ask for a crow to come to us
+      SummonClosestCrow();
+
       _animator.SetBool(kAnimIsCalling, true);
     }
 
@@ -119,6 +119,47 @@ public class PlayerActorController : Singleton<PlayerActorController>
     float cameraVerticalAxis = Mathf.Clamp(_rewiredPlayer.GetAxis(RewiredConsts.Action.CameraVerticalAxis), -1f, 1f);
     _cameraPlayer.AxisX += cameraHorizontalAxis * Time.deltaTime * 100;
     _cameraPlayer.AxisY += cameraVerticalAxis * Time.deltaTime * 100;
+  }
+
+  public bool SummonClosestCrow()
+  {
+    if (StaffPerchAvailable())
+    {
+      CrowBehaviorManager bestCrow= null;
+      float bestCrowDistance= 0.0f;
+      foreach(CrowBehaviorManager crow in CrowBehaviorManager.Instances)
+      {
+        float crowDistance= 0.0f;
+        if (crow.CanSummonCrow(out crowDistance))
+        {
+          if (bestCrow == null || crowDistance < bestCrowDistance)
+          {
+            bestCrow= crow;
+            bestCrowDistance= crowDistance;
+          }
+        }
+      }
+
+      if (bestCrow != null)
+      {
+        return bestCrow.SummonCrow();
+      }
+    }
+
+    return false;
+  }
+
+  public bool StaffPerchAvailable()
+  {
+    foreach (PerchController perch in _staffPerches)
+    {
+      if (!perch.IsPerchReserved())
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public Transform ReserveStaffPerch(CrowBehaviorManager bird)
