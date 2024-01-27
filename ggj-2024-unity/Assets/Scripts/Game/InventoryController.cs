@@ -8,6 +8,7 @@ public class InventoryController : MonoBehaviour
   public event System.Action<ItemDefinition> ItemRemoved;
 
   public IReadOnlyList<ItemDefinition> Items => _items;
+  public Transform ItemSpawnAnchor => _itemSpawnAnchor;
 
   [SerializeField]
   private Transform _itemSpawnAnchor = null;
@@ -18,6 +19,29 @@ public class InventoryController : MonoBehaviour
   private List<Vector3> _pendingItemPickupOrigins = new();
 
   private const float kPickupDuration = 1f;
+
+  public int GetItemCount(ItemDefinition itemDefinition)
+  {
+    int total = 0;
+    foreach (var item in _items)
+    {
+      if (item == itemDefinition)
+        total += 1;
+    }
+
+    return total;
+  }
+
+  public bool MatchesRecipe(RecipeDefinition recipe)
+  {
+    foreach (var ingredient in recipe.Ingredients)
+    {
+      if (GetItemCount(ingredient.Item) != ingredient.Count)
+        return false;
+    }
+
+    return _items.Count == recipe.GetTotalIngredientCount();
+  }
 
   public void AddItem(ItemController item)
   {
@@ -43,6 +67,14 @@ public class InventoryController : MonoBehaviour
   {
     _items.Remove(item);
     ItemRemoved?.Invoke(item);
+  }
+
+  public void ClearItems()
+  {
+    while (_items.Count > 0)
+    {
+      RemoveItem(_items[0]);
+    }
   }
 
   public ItemController TossItem(ItemDefinition item, Vector3 force)

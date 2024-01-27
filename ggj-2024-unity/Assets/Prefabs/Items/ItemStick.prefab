@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8830038344209240734}
-  m_Mesh: {fileID: 8129868545203707218, guid: 8e260416416534dddbdbed3622f1799e, type: 3}
+  m_Mesh: {fileID: 2330664116477986144, guid: 8e260416416534dddbdbed3622f1799e, type: 3}
 --- !u!23 &6199331995004199862
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -103,8 +103,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.32230282, y: 0.20025992, z: 0.33800596}
-  m_Center: {x: 0.00078915805, y: 0.09881824, z: 0.027302124}
+  m_Size: {x: 0.22949287, y: 0.09546014, z: 1.0930424}
+  m_Center: {x: 0.06126739, y: 0.0060558654, z: 0.030290395}
 --- !u!1 &8854779869908706096
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 5595659566637781942}
   - component: {fileID: 2874904481558846707}
   m_Layer: 0
-  m_Name: Bug
+  m_Name: ItemStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47f4433062d84f25a6fe057d0276ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemDefinition: {fileID: 11400000, guid: e44a7c1cd321e4ccd8019ae423022d62, type: 2}
+  ItemDefinition: {fileID: 11400000, guid: f398260bccc474b1da61dcf7a23f6979, type: 2}
   _interactable: {fileID: 87506204956846299}
   _rb: {fileID: 2874904481558846707}
 --- !u!54 &2874904481558846707

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class CookingPotController : MonoBehaviour
@@ -10,13 +9,28 @@ public class CookingPotController : MonoBehaviour
   private InventoryController _inventory = null;
 
   [SerializeField]
+  private ParticleSystem _fxCookingBubbles = null;
+
+  [SerializeField]
   private Transform[] _cookingSlots = null;
+
+  [SerializeField]
+  private RecipeDefinition[] _recipes = null;
+
+  [SerializeField]
+  private RecipeDefinition _invalidRecipe = null;
+
+  private bool _isCooking = false;
+  private float _cookingTimer = 0;
+  private RecipeDefinition _activeRecipe = null;
 
   private void Awake()
   {
     _interactable.InteractionTriggered += OnInteract;
     _inventory.ItemAdded += OnItemAdded;
     _inventory.ItemRemoved += OnItemRemoved;
+    _fxCookingBubbles.Stop();
+    _interactable.enabled = _inventory.Items.Count > 0;
   }
 
   private void Update()
@@ -29,12 +43,19 @@ public class CookingPotController : MonoBehaviour
         child.localPosition = Vector3.up * Mathf.Sin(Time.time + i) * 0.1f;
       }
     }
+
+    if (_isCooking)
+    {
+      _cookingTimer += Time.deltaTime;
+      if (_cookingTimer >= _activeRecipe.CookDuration)
+        StopCooking();
+    }
   }
 
   private void OnTriggerEnter(Collider c)
   {
     ItemController item = c.GetComponentInParent<ItemController>();
-    if (item != null)
+    if (item != null && item.ItemDefinition.IsIngredient)
     {
       _inventory.AddItem(item);
     }
@@ -46,16 +67,70 @@ public class CookingPotController : MonoBehaviour
     Transform currentSlot = _cookingSlots[currentSlotIndex];
     ItemController item = Instantiate(definition.Prefab, currentSlot);
     item.transform.SetIdentityTransformLocal();
+    item.transform.localRotation = Random.rotation;
     item.SetPhysicsEnabled(false);
     item.SetCollidersEnabled(false);
     item.SetInteractionEnabled(false);
+
+    _interactable.enabled = _inventory.Items.Count > 0;
   }
 
   private void OnItemRemoved(ItemDefinition definition)
   {
+    _interactable.enabled = _inventory.Items.Count > 0;
   }
 
   private void OnInteract(InteractionController controller)
   {
+    if (!_isCooking)
+    {
+      _activeRecipe = GetRecipeForIngredients();
+      StartCooking();
+    }
+  }
+
+  private void StartCooking()
+  {
+    _isCooking = true;
+    _interactable.enabled = false;
+    _fxCookingBubbles.Play();
+    _cookingTimer = 0;
+  }
+
+  private void StopCooking()
+  {
+    _isCooking = false;
+    _fxCookingBubbles.Stop();
+
+    foreach (var cookSlot in _cookingSlots)
+    {
+      foreach (Transform child in cookSlot)
+      {
+        var dehydrate = child.gameObject.AddComponent<UIHydrate>();
+        dehydrate.DestroyOnDehydrate = true;
+        dehydrate.Dehydrate();
+      }
+    }
+
+    _inventory.ClearItems();
+
+    ItemDefinition outputItemDef = _activeRecipe.Result;
+    ItemController outputItem = Instantiate(outputItemDef.Prefab);
+    outputItem.transform.position = _inventory.ItemSpawnAnchor.position;
+    outputItem.Rigidbody.AddForce((Random.insideUnitCircle.OnXZPlane() + Vector3.up) * 3, ForceMode.VelocityChange);
+
+    UIHydrate hydrate = outputItem.gameObject.AddComponent<UIHydrate>();
+    hydrate.Hydrate();
+  }
+
+  private RecipeDefinition GetRecipeForIngredients()
+  {
+    foreach (var recipe in _recipes)
+    {
+      if (_inventory.MatchesRecipe(recipe))
+        return recipe;
+    }
+
+    return _invalidRecipe;
   }
 }
