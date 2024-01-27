@@ -43,7 +43,7 @@ public class PathFindManager : Singleton<PathFindManager>
     _worldBounds.max = maxCorner;
 
     // Find all nav mesh object sources in the scene
-    NavMeshBuilder.CollectSources(_worldBounds, _obstacleMask, NavMeshCollectGeometry.PhysicsColliders, 1, _navMeshMarkups, _navMeshBuildSources);
+    NavMeshBuilder.CollectSources(_worldBounds, _obstacleMask, NavMeshCollectGeometry.PhysicsColliders, 0, _navMeshMarkups, _navMeshBuildSources);
     for (int i = 0; i < _pathFindObjects.Count; ++i)
     {
       _navMeshBuildSources.Add(_pathFindObjects[i].Source);

@@ -6,7 +6,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
 {
   public CameraControllerPlayer CameraPlayer => _cameraPlayer;
   public InventoryController Inventory => _inventory;
-  public Transform AIVisibilityTarget => _aiVisibilityTarget;
+  public Transform AIVisibilityTarget => _aiVisibilityTarget != null ? _aiVisibilityTarget : transform;
 
   [SerializeField]
   private Transform _aiVisibilityTarget = null;
