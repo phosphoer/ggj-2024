@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrowBehavior : MonoBehaviour
+public class CrowBehaviorManager : MonoBehaviour
 {
   public enum BehaviorState
   {

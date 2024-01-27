@@ -33,7 +33,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
   private CameraControllerPlayer _cameraPlayer;
 
   [SerializeField]
-  private PerchController[] _staffPerches = new PerchController[] { };
+  private PerchController[] _staffPerches = null;
 
   private static readonly int kAnimMoveSpeed = Animator.StringToHash("MoveSpeed");
   private static readonly int kAnimIsPickingUp = Animator.StringToHash("IsPickingUp");
@@ -50,7 +50,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     _inventory.ItemRemoved += OnItemRemoved;
 
     // TODO: gather the perches from the staff specifically?
-    _staffPerches= this.GetComponentsInChildren<PerchController>();
+    _staffPerches = this.GetComponentsInChildren<PerchController>();
   }
 
   private void Update()
@@ -81,7 +81,6 @@ public class PlayerActorController : Singleton<PlayerActorController>
     // Toss items 
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Toss))
     {
-      Debug.Log($"Toss pressed, inventory visible = {_inventorySelector.IsVisible}");
       if (_inventorySelector.IsVisible && _inventorySelector.SelectedItem != null)
       {
         _inventory.TossItem(_inventorySelector.SelectedItem, (transform.forward + Vector3.up) * 4);
@@ -122,7 +121,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     _cameraPlayer.AxisY += cameraVerticalAxis * Time.deltaTime * 100;
   }
 
-  public Transform ReserveStaffPerch(CrowBehavior bird)
+  public Transform ReserveStaffPerch(CrowBehaviorManager bird)
   {
     foreach (PerchController perch in _staffPerches)
     {
@@ -135,7 +134,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     return null;
   }
 
-  public void LeaveStaffPerch(CrowBehavior bird)
+  public void LeaveStaffPerch(CrowBehaviorManager bird)
   {
     foreach (PerchController perch in _staffPerches)
     {

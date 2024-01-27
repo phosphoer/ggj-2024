@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PerchController : MonoBehaviour
 {
-  private CrowBehavior _owningBird = null;
+  private CrowBehaviorManager _owningBird = null;
 
   bool IsPerchReserved()
   {
     return _owningBird != null;
   }
 
-  public bool ReservePerch(CrowBehavior bird)
+  public bool ReservePerch(CrowBehaviorManager bird)
   {
     if (!IsPerchReserved())
     {
@@ -22,7 +22,7 @@ public class PerchController : MonoBehaviour
     return false;
   }
 
-  public bool LeavePerch(CrowBehavior bird)
+  public bool LeavePerch(CrowBehaviorManager bird)
   {
     if (_owningBird == bird)
     {
