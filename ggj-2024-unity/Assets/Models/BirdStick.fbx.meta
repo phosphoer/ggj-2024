@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a5b1d3d7de701b6409dda85207a8e40f
+guid: 94b686d605a6d7d4ab52c456f6a9e3ec
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,10 +7,10 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Char01_Mat
-    second: {fileID: 2100000, guid: e0bbbd8197f3f2e4b873156cdd8247ef, type: 2}
+      name: BirdStick
+    second: {fileID: 2100000, guid: af7750d040bb5b4428adf81bfb7db8a3, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
