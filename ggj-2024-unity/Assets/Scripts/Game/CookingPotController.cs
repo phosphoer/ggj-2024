@@ -12,6 +12,9 @@ public class CookingPotController : MonoBehaviour
   private ParticleSystem _fxCookingBubbles = null;
 
   [SerializeField]
+  private ParticleSystem _fxCookingFire = null;
+
+  [SerializeField]
   private Transform[] _cookingSlots = null;
 
   [SerializeField]
@@ -29,8 +32,9 @@ public class CookingPotController : MonoBehaviour
     _interactable.InteractionTriggered += OnInteract;
     _inventory.ItemAdded += OnItemAdded;
     _inventory.ItemRemoved += OnItemRemoved;
-    _fxCookingBubbles.Stop();
     _interactable.enabled = _inventory.Items.Count > 0;
+    _fxCookingBubbles.Stop();
+    _fxCookingFire.Stop();
   }
 
   private void Update()
@@ -94,6 +98,7 @@ public class CookingPotController : MonoBehaviour
     _isCooking = true;
     _interactable.enabled = false;
     _fxCookingBubbles.Play();
+    _fxCookingFire.Play();
     _cookingTimer = 0;
   }
 
@@ -101,6 +106,7 @@ public class CookingPotController : MonoBehaviour
   {
     _isCooking = false;
     _fxCookingBubbles.Stop();
+    _fxCookingFire.Stop();
 
     foreach (var cookSlot in _cookingSlots)
     {
