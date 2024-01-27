@@ -58,6 +58,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     // Toss items 
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Toss))
     {
+      Debug.Log($"Toss pressed, inventory visible = {_inventorySelector.IsVisible}");
       if (_inventorySelector.IsVisible && _inventorySelector.SelectedItem != null)
       {
         _inventory.TossItem(_inventorySelector.SelectedItem, (transform.forward + Vector3.up) * 5);
