@@ -24,7 +24,7 @@ public abstract class CameraControllerBase : MonoBehaviour
   private void OnDrawGizmos()
   {
     Gizmos.color = Color.white;
-    Gizmos.matrix = transform.localToWorldMatrix;
+    Gizmos.matrix = MountPoint.localToWorldMatrix;
     Gizmos.DrawFrustum(Vector3.zero, FieldOfView, 1, 0.1f, Screen.width / Screen.height);
     Gizmos.matrix = Matrix4x4.identity;
   }

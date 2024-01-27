@@ -89,6 +89,12 @@ public class PlayerActorController : Singleton<PlayerActorController>
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Attack))
     {
     }
+
+    // Camera controls
+    float cameraHorizontalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.CameraHorizontalAxis);
+    float cameraVerticalAxis = _rewiredPlayer.GetAxis(RewiredConsts.Action.CameraVerticalAxis);
+    _cameraPlayer.AxisX = cameraHorizontalAxis;
+    _cameraPlayer.AxisY = cameraVerticalAxis;
   }
 
   private void OnItemAdded(ItemDefinition definition)
