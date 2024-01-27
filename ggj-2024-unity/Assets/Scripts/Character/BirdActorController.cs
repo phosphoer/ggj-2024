@@ -16,7 +16,8 @@ public class BirdActorController : MonoBehaviour, ICharacterController
   public float AirSpeed = 3;
   public float MoveSpeed = 5;
   public float SprintSpeed = 10;
-  public float TakeoffPower = 1;
+  public float RotateSpeed = 5;
+  public float TakeoffPower = 10;
   public float JumpScalableForwardSpeed = 1;
   public bool AllowJumpingWhenSliding = true;
 
@@ -162,6 +163,13 @@ public class BirdActorController : MonoBehaviour, ICharacterController
 
   public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
   {
+    // In all states 
+    Vector3 moveDir = Motor.Velocity.WithY(0);
+    if (moveDir.sqrMagnitude > 0)
+    {
+      Quaternion desiredRot = Quaternion.LookRotation(moveDir);
+      currentRotation = Mathfx.Damp(currentRotation, desiredRot, 0.25f, deltaTime * RotateSpeed);
+    }
   }
 
   public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)

@@ -70,6 +70,7 @@ MonoBehaviour:
   AirSpeed: 3
   MoveSpeed: 5
   SprintSpeed: 10
+  RotateSpeed: 5
   TakeoffPower: 10
   JumpScalableForwardSpeed: 1
   AllowJumpingWhenSliding: 1
@@ -283,13 +284,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6611990793363652776}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.5, y: 0.23, z: 0}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0.23, z: 0.618}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 47640707332198373}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
 --- !u!33 &1714211876622550415
 MeshFilter:
   m_ObjectHideFlags: 0
