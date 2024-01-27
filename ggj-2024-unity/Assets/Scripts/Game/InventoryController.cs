@@ -9,6 +9,9 @@ public class InventoryController : MonoBehaviour
 
   public IReadOnlyList<ItemDefinition> Items => _items;
 
+  [SerializeField]
+  private Transform _itemSpawnAnchor = null;
+
   private List<ItemDefinition> _items = new();
   private List<ItemController> _pendingItemPickups = new();
 
@@ -17,6 +20,7 @@ public class InventoryController : MonoBehaviour
     if (!_pendingItemPickups.Contains(item))
     {
       item.SetCollidersEnabled(false);
+      item.SetPhysicsEnabled(false);
       _pendingItemPickups.Add(item);
       PickupStarted?.Invoke(item);
     }
@@ -34,13 +38,28 @@ public class InventoryController : MonoBehaviour
     ItemRemoved?.Invoke(item);
   }
 
+  public ItemController TossItem(ItemDefinition item, Vector3 force)
+  {
+    if (_items.Remove(item))
+    {
+      ItemController itemController = Instantiate(item.Prefab);
+      itemController.transform.position = _itemSpawnAnchor.position;
+      itemController.transform.rotation = Random.rotation;
+      itemController.Rigidbody.AddForce(force, ForceMode.VelocityChange);
+
+      return itemController;
+    }
+
+    return null;
+  }
+
   private void Update()
   {
     // Suck in items that we've picked up
     for (int i = 0; i < _pendingItemPickups.Count; ++i)
     {
       ItemController item = _pendingItemPickups[i];
-      item.transform.position = Mathfx.Damp(item.transform.position, transform.position, 0.25f, Time.deltaTime * 3);
+      item.transform.position = Mathfx.Damp(item.transform.position, transform.position, 0.25f, Time.deltaTime * 8);
       item.transform.localScale = Mathfx.Damp(item.transform.localScale, Vector3.zero, 0.25f, Time.deltaTime);
 
       float dist = Vector3.Distance(item.transform.position, transform.position);

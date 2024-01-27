@@ -3,10 +3,15 @@ using System.Collections.Generic;
 
 public class ItemController : MonoBehaviour
 {
+  public Rigidbody Rigidbody => _rb;
+
   public ItemDefinition ItemDefinition;
 
   [SerializeField]
   private Interactable _interactable = null;
+
+  [SerializeField]
+  private Rigidbody _rb = null;
 
   private List<Collider> _childColliders = new();
 
@@ -14,6 +19,16 @@ public class ItemController : MonoBehaviour
   {
     foreach (var c in _childColliders)
       c.enabled = collidersEnabled;
+  }
+
+  public void SetInteractionEnabled(bool interactionEnabled)
+  {
+    _interactable.enabled = interactionEnabled;
+  }
+
+  public void SetPhysicsEnabled(bool physicsEnabled)
+  {
+    _rb.isKinematic = !physicsEnabled;
   }
 
   private void Awake()
