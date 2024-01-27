@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class InventorySelector : MonoBehaviour
 {
+  public bool IsVisible => _isVisible;
   public ItemDefinition SelectedItem => _selectedItem?.ItemDefinition;
 
   [SerializeField]
@@ -12,22 +14,41 @@ public class InventorySelector : MonoBehaviour
 
   private ItemController _selectedItem;
   private int _selectedIndex;
+  private bool _isVisible;
 
   public void Show()
   {
-    _selectedIndex = 0;
+    Debug.Log($"InventorySelector: Show");
+    _isVisible = true;
     RefreshDisplay();
   }
 
   public void Hide()
   {
+    Debug.Log($"InventorySelector: Hide");
+    _isVisible = false;
+    if (_selectedItem != null)
+    {
+      Destroy(_selectedItem.gameObject);
+      _selectedItem = null;
+    }
   }
 
   public void SelectNext()
   {
+    Show();
+    _selectedIndex = _inventory.Items.ClampIndex(_selectedIndex + 1);
+    RefreshDisplay();
   }
 
   public void SelectPrevious()
+  {
+    Show();
+    _selectedIndex = _inventory.Items.ClampIndex(_selectedIndex - 1);
+    RefreshDisplay();
+  }
+
+  private void Awake()
   {
   }
 
