@@ -487,8 +487,9 @@ public class CrowBehavior : MonoBehaviour
   {
     bool hasFlyingTarget = HasFlyingPathTarget();
     bool isWalking = _birdMovement.MoveMode == BirdMovementController.MovementMode.Walking;
+    bool isPerched = _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched;
 
-    if (isWalking && hasFlyingTarget)
+    if ((isWalking && hasFlyingTarget) || isPerched)
     {
       _birdMovement.TakeOff();
     }
