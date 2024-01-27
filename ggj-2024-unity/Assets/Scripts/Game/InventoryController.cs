@@ -20,7 +20,7 @@ public class InventoryController : MonoBehaviour
     if (!_pendingItemPickups.Contains(item))
     {
       item.SetCollidersEnabled(false);
-      item.Rigidbody.isKinematic = true;
+      item.SetPhysicsEnabled(false);
       _pendingItemPickups.Add(item);
       PickupStarted?.Invoke(item);
     }

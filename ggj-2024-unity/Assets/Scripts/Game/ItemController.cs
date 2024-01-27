@@ -21,6 +21,16 @@ public class ItemController : MonoBehaviour
       c.enabled = collidersEnabled;
   }
 
+  public void SetInteractionEnabled(bool interactionEnabled)
+  {
+    _interactable.enabled = interactionEnabled;
+  }
+
+  public void SetPhysicsEnabled(bool physicsEnabled)
+  {
+    _rb.isKinematic = !physicsEnabled;
+  }
+
   private void Awake()
   {
     _interactable.InteractionTriggered += OnInteraction;
