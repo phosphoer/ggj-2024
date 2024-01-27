@@ -16,16 +16,16 @@ public class BirdActorController : MonoBehaviour, ICharacterController
   public float AirSpeed = 3;
   public float MoveSpeed = 5;
   public float SprintSpeed = 10;
-  public float JumpPower = 1;
+  public float RotateSpeed = 5;
+  public float TakeoffPower = 10;
   public float JumpScalableForwardSpeed = 1;
-  private float JumpPostGroundingGraceTime = 0f;
-  private float JumpPreGroundingGraceTime = 0f;
   public bool AllowJumpingWhenSliding = true;
 
   public enum MovementMode
   {
     Walking,
     Falling,
+    TakeOffWindup,
     TakeOff,
     Flying,
     Landing,
@@ -35,6 +35,9 @@ public class BirdActorController : MonoBehaviour, ICharacterController
 
   [SerializeField]
   private MovementMode _movementMode = MovementMode.Walking;
+
+  [SerializeField]
+  private float _timeInMovementMode= 0.0f;
 
   [SerializeField]
   private KinematicCharacterMotor _motor = null;
@@ -48,18 +51,41 @@ public class BirdActorController : MonoBehaviour, ICharacterController
   [SerializeField]
   private float _standCapsuleHeight = 2f;
 
-  private bool _isJumpQueued;
-  private bool _jumpedThisFrame;
-  private float _timeSinceJumpRequested;
-  private bool _jumpConsumed;
-  private float _timeSinceLastAbleToJump;
+  private bool _firedTakeoffImpulse= false;
+  private bool _hasReachedTakeoffApex= false;
   private Vector3 _lastAirVelocity;
   private Collider[] _probedColliders = new Collider[8];
 
-  public void Jump()
+  public bool CanTakeOff()
   {
-    _timeSinceJumpRequested = 0;
-    _isJumpQueued = true;
+    return _movementMode == MovementMode.Walking;
+  }
+
+  public void TakeOff()
+  {
+    bool isOnGround= (AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround);
+
+    if (_movementMode == MovementMode.Walking && isOnGround)
+    {
+      _firedTakeoffImpulse= false;
+      _hasReachedTakeoffApex= false;
+      _movementMode= MovementMode.TakeOffWindup;
+    }
+  }
+
+  public bool CanLand()
+  {
+    return _movementMode == MovementMode.Flying;
+  }
+
+  public void Land()
+  {
+    if (_movementMode == MovementMode.Flying)
+    {
+      _firedTakeoffImpulse= false;
+      _hasReachedTakeoffApex= false;
+      _movementMode= MovementMode.Landing;
+    }
   }
 
   private void Awake()
@@ -71,8 +97,79 @@ public class BirdActorController : MonoBehaviour, ICharacterController
   {
   }
 
+  public void BeforeCharacterUpdate(float deltaTime)
+  {
+  }
+
+  public void AfterCharacterUpdate(float deltaTime)
+  {
+    MovementMode newMovementMode= _movementMode;
+
+    _timeInMovementMode+= deltaTime;
+
+    switch (_movementMode)
+    {
+    case MovementMode.Walking:
+      if (!Motor.GroundingStatus.IsStableOnGround)
+      {
+        newMovementMode= MovementMode.Falling;
+      }
+      break;
+    case MovementMode.Falling:
+      if (Motor.GroundingStatus.IsStableOnGround)
+      {
+        newMovementMode= MovementMode.Walking;
+      }
+      break;
+    case MovementMode.TakeOffWindup:
+      if (_firedTakeoffImpulse)
+      {
+        newMovementMode= MovementMode.TakeOff;
+      }
+      break;
+    case MovementMode.TakeOff:
+      if (!_hasReachedTakeoffApex && ProjectVelocityOnGravity() >= 0.0f)
+      {
+        _hasReachedTakeoffApex= true;
+        newMovementMode= MovementMode.Flying;
+      }
+      break;
+    case MovementMode.Flying:
+      // Stay in this state unil we are told to leave it
+      break;
+    case MovementMode.Landing:
+      if (Motor.GroundingStatus.IsStableOnGround)
+      {
+        newMovementMode= MovementMode.Walking;
+      }
+      break;
+    case MovementMode.Perching:
+      break;
+    case MovementMode.Perched:
+      break;
+    }
+
+    SetMovementMode(newMovementMode);
+  }
+
+  private void SetMovementMode(MovementMode newMode)
+  {
+    if (newMode != _movementMode)
+    {
+      _timeInMovementMode= 0.0f;
+      _movementMode= newMode;
+    }
+  }
+
   public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
   {
+    // In all states 
+    Vector3 moveDir = Motor.Velocity.WithY(0);
+    if (moveDir.sqrMagnitude > 0)
+    {
+      Quaternion desiredRot = Quaternion.LookRotation(moveDir);
+      currentRotation = Mathfx.Damp(currentRotation, desiredRot, 0.25f, deltaTime * RotateSpeed);
+    }
   }
 
   public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
@@ -82,6 +179,35 @@ public class BirdActorController : MonoBehaviour, ICharacterController
     Vector3 strafeDirection = transform.right.WithY(0).normalized;
     Vector3 moveVec = Vector3.ClampMagnitude((walkDirection * MoveAxis.y + strafeDirection * MoveAxis.x), 1);
 
+    switch (_movementMode)
+    {
+    case MovementMode.Walking:
+      UpdateWalkingVelocity(moveVec, ref currentVelocity, deltaTime);
+      break;
+    case MovementMode.Falling:
+      UpdateFallingVelocity(moveVec, ref currentVelocity, deltaTime);
+      break;
+    case MovementMode.TakeOffWindup:
+      UpdateTakeOffWindUpVelocity(moveVec, ref currentVelocity, deltaTime);
+      break;
+    case MovementMode.TakeOff:
+      UpdateTakeOffVelocity(moveVec, ref currentVelocity, deltaTime);
+      break;
+    case MovementMode.Flying:
+      UpdateFlyingVelocity(moveVec, ref currentVelocity, deltaTime);
+      break;
+    case MovementMode.Landing:
+      UpdateLandingVelocity(moveVec, ref currentVelocity, deltaTime);
+      break;
+    case MovementMode.Perching:
+      break;
+    case MovementMode.Perched:
+      break;
+    }
+  }
+
+  private void UpdateWalkingVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  {
     // Ground movement
     if (Motor.GroundingStatus.IsStableOnGround)
     {
@@ -107,83 +233,112 @@ public class BirdActorController : MonoBehaviour, ICharacterController
       // Smooth movement Velocity
       currentVelocity = Mathfx.Damp(currentVelocity, targetMovementVelocity, 0.25f, deltaTime * MoveAccel);
     }
-    // Air movement 
-    else
+  }
+
+  private void UpdateFallingVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  {
+    ApplyAirControl(moveVec, ref currentVelocity, deltaTime);
+    ApplyGravity(ref currentVelocity, deltaTime);
+    ApplyDrag(ref currentVelocity, deltaTime);
+  }
+
+  private void UpdateTakeOffWindUpVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  {
+    if (!_firedTakeoffImpulse)
     {
-      // Add move input
-      if (moveVec.sqrMagnitude > 0f)
+      // Calculate jump direction before ungrounding
+      Vector3 jumpDirection = Motor.CharacterUp;
+      if (Motor.GroundingStatus.FoundAnyGround && !Motor.GroundingStatus.IsStableOnGround)
       {
-        Vector3 addedVelocity = moveVec * MoveAirAccel * deltaTime;
-        Vector3 currentVelocityOnInputsPlane = Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
-
-        // Limit air velocity from inputs
-        if (currentVelocityOnInputsPlane.magnitude < AirSpeed)
-        {
-          // clamp addedVel to make total vel not exceed max vel on inputs plane
-          Vector3 newTotal = Vector3.ClampMagnitude(currentVelocityOnInputsPlane + addedVelocity, AirSpeed);
-          addedVelocity = newTotal - currentVelocityOnInputsPlane;
-        }
-        else
-        {
-          // Make sure added vel doesn't go in the direction of the already-exceeding velocity
-          if (Vector3.Dot(currentVelocityOnInputsPlane, addedVelocity) > 0f)
-          {
-            addedVelocity = Vector3.ProjectOnPlane(addedVelocity, currentVelocityOnInputsPlane.normalized);
-          }
-        }
-
-        // Prevent air-climbing sloped walls
-        if (Motor.GroundingStatus.FoundAnyGround)
-        {
-          if (Vector3.Dot(currentVelocity + addedVelocity, addedVelocity) > 0f)
-          {
-            Vector3 perpenticularObstructionNormal = Vector3.Cross(Vector3.Cross(Motor.CharacterUp, Motor.GroundingStatus.GroundNormal), Motor.CharacterUp).normalized;
-            addedVelocity = Vector3.ProjectOnPlane(addedVelocity, perpenticularObstructionNormal);
-          }
-        }
-
-        // Apply added velocity
-        currentVelocity += addedVelocity;
+        jumpDirection = Motor.GroundingStatus.GroundNormal;
       }
 
-      // Gravity and drag
-      currentVelocity += Physics.gravity * deltaTime;
-      currentVelocity *= (1f / (1f + (Drag * deltaTime)));
+      // Makes the character skip ground probing/snapping on its next update. 
+      // If this line weren't here, the character would remain snapped to the ground when trying to jump. Try commenting this line out and see.
+      Motor.ForceUnground();
 
-      _lastAirVelocity = currentVelocity;
+      // Add to the return velocity and reset jump state
+      currentVelocity += (jumpDirection * TakeoffPower) - Vector3.Project(currentVelocity, Motor.CharacterUp);
+      currentVelocity += (moveVec * JumpScalableForwardSpeed);
+
+      _firedTakeoffImpulse= true;
     }
 
-    // Handle jumping
-    _jumpedThisFrame = false;
-    _timeSinceJumpRequested += deltaTime;
-    if (_isJumpQueued)
+    ApplyGravity(ref currentVelocity, deltaTime);
+    ApplyDrag(ref currentVelocity, deltaTime);
+  }
+
+  private void UpdateTakeOffVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  {
+    ApplyGravity(ref currentVelocity, deltaTime);
+    ApplyDrag(ref currentVelocity, deltaTime);
+
+    _lastAirVelocity = currentVelocity;
+  }
+
+  private void UpdateFlyingVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  {
+    ApplyAirControl(moveVec, ref currentVelocity, deltaTime);
+    ApplyDrag(ref currentVelocity, deltaTime);
+
+    _lastAirVelocity = currentVelocity;
+  }
+
+  private void UpdateLandingVelocity(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  {
+    ApplyGravity(ref currentVelocity, deltaTime);
+    ApplyDrag(ref currentVelocity, deltaTime);
+
+    _lastAirVelocity = currentVelocity;
+  }
+
+  private void ApplyAirControl(Vector3 moveVec, ref Vector3 currentVelocity, float deltaTime)
+  {
+    // Add move input
+    if (moveVec.sqrMagnitude > 0f)
     {
-      // See if we actually are allowed to jump
-      if (!_jumpConsumed && ((AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround) || _timeSinceLastAbleToJump <= JumpPostGroundingGraceTime))
+      Vector3 addedVelocity = moveVec * MoveAirAccel * deltaTime;
+      Vector3 currentVelocityOnInputsPlane = Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
+
+      // Limit air velocity from inputs
+      if (currentVelocityOnInputsPlane.magnitude < AirSpeed)
       {
-        // Calculate jump direction before ungrounding
-        Vector3 jumpDirection = Motor.CharacterUp;
-        if (Motor.GroundingStatus.FoundAnyGround && !Motor.GroundingStatus.IsStableOnGround)
-        {
-          jumpDirection = Motor.GroundingStatus.GroundNormal;
-        }
-
-        // Makes the character skip ground probing/snapping on its next update. 
-        // If this line weren't here, the character would remain snapped to the ground when trying to jump. Try commenting this line out and see.
-        Motor.ForceUnground();
-
-        // Add to the return velocity and reset jump state
-        currentVelocity += (jumpDirection * JumpPower) - Vector3.Project(currentVelocity, Motor.CharacterUp);
-        currentVelocity += (moveVec * JumpScalableForwardSpeed);
-        _isJumpQueued = false;
-        _jumpConsumed = true;
-        _jumpedThisFrame = true;
+        // clamp addedVel to make total vel not exceed max vel on inputs plane
+        Vector3 newTotal = Vector3.ClampMagnitude(currentVelocityOnInputsPlane + addedVelocity, AirSpeed);
+        addedVelocity = newTotal - currentVelocityOnInputsPlane;
       }
+      else
+      {
+        // Make sure added vel doesn't go in the direction of the already-exceeding velocity
+        if (Vector3.Dot(currentVelocityOnInputsPlane, addedVelocity) > 0f)
+        {
+          addedVelocity = Vector3.ProjectOnPlane(addedVelocity, currentVelocityOnInputsPlane.normalized);
+        }
+      }
+
+      // Prevent air-climbing sloped walls
+      if (Motor.GroundingStatus.FoundAnyGround)
+      {
+        if (Vector3.Dot(currentVelocity + addedVelocity, addedVelocity) > 0f)
+        {
+          Vector3 perpenticularObstructionNormal = Vector3.Cross(Vector3.Cross(Motor.CharacterUp, Motor.GroundingStatus.GroundNormal), Motor.CharacterUp).normalized;
+          addedVelocity = Vector3.ProjectOnPlane(addedVelocity, perpenticularObstructionNormal);
+        }
+      }
+
+      // Apply added velocity
+      currentVelocity += addedVelocity;
     }
   }
 
-  public void BeforeCharacterUpdate(float deltaTime)
+  private void ApplyGravity(ref Vector3 currentVelocity, float deltaTime)
   {
+    currentVelocity += Physics.gravity * deltaTime;
+  }
+
+  private void ApplyDrag(ref Vector3 currentVelocity, float deltaTime)
+  {
+    currentVelocity *= (1f / (1f + (Drag * deltaTime)));
   }
 
   public void PostGroundingUpdate(float deltaTime)
@@ -199,37 +354,9 @@ public class BirdActorController : MonoBehaviour, ICharacterController
     }
   }
 
-  public void AfterCharacterUpdate(float deltaTime)
+  public float ProjectVelocityOnGravity()
   {
-    // Handle jump-related values
-    {
-      // Handle jumping pre-ground grace period
-      if (_isJumpQueued && _timeSinceJumpRequested > JumpPreGroundingGraceTime)
-      {
-        _isJumpQueued = false;
-      }
-
-      if (AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround)
-      {
-        // If we're on a ground surface, reset jumping values
-        if (!_jumpedThisFrame)
-        {
-          _jumpConsumed = false;
-        }
-
-        _timeSinceLastAbleToJump = 0f;
-      }
-      else
-      {
-        // Keep track of time since we were last able to jump (for grace period)
-        _timeSinceLastAbleToJump += deltaTime;
-      }
-    }
-  }
-
-  public bool CanTakeOff()
-  {
-    return _movementMode == MovementMode.Walking;
+    return Vector3.Dot(Motor.Velocity, Physics.gravity);
   }
 
   public bool IsColliderValidForCollisions(Collider coll)
@@ -257,8 +384,6 @@ public class BirdActorController : MonoBehaviour, ICharacterController
   {
     //TODO: Trigger landing particle FX
     //TODO: Trigger landing sound
-
-    _movementMode= MovementMode.Walking;
   }
 
   protected void OnLeaveStableGround()

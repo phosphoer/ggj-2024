@@ -125,24 +125,24 @@ public class InteractionController : MonoBehaviour
 
   private void ShowPrompt(Interactable interactable)
   {
-    // if (PlayerUI != null)
-    // {
-    // var uiRoot = PlayerUI.OnScreenUI.ShowItem(interactable.InteractionUIAnchor, Vector3.up * interactable.InteractionUIHeight);
-    // _interactableUI = Instantiate(interactable.InteractableUIPrefab, uiRoot);
-    // _interactableUI.transform.SetIdentityTransformLocal();
-    // _interactableUI.InteractionText = interactable.InteractionText;
-    // }
+    if (PlayerUI.Instance != null)
+    {
+      var uiRoot = PlayerUI.Instance.WorldUI.ShowItem(interactable.InteractionUIAnchor, Vector3.up * interactable.InteractionUIHeight);
+      _interactableUI = Instantiate(interactable.InteractableUIPrefab, uiRoot);
+      _interactableUI.transform.SetIdentityTransformLocal();
+      _interactableUI.InteractionText = interactable.InteractionText;
+    }
   }
 
   private void HidePrompt()
   {
-    // if (PlayerUI != null)
-    // {
-    //   if (_interactableUI != null)
-    //     PlayerUI.OnScreenUI.HideItem(_interactableUI.transform.parent as RectTransform);
+    if (PlayerUI.Instance != null)
+    {
+      if (_interactableUI != null)
+        PlayerUI.Instance.WorldUI.HideItem(_interactableUI.transform.parent as RectTransform);
 
-    //   _interactableUI = null;
-    // }
+      _interactableUI = null;
+    }
   }
 
   private bool IsInLineOfSight(Interactable interactable)
