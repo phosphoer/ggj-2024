@@ -14,6 +14,21 @@ public class CrowBehavior : MonoBehaviour
     Flee
   };
 
+  public enum PathFollowingStatus
+  {
+    NotStarted,
+    Running,
+    Finished
+  };
+
+  public enum PathDestinationType
+  {
+    None,
+    Ground,
+    StaticPerch,
+    PlayerStaff
+  };
+
   public BirdMovementController BirdMovement => _birdMovement;
   public BirdPerceptionComponent Perception => _perceptionComponent;
   public BirdAnimatorController BirdAnimator => _birdAnimator;
@@ -62,26 +77,39 @@ public class CrowBehavior : MonoBehaviour
   public float _timeSinceAttack = -1.0f;
   public bool HasAttackedRecently
   {
-    get { return (_timeSinceAttack >= 0 && _timeSinceAttack < AttackCooldown); }
+    get
+    {
+      return (_timeSinceAttack >= 0 && _timeSinceAttack < AttackCooldown);
+    }
   }
 
   // Path Finding State
   public float WaypointTolerance = 1.0f;
   public bool DebugDrawPath = false;
   List<Vector3> _lastPath = new List<Vector3>();
+  PathFollowingStatus _pathFollowingStatus = PathFollowingStatus.NotStarted;
   float _pathRefreshPeriod = -1.0f;
   float _pathRefreshTimer = 0.0f;
   int _pathWaypointIndex = 0;
+  Transform _pathDestinationTransform = null;
+  Vector3 _pathDestinationLocation = Vector3.zero;
+  PathDestinationType _pathDestinationType = PathDestinationType.None;
   float _pathfollowingStuckTimer = 0.0f;
   public bool IsPathFinished
   {
     // Hit end of the path
-    get { return (_pathWaypointIndex >= _lastPath.Count); }
+    get
+    {
+      return (_pathWaypointIndex >= _lastPath.Count);
+    }
   }
   public bool CantMakePathProgress
   {
     // Got stuck on some geomtry following current path
-    get { return _pathfollowingStuckTimer > 1.0f; }
+    get
+    {
+      return _pathfollowingStuckTimer > 1.0f;
+    }
   }
   public bool IsPathStale
   {
@@ -101,7 +129,7 @@ public class CrowBehavior : MonoBehaviour
   private float _throttleUrgency = 0.5f;
   private bool _hasValidThrottleTarget = false;
 
-  public bool DebugUsePlayerControls= false;
+  public bool DebugUsePlayerControls = false;
   private Rewired.Player _rewiredPlayer;
 
   private void Awake()
@@ -138,12 +166,12 @@ public class CrowBehavior : MonoBehaviour
 
     switch (_behaviorState)
     {
-      case BehaviorState.Idle:
-        nextBehavior = UpdateBehavior_Idle();
-        break;
-      case BehaviorState.Wander:
-        nextBehavior = UpdateBehavior_Wander();
-        break;
+    case BehaviorState.Idle:
+      nextBehavior = UpdateBehavior_Idle();
+      break;
+    case BehaviorState.Wander:
+      nextBehavior = UpdateBehavior_Wander();
+      break;
     case BehaviorState.ApproachPlayer:
       nextBehavior = UpdateBehavior_ApproachPlayer();
       break;
@@ -151,13 +179,13 @@ public class CrowBehavior : MonoBehaviour
     //  nextBehavior = UpdateBehavior_Cower();
     //  break;
     case BehaviorState.Attack:
-        nextBehavior = UpdateBehavior_Attack();
-        break;
-      //case BehaviorState.Flee:
-      //  nextBehavior = UpdateBehavior_Flee();
-      //  break;
-      case BehaviorState.Dead:
-        break;
+      nextBehavior = UpdateBehavior_Attack();
+      break;
+    //case BehaviorState.Flee:
+    //  nextBehavior = UpdateBehavior_Flee();
+    //  break;
+    case BehaviorState.Dead:
+      break;
     }
 
     SetBehaviorState(nextBehavior);
@@ -219,44 +247,23 @@ public class CrowBehavior : MonoBehaviour
   {
     BehaviorState nextBehavior = BehaviorState.ApproachPlayer;
 
-    Vector3 attackTarget = GetCurrentPlayerLocation();
-
-    if (IsWithingDistanceToTarget2D(attackTarget, AttackRange))
-    {
-      nextBehavior = BehaviorState.Attack;
-    }
-
-    // Can see and keep pathing to the player?
-    if (nextBehavior == BehaviorState.ApproachPlayer)
+    if (_pathDestinationTransform != null)
     {
       // Use the current player location rather than stale perception location to prevent oscillation
-      Vector3 pathTarget = GetCurrentPlayerLocation();
+      Vector3 targetLocation = _pathDestinationTransform.position;
 
       if (IsPathStale)
       {
-        if (PathFindManager.Instance.IsPointTraversable(pathTarget))
+        if (!RecomputePathTo(targetLocation, _pathDestinationTransform, PathDestinationType.PlayerStaff))
         {
-          if (RecomputePathTo(pathTarget))
-          {
-            nextBehavior = BehaviorState.ApproachPlayer;
-          }
-          else
-          {
-            // Can't path to target, flee
-            nextBehavior = BehaviorState.Flee;
-          }
-        }
-        else
-        {
-          // Target location not traversable, flee
-          nextBehavior = BehaviorState.Flee;
+          // Can't path to target, flee
+          nextBehavior = BehaviorState.Idle;
         }
       }
-      else
-      {
-        // Path not stale, keep approaching
-        nextBehavior = BehaviorState.ApproachPlayer;
-      }
+    }
+    else
+    {
+      nextBehavior= BehaviorState.Idle;
     }
 
     return nextBehavior;
@@ -283,23 +290,23 @@ public class CrowBehavior : MonoBehaviour
   {
     switch (oldBehavior)
     {
-      case BehaviorState.Idle:
-        break;
-      case BehaviorState.Wander:
-        break;
-      case BehaviorState.ApproachPlayer:
-        // Stop forcing line of sight checks 
-        _perceptionComponent.ForceLineOfSightCheck = false;
-        _perceptionComponent.ResetPlayerSpotTimer();
-        break;
-      //case BehaviorState.Cower:
-      //  break;
-      case BehaviorState.Attack:
-        break;
+    case BehaviorState.Idle:
+      break;
+    case BehaviorState.Wander:
+      break;
+    case BehaviorState.ApproachPlayer:
+      // Stop forcing line of sight checks 
+      _perceptionComponent.ForceLineOfSightCheck = false;
+      _perceptionComponent.ResetPlayerSpotTimer();
+      break;
+    //case BehaviorState.Cower:
+    //  break;
+    case BehaviorState.Attack:
+      break;
     case BehaviorState.Flee:
       break;
     case BehaviorState.Dead:
-        break;
+      break;
     }
   }
 
@@ -307,76 +314,82 @@ public class CrowBehavior : MonoBehaviour
   {
     switch (newBehavior)
     {
-      case BehaviorState.Idle:
-        _throttleUrgency = 0.0f; // stop
-        _pathRefreshPeriod = -1.0f; // no refresh
-        _idleDuration = Random.Range(IdleMinDuration, IdleMaxDuration);
-        break;
-      case BehaviorState.Wander:
-        _throttleUrgency = 0.5f; // half speed
-        _pathRefreshPeriod = -1.0f; // manual refresh
-        // Pick a path to a wander target
-        {
-          Vector2 offset = Random.insideUnitCircle * WanderRange;
-          Vector3 wanderTarget = _spawnLocation + Vector3.left * offset.x + Vector3.forward * offset.y;
-          RecomputePathTo(wanderTarget);
-        }
-        break;
-      case BehaviorState.ApproachPlayer:
+    case BehaviorState.Idle:
+      _throttleUrgency = 0.0f; // stop
+      _pathRefreshPeriod = -1.0f; // no refresh
+      _idleDuration = Random.Range(IdleMinDuration, IdleMaxDuration);
+      break;
+    case BehaviorState.Wander:
+      _throttleUrgency = 0.5f; // half speed
+      _pathRefreshPeriod = -1.0f; // manual refresh
+                                  // Pick a path to a wander target
+      {
+        Vector2 offset = Random.insideUnitCircle * WanderRange;
+        Vector3 wanderTarget = _spawnLocation + Vector3.left * offset.x + Vector3.forward * offset.y;
+        RecomputePathTo(wanderTarget, null, PathDestinationType.Ground);
+      }
+      break;
+    case BehaviorState.ApproachPlayer:
+      {
+        Transform PerchTransform= ReservePlayerStaffPerch();
+        Vector3 PerchLocation= PerchTransform != null ? PerchTransform.position : Vector3.zero; 
+
         _throttleUrgency = 1.0f; // full speed
         _pathRefreshPeriod = 2.0f; // refresh path every 2 seconds while persuing player
-        // Force on line of sight checks even when player is out of vision cone
+                                   // Force on line of sight checks even when player is out of vision cone
         _perceptionComponent.ForceLineOfSightCheck = true;
-        // Head to the player
-        // If this fails we take care of it in attack update
-        RecomputePathTo(GetCurrentPlayerLocation());
-        break;
-      //case BehaviorState.Cower:
-      //  _throttleUrgency = 0.0f; // Stop and sh*t yourself
-      //  _pathRefreshPeriod = -1.0f; // manual refresh
-      //  _birdAnimator.PlayEmote(AIAnimatorController.EmoteState.Cower);
-      //  // Set animation dead flag early so that we don't leave emote state
-      //  _birdAnimator.IsDead = true;
-      //  // Hide the vision cone
-      //  _perceptionComponent.gameObject.SetActive(false);
-      //  break;
-      case BehaviorState.Attack:
-        _throttleUrgency = 0.0f; // Stop and attack in place
-        _pathRefreshPeriod = -1.0f; // manual refresh
 
-        _birdAnimator.PlayEmote(BirdAnimatorController.EmoteState.Attack);
-        _timeSinceAttack = 0.0f; // We just attacked
+        // Head to a perch location on the player's staff
+        // If this fails we take care of it in approach update
+        RecomputePathTo(PerchLocation, PerchTransform, PathDestinationType.PlayerStaff);
+      }
+      break;
+    //case BehaviorState.Cower:
+    //  _throttleUrgency = 0.0f; // Stop and sh*t yourself
+    //  _pathRefreshPeriod = -1.0f; // manual refresh
+    //  _birdAnimator.PlayEmote(AIAnimatorController.EmoteState.Cower);
+    //  // Set animation dead flag early so that we don't leave emote state
+    //  _birdAnimator.IsDead = true;
+    //  // Hide the vision cone
+    //  _perceptionComponent.gameObject.SetActive(false);
+    //  break;
+    case BehaviorState.Attack:
+      _throttleUrgency = 0.0f; // Stop and attack in place
+      _pathRefreshPeriod = -1.0f; // manual refresh
 
-        // Play death effects to cover the transition
-        if (_attackFX != null)
-        {
-          Instantiate(_attackFX, transform.position, Quaternion.identity);
-        }
+      _birdAnimator.PlayEmote(BirdAnimatorController.EmoteState.Attack);
+      _timeSinceAttack = 0.0f; // We just attacked
 
-        if (AudioManager.Instance != null)
-          AudioManager.Instance.PlaySound(gameObject, _attackSound);
+      // Play death effects to cover the transition
+      if (_attackFX != null)
+      {
+        Instantiate(_attackFX, transform.position, Quaternion.identity);
+      }
 
-        break;
+      if (AudioManager.Instance != null)
+        AudioManager.Instance.PlaySound(gameObject, _attackSound);
+
+      break;
     case BehaviorState.Flee:
       _throttleUrgency = 1.0f; // full speed
       _pathRefreshPeriod = -1.0f; // manual refresh
                                   // Head back to spawn location
                                   // If this fails we take care of it in flee update
-      RecomputePathTo(_spawnLocation);
+      RecomputePathTo(_spawnLocation, null, PathDestinationType.StaticPerch);
       break;
     case BehaviorState.Dead:
-        // Play death effects to cover the transition
-        if (_deathFX != null)
-        {
-          Instantiate(_deathFX, transform.position, Quaternion.identity);
-        }
+      // Play death effects to cover the transition
+      if (_deathFX != null)
+      {
+        Instantiate(_deathFX, transform.position, Quaternion.identity);
+      }
 
-        if (AudioManager.Instance != null)
-          AudioManager.Instance.PlaySound(gameObject, _deathSound);
+      if (AudioManager.Instance != null)
+        AudioManager.Instance.PlaySound(gameObject, _deathSound);
 
-        // Clean ourselves up after a moment
-        Destroy(this, 0.1f);
-        break;
+      // Clean ourselves up after a moment
+      Destroy(this, 0.1f);
+      break;
     }
   }
 
@@ -389,53 +402,115 @@ public class CrowBehavior : MonoBehaviour
     }
   }
 
-  bool RecomputePathTo(Vector3 worldTarget)
+  bool RecomputePathTo(Vector3 targetLocation, Transform targetTransform, PathDestinationType destinationType)
   {
     _pathRefreshTimer = _pathRefreshPeriod;
     _pathWaypointIndex = 0;
     _pathfollowingStuckTimer = 0.0f;
-    return PathFindManager.Instance.CalculatePathToPoint(transform.position, worldTarget, _lastPath);
+    if (PathFindManager.Instance.CalculatePathToPoint(transform.position, targetLocation, _lastPath))
+    {
+      // If pathfinding wasn't running already, flag that the path started
+      if (_pathFollowingStatus != PathFollowingStatus.Running)
+      {
+        OnPathStarted();
+      }
+
+      _pathDestinationLocation = targetLocation;
+      _pathDestinationTransform = targetTransform;
+      _pathDestinationType = destinationType;
+
+      return true;
+    }
+    else
+    {
+      _pathDestinationType = PathDestinationType.None;
+
+      return false;
+    }
+  }
+
+  bool HasFlyingPathTarget()
+  {
+    return _pathDestinationType == PathDestinationType.StaticPerch || _pathDestinationType == PathDestinationType.PlayerStaff;
   }
 
   void UpdatePathFollowing()
   {
-    if (_pathWaypointIndex < _lastPath.Count)
-    {
-      // Always throttle at the next waypoint
-      Vector3 waypoint = _lastPath[_pathWaypointIndex];
-      Vector3 throttleTarget2d = Vector3.ProjectOnPlane(waypoint, Vector3.up);
-      Vector3 position2d = Vector3.ProjectOnPlane(this.transform.position, Vector3.up);
+    bool isWalking = _birdMovement.MoveMode == BirdMovementController.MovementMode.Walking;
+    bool isFlying = _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying;
 
-      // Advance to the next waypoint 
-      if (IsWithingDistanceToTarget2D(throttleTarget2d, WaypointTolerance))
+    if (isWalking || isFlying)
+    {
+      if (_pathWaypointIndex < _lastPath.Count)
       {
-        _pathfollowingStuckTimer = 0.0f;
-        _pathWaypointIndex++;
-      }
-      else
-      {
-        // If we aren't making progress toward the waypoint, increment the stuck timer
-        if (_birdMovement.IsStationary())
+        // Always throttle at the next waypoint
+        Vector3 waypoint = _lastPath[_pathWaypointIndex];
+        Vector3 throttleTarget2d = Vector3.ProjectOnPlane(waypoint, Vector3.up);
+        Vector3 position2d = Vector3.ProjectOnPlane(this.transform.position, Vector3.up);
+
+        // Advance to the next waypoint 
+        if (IsWithingDistanceToTarget2D(throttleTarget2d, WaypointTolerance))
         {
-          _pathfollowingStuckTimer += Time.deltaTime;
+          _pathfollowingStuckTimer = 0.0f;
+          _pathWaypointIndex++;
         }
         else
         {
-          _pathfollowingStuckTimer = 0.0f;
+          // If we aren't making progress toward the waypoint, increment the stuck timer
+          if (_birdMovement.IsStationary())
+          {
+            _pathfollowingStuckTimer += Time.deltaTime;
+          }
+          else
+          {
+            _pathfollowingStuckTimer = 0.0f;
+          }
         }
       }
+
+      // Throttle at next waypoint
+      if (_pathWaypointIndex < _lastPath.Count)
+      {
+        Vector3 waypoint = _lastPath[_pathWaypointIndex];
+
+        SetThrottleTarget(waypoint);
+      }
+      else
+      {
+        ClearThrottleTarget();
+        OnPathFinished();
+      }
+    }
+  }
+
+  void OnPathStarted()
+  {
+    bool hasFlyingTarget = HasFlyingPathTarget();
+    bool isWalking = _birdMovement.MoveMode == BirdMovementController.MovementMode.Walking;
+    bool isPerched = _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched;
+
+    if ((isWalking && hasFlyingTarget) || isPerched)
+    {
+      _birdMovement.TakeOff();
     }
 
-    // Throttle at next waypoint
-    if (_pathWaypointIndex < _lastPath.Count)
-    {
-      Vector3 waypoint = _lastPath[_pathWaypointIndex];
+    _pathFollowingStatus= PathFollowingStatus.Running;
+  }
 
-      SetThrottleTarget(waypoint);
-    }
-    else
-    {
-      ClearThrottleTarget();
+  void OnPathFinished()
+  {
+    _pathFollowingStatus= PathFollowingStatus.Finished;
+
+    if (_birdMovement.MoveMode == BirdMovementController.MovementMode.Flying)
+    {   
+      if (HasFlyingPathTarget())
+      {
+        _birdMovement.Perch(_pathDestinationLocation, _pathDestinationTransform);
+      }
+      else
+      {
+        _birdMovement.Land();
+      }
     }
   }
 
@@ -483,7 +558,7 @@ public class CrowBehavior : MonoBehaviour
       Vector3 walkDirection = transform.forward.WithY(0).normalized;
       Vector3 strafeDirection = transform.right.WithY(0).normalized;
 
-      _birdMovement.WorldThrottle = Vector3.ClampMagnitude(walkDirection*forwardAxis + strafeDirection*horizontalAxis, 1);
+      _birdMovement.WorldThrottle = Vector3.ClampMagnitude(walkDirection * forwardAxis + strafeDirection * horizontalAxis, 1);
 
       bool wantJumpAction = _rewiredPlayer.GetButtonDown(RewiredConsts.Action.Jump);
       if (_birdMovement.CanTakeOff() && wantJumpAction)
@@ -507,7 +582,7 @@ public class CrowBehavior : MonoBehaviour
       }
 
       _birdMovement.WorldThrottle = worldThrottleDirection;
-      _birdMovement.IsSprinting= _throttleUrgency > 0.5f;
+      _birdMovement.IsSprinting = _throttleUrgency > 0.5f;
     }
   }
 
@@ -527,8 +602,15 @@ public class CrowBehavior : MonoBehaviour
 
   Vector3 GetCurrentPlayerLocation()
   {
-    PlayerActorController player= PlayerActorController.Instance;
+    PlayerActorController player = PlayerActorController.Instance;
 
     return player ? player.transform.position : Vector3.zero;
+  }
+
+  Transform ReservePlayerStaffPerch()
+  {
+    PlayerActorController player = PlayerActorController.Instance;
+
+    return player ? player.ReserveStaffPerch(this) : null;
   }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2952562628403108043}
   - component: {fileID: 8778806101503959225}
   - component: {fileID: 8752613199897331496}
+  - component: {fileID: 8315566417519928388}
   - component: {fileID: 9221079697861785601}
   - component: {fileID: 7974584683206112960}
   - component: {fileID: 5564319372568063569}
@@ -99,10 +100,11 @@ MonoBehaviour:
   SprintSpeed: 10
   RotateSpeed: 5
   TakeoffPower: 10
+  PerchingTime: 0.25
   JumpScalableForwardSpeed: 1
   AllowJumpingWhenSliding: 1
-  _movementMode: 0
-  _timeInMovementMode: 0
+  _movementMode: 7
+  _timeInMovementMode: -0.02
   _motor: {fileID: 7974584683206112960}
   _visualRoot: {fileID: 0}
   _standHeight: 1.6
@@ -152,6 +154,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6a902a596293d4088178a6763f489d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8315566417519928388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2607579964061312581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e37767d9e3a144d8cd65d96ca29fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParentSpawner: {fileID: 0}
 --- !u!114 &9221079697861785601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +267,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
