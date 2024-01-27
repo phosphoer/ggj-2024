@@ -29,11 +29,12 @@ public class PlayerActorController : Singleton<PlayerActorController>
   [SerializeField]
   private CameraControllerPlayer _cameraPlayerPrefab = null;
 
-  private Rewired.Player _rewiredPlayer;
-  private CameraControllerPlayer _cameraPlayer;
-
   [SerializeField]
   private PerchController[] _staffPerches = null;
+
+  private Rewired.Player _rewiredPlayer;
+  private CameraControllerPlayer _cameraPlayer;
+  private bool _isCommanding;
 
   private static readonly int kAnimMoveSpeed = Animator.StringToHash("MoveSpeed");
   private static readonly int kAnimIsPickingUp = Animator.StringToHash("IsPickingUp");
@@ -80,6 +81,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     {
       if (_inventorySelector.IsVisible && _inventorySelector.SelectedItem != null)
       {
+        _animator.SetBool(kAnimIsPickingUp, true);
         _inventory.TossItem(_inventorySelector.SelectedItem, (transform.forward + Vector3.up) * 4);
         _inventorySelector.Hide();
       }
@@ -100,12 +102,31 @@ public class PlayerActorController : Singleton<PlayerActorController>
     }
 
     // Caw ?
-    if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Caw))
+    if (_rewiredPlayer.GetButtonUp(RewiredConsts.Action.Caw) && !_isCommanding)
     {
       // Ask for a crow to come to us
       SummonClosestCrow();
 
       _animator.SetBool(kAnimIsCalling, true);
+    }
+
+    if (_rewiredPlayer.GetButtonTimedPress(RewiredConsts.Action.Caw, 0.5f))
+    {
+      _isCommanding = true;
+
+      foreach (var crowTarget in CrowTarget.Instances)
+      {
+        crowTarget.ShowTargetHighlight();
+      }
+    }
+    else if (_isCommanding)
+    {
+      _isCommanding = false;
+
+      foreach (var crowTarget in CrowTarget.Instances)
+      {
+        crowTarget.HideTargetHighlight();
+      };
     }
 
     // Attack
@@ -125,17 +146,17 @@ public class PlayerActorController : Singleton<PlayerActorController>
   {
     if (StaffPerchAvailable())
     {
-      CrowBehaviorManager bestCrow= null;
-      float bestCrowDistance= 0.0f;
-      foreach(CrowBehaviorManager crow in CrowBehaviorManager.Instances)
+      CrowBehaviorManager bestCrow = null;
+      float bestCrowDistance = 0.0f;
+      foreach (CrowBehaviorManager crow in CrowBehaviorManager.Instances)
       {
-        float crowDistance= 0.0f;
+        float crowDistance = 0.0f;
         if (crow.CanSummonCrow(out crowDistance))
         {
           if (bestCrow == null || crowDistance < bestCrowDistance)
           {
-            bestCrow= crow;
-            bestCrowDistance= crowDistance;
+            bestCrow = crow;
+            bestCrowDistance = crowDistance;
           }
         }
       }
