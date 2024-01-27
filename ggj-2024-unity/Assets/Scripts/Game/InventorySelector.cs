@@ -18,9 +18,12 @@ public class InventorySelector : MonoBehaviour
 
   public void Show()
   {
-    Debug.Log($"InventorySelector: Show");
-    _isVisible = true;
-    RefreshDisplay();
+    if (_inventory.Items.Count > 0)
+    {
+      Debug.Log($"InventorySelector: Show");
+      _isVisible = true;
+      RefreshDisplay();
+    }
   }
 
   public void Hide()
