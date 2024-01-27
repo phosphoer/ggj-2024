@@ -56,7 +56,7 @@ Shader "Custom/CellShaded"
       {
         // Get base diffuse color
         fixed3 texColor = tex2D(_MainTex, i.uv).rgb;
-        fixed3 diffuse = _Color.rgb * lerp(fixed3(1,1,1), texColor, _MainTexAlpha);
+        fixed3 diffuse = _Color.rgb * i.color * lerp(fixed3(1,1,1), texColor, _MainTexAlpha);
 
         fixed lightAtten = 1;
         #ifdef POINT

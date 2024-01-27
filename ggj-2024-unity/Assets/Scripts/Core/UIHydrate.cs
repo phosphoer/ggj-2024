@@ -12,6 +12,7 @@ public class UIHydrate : MonoBehaviour
 
   public bool HydrateOnEnable = false;
   public bool StartDehydrated = false;
+  public bool DestroyOnDehydrate = false;
 
   [SerializeField]
   private Transform _targetTransform = null;
@@ -125,6 +126,11 @@ public class UIHydrate : MonoBehaviour
         Dehydrated?.Invoke();
         _finishCallback?.Invoke();
         gameObject.SetActive(false);
+
+        if (DestroyOnDehydrate)
+        {
+          Destroy(gameObject);
+        }
       }
     }
   }
