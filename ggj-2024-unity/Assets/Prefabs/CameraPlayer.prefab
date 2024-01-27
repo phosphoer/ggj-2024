@@ -47,4 +47,4 @@ MonoBehaviour:
   FieldOfView: 65
   _mountPoint: {fileID: 0}
   TargetTransform: {fileID: 0}
-  TargetOffset: {x: 4, y: 6, z: -4}
+  TargetOffset: {x: 5, y: 5, z: 5}
