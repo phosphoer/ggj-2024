@@ -4,7 +4,23 @@ using UnityEngine;
 
 public class PerchController : MonoBehaviour
 {
+  public static IReadOnlyList<PerchController> Instances => _instances;
+  private static List<PerchController> _instances = new();
+
+  public bool IsWalkablePerch= false;
+  public bool IsPublicPerch= false;
+
   private CrowBehaviorManager _owningBird = null;
+
+  private void Awake()
+  {
+    _instances.Add(this);
+  }
+
+  private void OnDestroy()
+  {
+    _instances.Remove(this);
+  }
 
   public bool IsPerchReserved()
   {
