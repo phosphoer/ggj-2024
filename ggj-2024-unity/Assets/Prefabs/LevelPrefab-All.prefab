@@ -1138,7 +1138,8 @@ GameObject:
   - component: {fileID: 1616588082679313710}
   - component: {fileID: 2195605520890361323}
   - component: {fileID: 5746349925359889811}
-  - component: {fileID: 1500679351235143095}
+  - component: {fileID: 7375451258763811504}
+  - component: {fileID: 8068430051926713956}
   m_Layer: 4
   m_Name: WaterPlane
   m_TagString: Untagged
@@ -1211,8 +1212,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1500679351235143095
-MeshCollider:
+--- !u!65 &7375451258763811504
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1229,10 +1230,22 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 10, y: 3.65, z: 10}
+  m_Center: {x: -0.00000008940697, y: -1.71, z: 0}
+--- !u!114 &8068430051926713956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029937420951475780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc8c3c8e61a83d42b56455d2295e967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _area: 1
 --- !u!1 &3370642774265113830
 GameObject:
   m_ObjectHideFlags: 0
