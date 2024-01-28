@@ -234,6 +234,9 @@ public class CrowBehaviorManager : MonoBehaviour
         _throttleUrgency = 1.0f; // full speed
         _pathRefreshPeriod = 2.0f; // refresh path every 2 seconds while approaching the player
 
+        // Relinquish our reservation on the player staff
+        PlayerActorController.Instance.LeaveStaffPerch(this);
+
         // Reserve this perch
         crowTarget.Perch.ReservePerch(this);
 
