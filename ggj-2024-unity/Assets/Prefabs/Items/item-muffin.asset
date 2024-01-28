@@ -16,4 +16,5 @@ MonoBehaviour:
   Prefab: {fileID: 5595659566637781942, guid: 827eac411fabef84bbddd76c098c0bc0, type: 3}
   IsIngredient: 0
   IsCrowFood: 1
-  CrowXP: 25
+  CrowXP: 100
+  ShopValue: 1

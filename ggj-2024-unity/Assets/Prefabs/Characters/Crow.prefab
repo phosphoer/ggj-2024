@@ -133,10 +133,19 @@ MonoBehaviour:
   FlyPathHeightRange:
     MinValue: 2
     MaxValue: 4
+  PublicPerchMaxRange: 30
+  PublicPerchCooldown:
+    MinValue: 10
+    MaxValue: 30
+  _publicPerchCooldownTimer: 0
+  PublicPerchIdleDuration:
+    MinValue: 3
+    MaxValue: 8
+  _publicPerchIdleTimeout: 0
   WanderRange: 10
   PlayerApproachTimeOut: 4
   PlayerApproachRange: 30
-  ReturnItemDropRange: 10
+  ReturnItemPlayerOffset: 2
   VomitStrength: 1
   AttackRange: 2
   AttackDuration: 2
@@ -190,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d7e9f2378c22a4181e59f8f1080de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelXPThresholds: 32000000640000002c010000f4010000e8030000
+  _levelXPThresholds: 050000001900000064000000f4010000e8030000
 --- !u!114 &7974584683206112960
 MonoBehaviour:
   m_ObjectHideFlags: 0

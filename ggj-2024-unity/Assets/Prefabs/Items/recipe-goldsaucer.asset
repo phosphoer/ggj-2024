@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
   m_Name: recipe-goldsaucer
   m_EditorClassIdentifier: 
-  Name: Gold Saucer
   Result: {fileID: 11400000, guid: c920e191c3886c445baf94792f12c9fc, type: 2}
-  CookDuration: 15
+  CookDuration: 60
   Ingredients:
   - Item: {fileID: 11400000, guid: a92ae152688b84c07ae43058acbfb768, type: 2}
     Count: 5
   - Item: {fileID: 11400000, guid: 5bef7c06a5ee9b545b8a2876c09ed3e1, type: 2}
-    Count: 2
+    Count: 3
   - Item: {fileID: 11400000, guid: bdafc4f3b46da4ebf96b292ea2079843, type: 2}
     Count: 3
   - Item: {fileID: 11400000, guid: e44a7c1cd321e4ccd8019ae423022d62, type: 2}

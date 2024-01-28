@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
   m_Name: recipe-bugbiscuit
   m_EditorClassIdentifier: 
-  Name: Bug Biscuit
   Result: {fileID: 11400000, guid: ba77fe84a97fc1343a9754ae767d9710, type: 2}
-  CookDuration: 10
+  CookDuration: 20
   Ingredients:
   - Item: {fileID: 11400000, guid: 8c33238707f419148804f1921d911cde, type: 2}
-    Count: 3
+    Count: 2
   - Item: {fileID: 11400000, guid: 723376d26001bcc4bb5629f69ab36fbf, type: 2}
-    Count: 3
+    Count: 2
   - Item: {fileID: 11400000, guid: e44a7c1cd321e4ccd8019ae423022d62, type: 2}
-    Count: 3
+    Count: 2
+  - Item: {fileID: 11400000, guid: bdafc4f3b46da4ebf96b292ea2079843, type: 2}
+    Count: 2

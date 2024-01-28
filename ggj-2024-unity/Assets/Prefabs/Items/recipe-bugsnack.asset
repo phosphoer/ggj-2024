@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
   m_Name: recipe-bugsnack
   m_EditorClassIdentifier: 
-  Name: Bugsnack
   Result: {fileID: 11400000, guid: 0c6b99b6daf1b4b56a8f4785e6d9f732, type: 2}
-  CookDuration: 5
+  CookDuration: 10
   Ingredients:
   - Item: {fileID: 11400000, guid: e44a7c1cd321e4ccd8019ae423022d62, type: 2}
     Count: 2
   - Item: {fileID: 11400000, guid: f398260bccc474b1da61dcf7a23f6979, type: 2}
     Count: 1
+  - Item: {fileID: 11400000, guid: bdafc4f3b46da4ebf96b292ea2079843, type: 2}
+    Count: 2

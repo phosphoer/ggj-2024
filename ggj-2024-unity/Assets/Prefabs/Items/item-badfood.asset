@@ -15,3 +15,6 @@ MonoBehaviour:
   Name: Bad Food
   Prefab: {fileID: 5595659566637781942, guid: 0975ee975d0394d7db88c7b492f2ff1c, type: 3}
   IsIngredient: 0
+  IsCrowFood: 1
+  CrowXP: 1
+  ShopValue: 1

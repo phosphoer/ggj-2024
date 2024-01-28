@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
   m_Name: recipe-riceball
   m_EditorClassIdentifier: 
-  Name: Rice Treat
   Result: {fileID: 11400000, guid: 8da7fd650a9f50642a89e706cc00fd4a, type: 2}
-  CookDuration: 3
+  CookDuration: 5
   Ingredients:
   - Item: {fileID: 11400000, guid: 178dc156d813e454e8989d217599feb0, type: 2}
     Count: 1

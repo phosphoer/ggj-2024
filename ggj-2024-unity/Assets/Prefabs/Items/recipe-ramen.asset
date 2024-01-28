@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
   m_Name: recipe-ramen
   m_EditorClassIdentifier: 
-  Name: Ramen
   Result: {fileID: 11400000, guid: 61820c069199b7b43be4f79e136d4cc8, type: 2}
-  CookDuration: 5
+  CookDuration: 30
   Ingredients:
   - Item: {fileID: 11400000, guid: 178dc156d813e454e8989d217599feb0, type: 2}
     Count: 3
@@ -22,3 +21,5 @@ MonoBehaviour:
     Count: 2
   - Item: {fileID: 11400000, guid: bdafc4f3b46da4ebf96b292ea2079843, type: 2}
     Count: 2
+  - Item: {fileID: 11400000, guid: a92ae152688b84c07ae43058acbfb768, type: 2}
+    Count: 3

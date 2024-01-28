@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
   m_Name: recipe-stonebake
   m_EditorClassIdentifier: 
-  Name: Stone Baked Bugs
   Result: {fileID: 11400000, guid: edc3625d9ddac954c977ccba7d2b37e8, type: 2}
-  CookDuration: 10
+  CookDuration: 15
   Ingredients:
   - Item: {fileID: 11400000, guid: e44a7c1cd321e4ccd8019ae423022d62, type: 2}
     Count: 2
   - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
-    Count: 2
+    Count: 3
   - Item: {fileID: 11400000, guid: 178dc156d813e454e8989d217599feb0, type: 2}
-    Count: 1
+    Count: 2
