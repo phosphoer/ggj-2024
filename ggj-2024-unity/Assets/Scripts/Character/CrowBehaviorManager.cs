@@ -454,7 +454,7 @@ public class CrowBehaviorManager : MonoBehaviour
     }
 
     // Vomit them up
-    Vector3 vomitForce = transform.forward * VomitStrength;
+    Vector3 vomitForce = transform.forward.WithY(1) * VomitStrength;
     foreach (ItemDefinition itemDefinition in playerItems)
     {
       _inventoryController.TossItem(itemDefinition, vomitForce);
