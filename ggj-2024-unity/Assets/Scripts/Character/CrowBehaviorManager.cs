@@ -157,6 +157,7 @@ public class CrowBehaviorManager : MonoBehaviour
   private void Awake()
   {
     _instances.Add(this);
+    _spawnLocation = transform.position;
   }
 
   private void OnDestroy()
@@ -861,7 +862,7 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     PlayerActorController player = PlayerActorController.Instance;
 
-    return player ? player.transform.position : Vector3.zero;
+    return player != null ? player.transform.position : Vector3.zero;
   }
 
   bool IsWithinPlayerDistance2d(float distance)
