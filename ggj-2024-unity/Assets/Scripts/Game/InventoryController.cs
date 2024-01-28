@@ -9,9 +9,13 @@ public class InventoryController : MonoBehaviour
 
   public IReadOnlyList<ItemDefinition> Items => _items;
   public Transform ItemSpawnAnchor => _itemSpawnAnchor;
+  public Transform ItemCollectedAnchor => _itemCollectAnchor;
 
   [SerializeField]
   private Transform _itemSpawnAnchor = null;
+
+  [SerializeField]
+  private Transform _itemCollectAnchor = null;
 
   private List<ItemDefinition> _items = new();
   private List<ItemController> _pendingItemPickups = new();
@@ -111,6 +115,12 @@ public class InventoryController : MonoBehaviour
     return null;
   }
 
+  private void Awake()
+  {
+    if (_itemCollectAnchor == null)
+      _itemCollectAnchor = _itemSpawnAnchor;
+  }
+
   private void Update()
   {
     // Suck in items that we've picked up
@@ -122,7 +132,7 @@ public class InventoryController : MonoBehaviour
       float pickupT = Mathf.SmoothStep(0, 1, pickupTimer / kPickupDuration);
 
       ItemController item = _pendingItemPickups[i];
-      item.transform.position = Vector3.Lerp(pickupOrigin, _itemSpawnAnchor.position, pickupT);
+      item.transform.position = Vector3.Lerp(pickupOrigin, _itemCollectAnchor.position, pickupT);
       item.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, pickupT);
 
       if (pickupT >= 1)

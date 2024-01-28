@@ -10,7 +10,6 @@ public class RecipeIngredient
 [CreateAssetMenu(fileName = "new-recipe", menuName = "Game/Recipe Definition")]
 public class RecipeDefinition : ScriptableObject
 {
-  public string Name = "A Recipe";
   public ItemDefinition Result;
   public float CookDuration = 5;
   public RecipeIngredient[] Ingredients;
