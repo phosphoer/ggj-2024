@@ -1358,23 +1358,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9118471854932158974, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 9118471854932158974, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.79
-      objectReference: {fileID: 0}
-    - target: {fileID: 9118471854932158974, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.25
+    - target: {fileID: 4218036518041595076, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      propertyPath: m_Name
+      value: ItemShopBuilding
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7235135474310550353, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4120466014138573688, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2567811428193517769, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3046490023972625901, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2280591708122552630, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3357842120319874134, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 5556322773740136758, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 6395710191159172286, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 5638009911522678722, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
 --- !u!4 &1145941205 stripped
 Transform:

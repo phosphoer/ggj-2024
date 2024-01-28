@@ -8,4 +8,5 @@ public class ItemDefinition : ScriptableObject
   public bool IsIngredient = true;
   public bool IsCrowFood = false;
   public int CrowXP = 0;
+  public int ShopValue = 1;
 }

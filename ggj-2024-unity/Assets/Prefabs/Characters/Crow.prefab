@@ -94,7 +94,7 @@ MonoBehaviour:
   SprintSpeed: 4
   RotateSpeed: 5
   TakeoffPower: 10
-  PerchingTime: 0.25
+  PerchingTime: 0.5
   JumpScalableForwardSpeed: 1
   AllowJumpingWhenSliding: 1
   _movementMode: 7
