@@ -4,8 +4,8 @@ Walk: 61 - 90
 Caw: 91 - 150
 PickUp: 151 - 165
 Attack: 166 - 195
-Throw: 196 - 210
-ItemPose: 
+Throw: 196 - 230
+ItemPose: 231 - 232
 
 	Crow:
 Idle: 1 - 120
@@ -14,4 +14,6 @@ TakeOff: 136 - 165
 Fly: 166 - 185
 Land: 186 - 215
 Perch: 216 - 245
-Caw: 246 - 
+Caw: 246 - 265
+ShopKeepIdle: 266 - 385
+Channeling: 386 - 435
