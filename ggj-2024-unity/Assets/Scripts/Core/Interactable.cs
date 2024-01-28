@@ -11,7 +11,7 @@ public class Interactable : MonoBehaviour
   public Transform InteractionUIAnchor => _interactionUIAnchor;
   public float InteractionUIHeight => _interactionUIHeight;
   public InteractableUI InteractableUIPrefab => _interactableUIPrefab;
-  public string InteractionText => _disabledStack.Count > 0 ? _disabledStack[_disabledStack.Count - 1] : _interactionText;
+  public string InteractionText => _labelStack.Count > 0 ? _labelStack[_labelStack.Count - 1] : _interactionText;
 
   public float InteractionRadius
   {
@@ -21,7 +21,7 @@ public class Interactable : MonoBehaviour
 
   public bool IsInteractionEnabled
   {
-    get { return _disabledStack.Count == 0 && _enableInteraction && enabled; }
+    get { return _disabledStack == 0 && _enableInteraction && enabled; }
   }
 
   public bool AutoInteract
@@ -65,7 +65,8 @@ public class Interactable : MonoBehaviour
   [SerializeField]
   private bool _disableOnInteract = false;
 
-  private List<string> _disabledStack = new List<string>();
+  private int _disabledStack = 0;
+  private List<string> _labelStack = new List<string>();
 
   private static List<Interactable> _instances = new List<Interactable>();
 
@@ -108,25 +109,38 @@ public class Interactable : MonoBehaviour
 
   public void PushDisabledState()
   {
-    _disabledStack.Add(string.Empty);
+    _disabledStack += 1;
   }
 
   public void PopDisabledState()
   {
-    if (_disabledStack.Count > 0)
+    if (_disabledStack > 0)
     {
-      _disabledStack.RemoveAt(_disabledStack.Count - 1);
+      _disabledStack -= 1;
     }
   }
 
   public void PushDisabledState(string disabledText)
   {
-    _disabledStack.Add(disabledText);
+    PushDisabledState();
+    _labelStack.Add(disabledText);
   }
 
   public void PopDisabledState(string disabledText)
   {
-    _disabledStack.Remove(disabledText);
+    PopDisabledState();
+    _labelStack.Remove(disabledText);
+  }
+
+  public void SetInteractionText(string interactionText)
+  {
+    ResetInteractionText();
+    _labelStack.Add(interactionText);
+  }
+
+  public void ResetInteractionText()
+  {
+    _labelStack.Clear();
   }
 
   public void TriggerInteraction(InteractionController controller)

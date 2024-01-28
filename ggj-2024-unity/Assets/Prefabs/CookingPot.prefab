@@ -15241,6 +15241,7 @@ MonoBehaviour:
   - {fileID: 6826050210926724636}
   - {fileID: 7644706049143766173}
   - {fileID: 4362670822785370215}
+  _allowInvalidRecipe: 1
   _recipes:
   - {fileID: 11400000, guid: d6b274329bb85aa44a2f29d56962c3f5, type: 2}
   - {fileID: 11400000, guid: 05edc24567a044d9997f4af49f2a5a2c, type: 2}

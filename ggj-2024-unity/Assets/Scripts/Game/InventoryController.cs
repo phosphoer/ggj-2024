@@ -9,9 +9,13 @@ public class InventoryController : MonoBehaviour
 
   public IReadOnlyList<ItemDefinition> Items => _items;
   public Transform ItemSpawnAnchor => _itemSpawnAnchor;
+  public Transform ItemCollectedAnchor => _itemCollectAnchor;
 
   [SerializeField]
   private Transform _itemSpawnAnchor = null;
+
+  [SerializeField]
+  private Transform _itemCollectAnchor = null;
 
   private List<ItemDefinition> _items = new();
   private List<ItemController> _pendingItemPickups = new();
@@ -64,10 +68,11 @@ public class InventoryController : MonoBehaviour
     ItemAdded?.Invoke(item);
   }
 
-  public void RemoveItem(ItemDefinition item)
+  public bool RemoveItem(ItemDefinition item)
   {
-    _items.Remove(item);
+    bool wasRemoved = _items.Remove(item);
     ItemRemoved?.Invoke(item);
+    return wasRemoved;
   }
 
   public void ClearItems()
@@ -78,15 +83,15 @@ public class InventoryController : MonoBehaviour
     }
   }
 
-  public ItemController TossItem(ItemDefinition item, Vector3 force)
+  public ItemController TossItem(ItemDefinition item, Vector3 force, bool markAsThrown = true)
   {
-    if (_items.Remove(item))
+    if (RemoveItem(item))
     {
       ItemController itemController = Instantiate(item.Prefab);
       itemController.transform.position = _itemSpawnAnchor.position;
       itemController.transform.rotation = Random.rotation;
       itemController.Rigidbody.AddForce(force, ForceMode.VelocityChange);
-      itemController.WasThrown = true;
+      itemController.WasThrown = markAsThrown;
       itemController.SetInteractionEnabled(false);
       itemController.SetCollidersEnabled(false);
       itemController.StartCoroutine(Tween.DelayCall(1, () =>
@@ -101,10 +106,19 @@ public class InventoryController : MonoBehaviour
           itemController.SetCollidersEnabled(true);
       }));
 
+      UIHydrate hydrate = itemController.gameObject.AddComponent<UIHydrate>();
+      hydrate.Hydrate();
+
       return itemController;
     }
 
     return null;
+  }
+
+  private void Awake()
+  {
+    if (_itemCollectAnchor == null)
+      _itemCollectAnchor = _itemSpawnAnchor;
   }
 
   private void Update()
@@ -118,7 +132,7 @@ public class InventoryController : MonoBehaviour
       float pickupT = Mathf.SmoothStep(0, 1, pickupTimer / kPickupDuration);
 
       ItemController item = _pendingItemPickups[i];
-      item.transform.position = Vector3.Lerp(pickupOrigin, _itemSpawnAnchor.position, pickupT);
+      item.transform.position = Vector3.Lerp(pickupOrigin, _itemCollectAnchor.position, pickupT);
       item.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, pickupT);
 
       if (pickupT >= 1)

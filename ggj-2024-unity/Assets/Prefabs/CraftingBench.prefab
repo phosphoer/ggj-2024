@@ -5557,6 +5557,7 @@ MonoBehaviour:
   - {fileID: 9055998340556383364}
   - {fileID: 2747712367989506643}
   - {fileID: 7199397783722874071}
+  _allowInvalidRecipe: 0
   _recipes:
   - {fileID: 11400000, guid: 7cb7a04593e7743fe941c7c0d1db7e6b, type: 2}
   _invalidRecipe: {fileID: 11400000, guid: 073a6e18cfae44819abcde664e5ef72d, type: 2}
@@ -5567,7 +5568,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7400704549671371640}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02b8e5362b91e4451aefe5def84c8a37, type: 3}
   m_Name: 
@@ -5594,6 +5595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemSpawnAnchor: {fileID: 9141362690417789430}
+  _itemCollectAnchor: {fileID: 0}
 --- !u!54 &463323274615269655
 Rigidbody:
   m_ObjectHideFlags: 0

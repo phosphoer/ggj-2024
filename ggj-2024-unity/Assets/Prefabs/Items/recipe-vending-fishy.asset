@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
+  m_Name: recipe-vending-fishy
+  m_EditorClassIdentifier: 
+  Result: {fileID: 11400000, guid: 5bef7c06a5ee9b545b8a2876c09ed3e1, type: 2}
+  CookDuration: 5
+  Ingredients:
+  - Item: {fileID: 11400000, guid: a92ae152688b84c07ae43058acbfb768, type: 2}
+    Count: 1
