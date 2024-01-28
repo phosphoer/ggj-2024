@@ -182,7 +182,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
       foreach (var crow in CrowBehaviorManager.Instances)
       {
         float dist = Vector3.Distance(transform.position, crow.transform.position);
-        if (dist < 1f && crow != _commandingCrow)
+        if (dist < 1.5f && crow != _commandingCrow)
         {
           crow.SetBehaviorState(CrowBehaviorManager.BehaviorState.MoveToPublicPerch);
           crow.BirdMovement.TakeOff();
