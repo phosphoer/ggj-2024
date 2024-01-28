@@ -20,12 +20,12 @@ MonoBehaviour:
     BloomThresholdSoft: 0.15
     BloomIntensity: 3
   SaturationContrast:
-    Enabled: 0
+    Enabled: 1
     ColorSaturation: 1
     ColorContrast: 1
   WhiteBalance:
-    Enabled: 0
-    ColorTemperature: 0
+    Enabled: 1
+    ColorTemperature: -0.2
     ColorTint: 0
   ChannelMixers:
     Enabled: 0
