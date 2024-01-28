@@ -4990,7 +4990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc5410b34b69433b8894416a76078cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GatherTime: 20
+  GatherTime: 10
   _targetedHighlightPrefab: {fileID: 7937580347531802412, guid: fb19aba768e834de3814c5bb8b1c0079, type: 3}
   _itemReward: {fileID: 11400000, guid: 5bef7c06a5ee9b545b8a2876c09ed3e1, type: 2}
   _perch: {fileID: 9019770394992102019}
