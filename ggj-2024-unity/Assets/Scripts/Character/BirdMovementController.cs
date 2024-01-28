@@ -39,7 +39,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   public MovementMode MoveMode => _movementMode;
 
   [SerializeField]
-  private float _timeInMovementMode= 0.0f;
+  private float _timeInMovementMode = 0.0f;
 
   [SerializeField]
   private KinematicCharacterMotor _motor = null;
@@ -53,8 +53,9 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   [SerializeField]
   private float _standCapsuleHeight = 2f;
 
-  private bool _firedTakeoffImpulse= false;
-  private bool _hasReachedTakeoffApex= false;
+  private bool _firedTakeoffImpulse = false;
+  private bool _hasReachedTakeoffApex = false;
+  private Vector3 _perchStartPosition = Vector3.zero;
   private Vector3 _targetPerchLocation = Vector3.zero;
   private Transform _targetPerchTransform = null;
   private Vector3 _lastAirVelocity;
@@ -92,12 +93,12 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
 
   public void TakeOff()
   {
-    bool isOnGround= (AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround);
+    bool isOnGround = (AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround);
 
     if (_movementMode == MovementMode.Walking && isOnGround)
     {
-      _firedTakeoffImpulse= false;
-      _hasReachedTakeoffApex= false;
+      _firedTakeoffImpulse = false;
+      _hasReachedTakeoffApex = false;
       SetMovementMode(MovementMode.TakeOffWindup);
     }
     else if (_movementMode == MovementMode.Perched)
@@ -115,8 +116,8 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   {
     if (_movementMode == MovementMode.Flying)
     {
-      _firedTakeoffImpulse= false;
-      _hasReachedTakeoffApex= false;
+      _firedTakeoffImpulse = false;
+      _hasReachedTakeoffApex = false;
       SetMovementMode(MovementMode.Landing);
     }
   }
@@ -125,8 +126,8 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   {
     if (_movementMode == MovementMode.Flying)
     {
-      _targetPerchLocation= pathDestinationLocation;
-      _targetPerchTransform= pathDestinationTransform;
+      _targetPerchLocation = pathDestinationLocation;
+      _targetPerchTransform = pathDestinationTransform;
       SetMovementMode(MovementMode.Perching);
     }
   }
@@ -138,23 +139,23 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
 
   private void Update()
   {
-    MovementMode newMovementMode= _movementMode;
+    MovementMode newMovementMode = _movementMode;
 
     if (_movementMode == MovementMode.Perching)
     {
-      Vector3 sourceLocation= this.transform.position;
-      Vector3 targetLocation= _targetPerchTransform != null ? _targetPerchTransform.position : _targetPerchLocation;
-
-      _timeInMovementMode+= Time.deltaTime;
+      Vector3 sourceLocation = this.transform.position;
+      Vector3 targetLocation = _targetPerchTransform != null ? _targetPerchTransform.position : _targetPerchLocation;
 
       // Blend into the perch location
-      this.transform.position =  Mathfx.Damp(sourceLocation, targetLocation, 0.25f, Time.deltaTime);
+      _timeInMovementMode += Time.deltaTime;
+      float perchT = Mathf.SmoothStep(0, 1, _timeInMovementMode / PerchingTime);
+      this.transform.position = Vector3.Lerp(_perchStartPosition, targetLocation, perchT);
 
       if (_timeInMovementMode >= PerchingTime)
       {
         // Snap to target location
-        this.transform.position= targetLocation;
-        newMovementMode= MovementMode.Perched;
+        this.transform.position = targetLocation;
+        newMovementMode = MovementMode.Perched;
       }
     }
 
@@ -167,56 +168,70 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
 
   public void AfterCharacterUpdate(float deltaTime)
   {
-    MovementMode newMovementMode= _movementMode;
+    MovementMode newMovementMode = _movementMode;
 
     switch (_movementMode)
     {
-    case MovementMode.Walking:
-      if (!Motor.GroundingStatus.IsStableOnGround)
-      {
-        newMovementMode= MovementMode.Falling;
-      }
-      break;
-    case MovementMode.Falling:
-      if (Motor.GroundingStatus.IsStableOnGround)
-      {
-        newMovementMode= MovementMode.Walking;
-      }
-      break;
-    case MovementMode.TakeOffWindup:
-      if (_firedTakeoffImpulse)
-      {
-        newMovementMode= MovementMode.TakeOff;
-      }
-      break;
-    case MovementMode.TakeOff:
-      if (!_hasReachedTakeoffApex && ProjectVelocityOnGravity() >= 0.0f)
-      {
-        _hasReachedTakeoffApex= true;
-        newMovementMode= MovementMode.Flying;
-      }
-      break;
-    case MovementMode.Flying:
-      // Stay in this state unil we are told to leave it
-      break;
-    case MovementMode.Landing:
-      if (Motor.GroundingStatus.IsStableOnGround)
-      {
-        newMovementMode= MovementMode.Walking;
-      }
-      break;
-    case MovementMode.Perching:
-      break;
-    case MovementMode.Perched:
-      // If our perch turned out to be on the ground, just go straigh to walking
-      if (Motor.GroundingStatus.IsStableOnGround)
-      {
-        newMovementMode= MovementMode.Walking;
-      }
-      break;
+      case MovementMode.Walking:
+        if (!Motor.GroundingStatus.IsStableOnGround)
+        {
+          newMovementMode = MovementMode.Falling;
+        }
+        break;
+      case MovementMode.Falling:
+        if (Motor.GroundingStatus.IsStableOnGround)
+        {
+          newMovementMode = MovementMode.Walking;
+        }
+        break;
+      case MovementMode.TakeOffWindup:
+        if (_firedTakeoffImpulse)
+        {
+          newMovementMode = MovementMode.TakeOff;
+        }
+        break;
+      case MovementMode.TakeOff:
+        if (!_hasReachedTakeoffApex && ProjectVelocityOnGravity() >= 0.0f)
+        {
+          _hasReachedTakeoffApex = true;
+          newMovementMode = MovementMode.Flying;
+        }
+        break;
+      case MovementMode.Flying:
+        // Stay in this state unil we are told to leave it
+        break;
+      case MovementMode.Landing:
+        if (Motor.GroundingStatus.IsStableOnGround)
+        {
+          newMovementMode = MovementMode.Walking;
+        }
+        break;
+      case MovementMode.Perching:
+        break;
+      case MovementMode.Perched:
+        // If our perch turned out to be on the ground, just go straigh to walking
+        if (Motor.GroundingStatus.IsStableOnGround)
+        {
+          newMovementMode = MovementMode.Walking;
+        }
+        break;
     }
 
     SetMovementMode(newMovementMode);
+  }
+
+  private void SetMotorEnabled(bool motorEnabled)
+  {
+    if (motorEnabled)
+    {
+      Vector3 oldPos = transform.position;
+      Motor.enabled = true;
+      Motor.SetPosition(oldPos);
+    }
+    else
+    {
+      Motor.enabled = false;
+    }
   }
 
   private void SetMovementMode(MovementMode newMode)
@@ -227,30 +242,31 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       // When leaving Perched, turn the motor back on
       if (_movementMode == MovementMode.Perched)
       {
-        _motor.enabled= true;
-
         // Detach from the perch
         if (_targetPerchTransform != null && this.transform.parent == _targetPerchTransform)
         {
-          this.transform.parent= null;
-          this.transform.localScale= Vector3.one;
-          _targetPerchTransform= null;
+          this.transform.parent = null;
+          this.transform.localScale = Vector3.one;
+          _targetPerchTransform = null;
         }
+
+        SetMotorEnabled(true);
       }
 
       // When entering Perching, turn the motor off
       if (newMode == MovementMode.Perching)
       {
-        _motor.enabled= false;
+        _perchStartPosition = transform.position;
+        SetMotorEnabled(false);
       }
       // When entering Perched, attach to the target perch transform
       else if (newMode == MovementMode.Perched && _targetPerchTransform != null)
       {
-        this.transform.parent= _targetPerchTransform;
+        this.transform.parent = _targetPerchTransform;
       }
 
-      _timeInMovementMode= 0.0f;
-      _movementMode= newMode;
+      _timeInMovementMode = 0.0f;
+      _movementMode = newMode;
     }
   }
 
@@ -269,28 +285,28 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   {
     switch (_movementMode)
     {
-    case MovementMode.Walking:
-      UpdateWalkingVelocity(ref currentVelocity, deltaTime);
-      break;
-    case MovementMode.Falling:
-      UpdateFallingVelocity(ref currentVelocity, deltaTime);
-      break;
-    case MovementMode.TakeOffWindup:
-      UpdateTakeOffWindUpVelocity(ref currentVelocity, deltaTime);
-      break;
-    case MovementMode.TakeOff:
-      UpdateTakeOffVelocity(ref currentVelocity, deltaTime);
-      break;
-    case MovementMode.Flying:
-      UpdateFlyingVelocity(ref currentVelocity, deltaTime);
-      break;
-    case MovementMode.Landing:
-      UpdateLandingVelocity(ref currentVelocity, deltaTime);
-      break;
-    case MovementMode.Perching:
-      break;
-    case MovementMode.Perched:
-      break;
+      case MovementMode.Walking:
+        UpdateWalkingVelocity(ref currentVelocity, deltaTime);
+        break;
+      case MovementMode.Falling:
+        UpdateFallingVelocity(ref currentVelocity, deltaTime);
+        break;
+      case MovementMode.TakeOffWindup:
+        UpdateTakeOffWindUpVelocity(ref currentVelocity, deltaTime);
+        break;
+      case MovementMode.TakeOff:
+        UpdateTakeOffVelocity(ref currentVelocity, deltaTime);
+        break;
+      case MovementMode.Flying:
+        UpdateFlyingVelocity(ref currentVelocity, deltaTime);
+        break;
+      case MovementMode.Landing:
+        UpdateLandingVelocity(ref currentVelocity, deltaTime);
+        break;
+      case MovementMode.Perching:
+        break;
+      case MovementMode.Perched:
+        break;
     }
   }
 
@@ -349,7 +365,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       currentVelocity += (jumpDirection * TakeoffPower) - Vector3.Project(currentVelocity, Motor.CharacterUp);
       currentVelocity += (WorldThrottle * JumpScalableForwardSpeed);
 
-      _firedTakeoffImpulse= true;
+      _firedTakeoffImpulse = true;
     }
 
     ApplyGravity(ref currentVelocity, deltaTime);
@@ -382,6 +398,9 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
 
   private void ApplyAirControl(ref Vector3 currentVelocity, float deltaTime)
   {
+    if (Motor.GroundingStatus.FoundAnyGround)
+      Motor.ForceUnground();
+
     // Add move input
     if (WorldThrottle.sqrMagnitude > 0f)
     {
@@ -401,16 +420,6 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
         if (Vector3.Dot(currentVelocityOnInputsPlane, addedVelocity) > 0f)
         {
           addedVelocity = Vector3.ProjectOnPlane(addedVelocity, currentVelocityOnInputsPlane.normalized);
-        }
-      }
-
-      // Prevent air-climbing sloped walls
-      if (Motor.GroundingStatus.FoundAnyGround)
-      {
-        if (Vector3.Dot(currentVelocity + addedVelocity, addedVelocity) > 0f)
-        {
-          Vector3 perpenticularObstructionNormal = Vector3.Cross(Vector3.Cross(Motor.CharacterUp, Motor.GroundingStatus.GroundNormal), Motor.CharacterUp).normalized;
-          addedVelocity = Vector3.ProjectOnPlane(addedVelocity, perpenticularObstructionNormal);
         }
       }
 

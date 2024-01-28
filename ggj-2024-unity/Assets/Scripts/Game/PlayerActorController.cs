@@ -177,8 +177,8 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   public CrowTarget FindBestCrowTarget()
   {
-    Vector3 rayOrigin= _cameraPlayer.transform.position;
-    Vector3 rayForward= _cameraPlayer.transform.forward;
+    Vector3 rayOrigin= _cameraPlayer.MountPoint.position;
+    Vector3 rayForward= _cameraPlayer.MountPoint.forward;
 
     // Find the best crow target 
     CrowTarget bestCrowTarget= null;
