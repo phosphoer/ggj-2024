@@ -5,7 +5,7 @@ public class CrowTarget : MonoBehaviour
 {
   public static IReadOnlyList<CrowTarget> Instances => _instances;
 
-  public float GatherTime= 10.0f;
+  public float GatherTime = 10.0f;
 
   [SerializeField]
   private GameObject _targetedHighlightPrefab = null;
@@ -15,11 +15,16 @@ public class CrowTarget : MonoBehaviour
 
   [SerializeField]
   private PerchController _perch = null;
-  public PerchController Perch => _perch; 
+  public PerchController Perch => _perch;
 
   private RectTransform _targetHighlightRoot;
 
   private static List<CrowTarget> _instances = new();
+
+  public bool IsInLineOfSight()
+  {
+    return Vector3.Distance(transform.position, PlayerActorController.Instance.transform.position) < PlayerActorController.kSelectMaxRadius;
+  }
 
   public ItemDefinition GetItemRewardDefinition()
   {
@@ -46,13 +51,13 @@ public class CrowTarget : MonoBehaviour
   public void SelectHighlight()
   {
     // Todo: proper highlight
-    _targetHighlightRoot.transform.localScale= new Vector3(2.0f, 2.0f, 2.0f);
+    _targetHighlightRoot.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
   }
 
   public void UnselectHighlight()
   {
     // Todo: proper highlight
-    _targetHighlightRoot.transform.localScale= new Vector3(1.0f, 1.0f, 1.0f);
+    _targetHighlightRoot.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
   }
 
   private void OnEnable()

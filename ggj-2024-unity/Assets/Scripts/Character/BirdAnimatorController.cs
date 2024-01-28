@@ -25,6 +25,9 @@ public class BirdAnimatorController : MonoBehaviour
   [SerializeField]
   private Animator _animator = null;
 
+  [SerializeField]
+  private List<Animator> _blingAnimators = new List<Animator>();
+
   private BirdMovementController.MovementMode _currentMovementMove;
   private float _currentLocomotionSpeed;
   private bool _isChanneling;
@@ -35,9 +38,30 @@ public class BirdAnimatorController : MonoBehaviour
   private static readonly int kAnimIsPerching = Animator.StringToHash("IsPerching");
   private static readonly int kAnimIsChanneling = Animator.StringToHash("IsChanneling");
 
+
+  public void AddBlingAnimator(Animator animator)
+  {
+    ApplyStateToAnimator(animator);
+    _blingAnimators.Add(animator);
+  }
+
+  public void RemoveBlingAnimator(Animator animator)
+  {
+    _blingAnimators.Remove(animator);
+  }
+
   private void Update()
   {
-    if (_animator != null)
+    ApplyStateToAnimator(_animator);
+    foreach (Animator animator in _blingAnimators)
+    {
+      ApplyStateToAnimator(animator);
+    }
+  }
+
+  public void ApplyStateToAnimator(Animator animator)
+  {
+    if (animator != null)
     {
       bool isFlying= false;
       bool isWalking= false;
@@ -63,11 +87,11 @@ public class BirdAnimatorController : MonoBehaviour
         break;
       }
 
-      _animator.SetBool(kAnimIsFlying, isFlying);
-      _animator.SetBool(kAnimIsWalking, isWalking);
-      _animator.SetBool(kAnimIsPerching, isPerching);
-      _animator.SetBool(kAnimIsChanneling, _isChanneling);
-      _animator.SetFloat(kAnimMoveSpeed, speed);
+      animator.SetBool(kAnimIsFlying, isFlying);
+      animator.SetBool(kAnimIsWalking, isWalking);
+      animator.SetBool(kAnimIsPerching, isPerching);
+      animator.SetBool(kAnimIsChanneling, _isChanneling);
+      animator.SetFloat(kAnimMoveSpeed, speed);
     }
   }
 }

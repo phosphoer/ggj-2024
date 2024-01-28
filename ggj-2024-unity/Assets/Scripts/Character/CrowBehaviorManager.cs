@@ -515,6 +515,12 @@ public class CrowBehaviorManager : MonoBehaviour
       nextBehavior = BehaviorState.Idle;
     }
 
+    if (nextBehavior == BehaviorState.Idle)
+    {
+      // Relinquish our reservation on the player staff
+      PlayerActorController.Instance.LeaveStaffPerch(this);
+    }
+
     return nextBehavior;
   }
 

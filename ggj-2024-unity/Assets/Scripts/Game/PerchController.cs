@@ -31,7 +31,7 @@ public class PerchController : MonoBehaviour
   {
     if (!IsPerchReserved())
     {
-      _owningBird= bird;
+      _owningBird = bird;
       return true;
     }
 
@@ -42,7 +42,7 @@ public class PerchController : MonoBehaviour
   {
     if (_owningBird == bird)
     {
-      _owningBird= null;
+      _owningBird = null;
       return true;
     }
 

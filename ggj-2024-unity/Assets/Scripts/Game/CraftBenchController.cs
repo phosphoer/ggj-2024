@@ -19,6 +19,9 @@ public class CraftBenchController : MonoBehaviour
   private bool _allowInvalidRecipe = false;
 
   [SerializeField]
+  private bool _allowInvalidIngredients = true;
+
+  [SerializeField]
   private RecipeDefinition[] _recipes = null;
 
   [SerializeField]
@@ -80,6 +83,16 @@ public class CraftBenchController : MonoBehaviour
     ItemController item = c.GetComponentInParent<ItemController>();
     if (item != null && item.ItemDefinition.IsIngredient && item.WasThrown)
     {
+      if (!_allowInvalidIngredients)
+      {
+        bool isValid = false;
+        foreach (var recipe in _recipes)
+          isValid |= recipe.RequiresIngredient(item.ItemDefinition);
+
+        if (!isValid)
+          return;
+      }
+
       _inventory.AddItem(item);
     }
   }

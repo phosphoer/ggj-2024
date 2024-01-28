@@ -14,6 +14,17 @@ public class RecipeDefinition : ScriptableObject
   public float CookDuration = 5;
   public RecipeIngredient[] Ingredients;
 
+  public bool RequiresIngredient(ItemDefinition item)
+  {
+    foreach (var ingredient in Ingredients)
+    {
+      if (ingredient.Item == item)
+        return true;
+    }
+
+    return false;
+  }
+
   public int GetTotalIngredientCount()
   {
     int total = 0;
