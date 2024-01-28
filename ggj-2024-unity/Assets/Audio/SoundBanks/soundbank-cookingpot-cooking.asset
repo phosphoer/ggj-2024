@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c345fe0be4353445895a73c7861c323d, type: 3}
-  m_Name: soundbank-ui-toss-coin
+  m_Name: soundbank-cookingpot-cooking
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: 4d358f1d622629745b4f74860135e76d, type: 3}
-  - {fileID: 8300000, guid: ce489154e4bf192448afe271e322deec, type: 3}
-  - {fileID: 8300000, guid: 0cbe072aaf07e9e4cbb05157ead0921f, type: 3}
-  - {fileID: 8300000, guid: fdd1f472452ff2c4384b343945b8ae7a, type: 3}
-  - {fileID: 8300000, guid: 9167113af6570f242a8cec18822b95ca, type: 3}
+  - {fileID: 8300000, guid: cd43f6338b41a2c4e9772de126e06952, type: 3}
   SequencedClips: []
-  IsLooping: 0
+  IsLooping: 1
   IsSpatial: 1
   MaxDistance: 10
-  MinDistance: 1
+  MinDistance: 3
   VolumeScale: 1
   DopplerLevel: 0
   PitchOffset: 0
