@@ -15612,6 +15612,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6357400429900610685, guid: d1fd3b440ca48d644a6eada230fba824, type: 3}
+      propertyPath: _recipes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357400429900610685, guid: d1fd3b440ca48d644a6eada230fba824, type: 3}
+      propertyPath: _recipes.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4090d65dc267fb340a9f024d79145122, type: 2}
     - target: {fileID: 6444941659091406563, guid: d1fd3b440ca48d644a6eada230fba824, type: 3}
       propertyPath: m_Name
       value: Hut
