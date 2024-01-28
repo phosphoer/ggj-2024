@@ -174,6 +174,16 @@ public class PlayerActorController : Singleton<PlayerActorController>
         AudioManager.Instance.PlaySound(gameObject, _sfxAttack);
 
       _animator.SetBool(kAnimIsAttacking, true);
+
+      foreach (var crow in CrowBehaviorManager.Instances)
+      {
+        float dist = Vector3.Distance(transform.position, crow.transform.position);
+        if (dist < 1f && crow != _commandingCrow)
+        {
+          crow.SetBehaviorState(CrowBehaviorManager.BehaviorState.Wander);
+          crow.BirdMovement.TakeOff();
+        }
+      }
     }
 
     // Camera controls
