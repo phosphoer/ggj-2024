@@ -678,21 +678,24 @@ public class CrowBehaviorManager : MonoBehaviour
       case BehaviorState.MoveToPublicPerch:
         {
           _reservedPublicPerch = _perceptionComponent.NearbyPublicPerch;
-          _reservedPublicPerch.ReservePerch(this);
-
-          Transform perchTransform = _reservedPublicPerch.transform;
-          Vector2 perchPosition = perchTransform.position;
-
-          _throttleUrgency = 0.5f; // full speed
-          _pathRefreshPeriod = -1.0f; // manual refresh
-
-          if (_reservedPublicPerch.IsWalkablePerch)
+          if (_reservedPublicPerch != null)
           {
-            RecomputePathTo(perchPosition, null, PathDestinationType.Ground);
-          }
-          else
-          {
-            RecomputePathTo(perchPosition, perchTransform, PathDestinationType.StaticPerch);
+            _reservedPublicPerch.ReservePerch(this);
+
+            Transform perchTransform = _reservedPublicPerch.transform;
+            Vector2 perchPosition = perchTransform.position;
+
+            _throttleUrgency = 0.5f; // full speed
+            _pathRefreshPeriod = -1.0f; // manual refresh
+
+            if (_reservedPublicPerch.IsWalkablePerch)
+            {
+              RecomputePathTo(perchPosition, null, PathDestinationType.Ground);
+            }
+            else
+            {
+              RecomputePathTo(perchPosition, perchTransform, PathDestinationType.StaticPerch);
+            }
           }
         }
         break;
