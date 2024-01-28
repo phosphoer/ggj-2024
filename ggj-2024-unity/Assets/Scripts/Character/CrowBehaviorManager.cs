@@ -341,19 +341,24 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     BehaviorState nextBehavior = BehaviorState.Idle;
 
-    // If we spot food, go to it!
-    if (_perceptionComponent.SeesNearbyFood && !_perceptionComponent.NearbyFood.IsBeingCollected)
+    if (_birdMovement.MoveMode == BirdMovementController.MovementMode.Walking ||
+        _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying || 
+        _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched)
     {
-      nextBehavior = BehaviorState.SeekFood;
-    }
-    else if (_perceptionComponent.SeesNearbyPublicPerch && _publicPerchCooldownTimer <= 0)
-    {
-      nextBehavior = BehaviorState.MoveToPublicPerch;
-    }
-    // Been in idle too long, go somewhere else
-    else if (_timeInBehavior >= _idleDuration)
-    {
-      nextBehavior = BehaviorState.Wander;
+      // If we spot food, go to it!
+      if (_perceptionComponent.SeesNearbyFood && !_perceptionComponent.NearbyFood.IsBeingCollected)
+      {
+        nextBehavior = BehaviorState.SeekFood;
+      }
+      else if (_perceptionComponent.SeesNearbyPublicPerch && _publicPerchCooldownTimer <= 0)
+      {
+        nextBehavior = BehaviorState.MoveToPublicPerch;
+      }
+      // Been in idle too long, go somewhere else
+      else if (_timeInBehavior >= _idleDuration)
+      {
+        nextBehavior = BehaviorState.Wander;
+      }
     }
 
     return nextBehavior;
