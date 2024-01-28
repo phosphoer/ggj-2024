@@ -398,31 +398,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2261388117090748505, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 7952234216992559990, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 6997287498502226573, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4655027805116261490, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8208822041250259736, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 6806384663685767462, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 5806873249556810419, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1167471759961744736, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
