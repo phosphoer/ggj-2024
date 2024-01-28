@@ -532,6 +532,7 @@ public class CrowBehaviorManager : MonoBehaviour
     case BehaviorState.SeekCommandTarget:
       break;
     case BehaviorState.GatherItem:
+      _birdAnimator.IsChanneling= false;
       break;
     case BehaviorState.ReturnItem:
       break;
@@ -582,6 +583,7 @@ public class CrowBehaviorManager : MonoBehaviour
     case BehaviorState.SeekCommandTarget:
       break;
     case BehaviorState.GatherItem:
+      _birdAnimator.IsChanneling= true;
       break;
     case BehaviorState.ReturnItem:
       {

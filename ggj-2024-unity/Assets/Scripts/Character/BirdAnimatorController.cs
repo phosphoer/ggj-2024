@@ -7,19 +7,19 @@ public class BirdAnimatorController : MonoBehaviour
   public BirdMovementController.MovementMode CurrentMovementMode
   {
     get { return _currentMovementMove; }
-    set
-    {
-      _currentMovementMove = value;
-    }
+    set { _currentMovementMove = value; }
   }
 
   public float CurrentLocomotionSpeed
   {
     get { return _currentLocomotionSpeed; }
-    set
-    {
-      _currentLocomotionSpeed = value;
-    }
+    set { _currentLocomotionSpeed = value; }
+  }
+
+  public bool IsChanneling
+  {
+    get { return _isChanneling; }
+    set { _isChanneling = value; }
   }
 
   [SerializeField]
@@ -27,11 +27,13 @@ public class BirdAnimatorController : MonoBehaviour
 
   private BirdMovementController.MovementMode _currentMovementMove;
   private float _currentLocomotionSpeed;
+  private bool _isChanneling;
 
   private static readonly int kAnimMoveSpeed = Animator.StringToHash("MoveSpeed");
   private static readonly int kAnimIsFlying = Animator.StringToHash("IsFlying");
   private static readonly int kAnimIsWalking = Animator.StringToHash("IsWalking");
   private static readonly int kAnimIsPerching = Animator.StringToHash("IsPerching");
+  private static readonly int kAnimIsChanneling = Animator.StringToHash("IsChanneling");
 
   private void Update()
   {
@@ -64,6 +66,7 @@ public class BirdAnimatorController : MonoBehaviour
       _animator.SetBool(kAnimIsFlying, isFlying);
       _animator.SetBool(kAnimIsWalking, isWalking);
       _animator.SetBool(kAnimIsPerching, isPerching);
+      _animator.SetBool(kAnimIsChanneling, _isChanneling);
       _animator.SetFloat(kAnimMoveSpeed, speed);
     }
   }
