@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c345fe0be4353445895a73c7861c323d, type: 3}
+  m_Name: soundbank-sticky-radio
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: f2ff32d5e5b8a49f5853c7ddbeda6c3f, type: 3}
+  - {fileID: 8300000, guid: 6f3a42f49949c46bf91009ce1e993916, type: 3}
+  - {fileID: 8300000, guid: 12d1fc6536b984c429ee212f742d758e, type: 3}
+  - {fileID: 8300000, guid: 575f3801115644e46aa0c9ff93fa4195, type: 3}
+  - {fileID: 8300000, guid: 60a90aaaf6a2f41dbbf1c7c105f6e437, type: 3}
+  - {fileID: 8300000, guid: 928d46d29bab9410d93655181d069ab5, type: 3}
+  - {fileID: 8300000, guid: 71d973db547784fa0849d44226e81a8a, type: 3}
+  - {fileID: 8300000, guid: 395b55c658bec43b4bb6007f36877858, type: 3}
+  - {fileID: 8300000, guid: 37e255591fb554948b08716729e1216a, type: 3}
+  - {fileID: 8300000, guid: b07486fc15fc242e2a45641250da8c9f, type: 3}
+  - {fileID: 8300000, guid: 5c973610e1b03419ebfe7c7fb3b986fd, type: 3}
+  - {fileID: 8300000, guid: 103ccbce0a00942c899aedb6d0578ec9, type: 3}
+  - {fileID: 8300000, guid: 6fc0af09e38644003a42f0cca8bc160b, type: 3}
+  - {fileID: 8300000, guid: 4dffbe06046f24614bd96414a005ce1e, type: 3}
+  - {fileID: 8300000, guid: 5ea67fc587d9b42da9621fcc0ac092d5, type: 3}
+  - {fileID: 8300000, guid: 96ae9beb775da4146b82e2264d28091e, type: 3}
+  - {fileID: 8300000, guid: 1674de3c9d9814a6d8a179fc331c0654, type: 3}
+  - {fileID: 8300000, guid: ddfe8c5422e1e4ed2997196f4e5e18c2, type: 3}
+  - {fileID: 8300000, guid: f1e0ac42b3f50460a8bb84e37cd9c8f3, type: 3}
+  - {fileID: 8300000, guid: 4b2ef91c1ed6141adbcbb02ff2edacf6, type: 3}
+  - {fileID: 8300000, guid: 5e9d9a8a0362549b8960c6bdb2ec03f2, type: 3}
+  - {fileID: 8300000, guid: 3c2d0d9a92b5a42a287d266cf41c8c29, type: 3}
+  - {fileID: 8300000, guid: d9d69a882ae5346669282400d065179a, type: 3}
+  - {fileID: 8300000, guid: 7a520ea842a3447a3a477ab2355c9dd1, type: 3}
+  - {fileID: 8300000, guid: 7cc0fb4ec247147209cbf458436c18dc, type: 3}
+  - {fileID: 8300000, guid: 8939861f37489465d8ea876aa0756387, type: 3}
+  - {fileID: 8300000, guid: 59b0feee2eb364ceeb2b2fb7177bb35e, type: 3}
+  SequencedClips: []
+  IsLooping: 0
+  IsSpatial: 1
+  MaxDistance: 20
+  MinDistance: 2
+  VolumeScale: 0.6
+  DopplerLevel: 0
+  PitchOffset: 0
+  PitchOffsetRange:
+    MinValue: 0
+    MaxValue: 0
+  AudioMixerGroup: {fileID: -5508056891975790861, guid: 8171d699542074840958fd8789e46ed9, type: 2}
