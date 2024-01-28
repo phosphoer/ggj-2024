@@ -493,6 +493,7 @@ public class CrowBehaviorManager : MonoBehaviour
       {
         if (!RecomputePathTo(targetLocation, _pathDestinationTransform, PathDestinationType.Ground))
         {
+          BarfUpPlayerItems();
           nextBehavior = BehaviorState.Idle;
         }
       }
