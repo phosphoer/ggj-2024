@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31cc4c727ef9b44ef8bdcddb5805aafa, type: 3}
+  m_Name: item-recipeboard-bugsnack
+  m_EditorClassIdentifier: 
+  Name: Bug Snack Recipe
+  Prefab: {fileID: 8269033893719048381, guid: f6c985d0d3e54433eb62f529d1d9f41e, type: 3}
+  IsIngredient: 0
+  IsCrowFood: 0
+  CrowXP: 0
+  ShopValue: 5
