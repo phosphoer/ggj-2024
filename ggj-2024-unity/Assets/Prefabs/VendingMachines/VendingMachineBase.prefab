@@ -270,6 +270,9 @@ MonoBehaviour:
   _recipeCostText: {fileID: 3325089610329161623}
   _returnMaterialString: Return Coin
   _craftItemString: Vend {0}
+  _sfxIngredientAdded: {fileID: 11400000, guid: 39bbaca6a26814065a4c84c673f32803, type: 2}
+  _sfxCraftingStarted: {fileID: 11400000, guid: 72fc1c5c748c2428d8aaaec4d728d1d3, type: 2}
+  _sfxCraftingComplete: {fileID: 0}
 --- !u!114 &4253922912950494684
 MonoBehaviour:
   m_ObjectHideFlags: 0

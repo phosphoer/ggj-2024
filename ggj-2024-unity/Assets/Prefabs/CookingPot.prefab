@@ -15242,6 +15242,7 @@ MonoBehaviour:
   - {fileID: 7644706049143766173}
   - {fileID: 4362670822785370215}
   _allowInvalidRecipe: 1
+  _allowInvalidIngredients: 1
   _recipes:
   - {fileID: 11400000, guid: d6b274329bb85aa44a2f29d56962c3f5, type: 2}
   - {fileID: 11400000, guid: 05edc24567a044d9997f4af49f2a5a2c, type: 2}
@@ -15251,6 +15252,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4213b0a63572cc543981b6e370d94fae, type: 2}
   - {fileID: 11400000, guid: 91c0c190b6560554ab56ccbc0c3105d3, type: 2}
   _invalidRecipe: {fileID: 11400000, guid: 073a6e18cfae44819abcde664e5ef72d, type: 2}
+  _recipeCostText: {fileID: 0}
+  _returnMaterialString: Return Materials
+  _craftItemString: Craft {0}
+  _sfxIngredientAdded: {fileID: 0}
+  _sfxCraftingStarted: {fileID: 0}
+  _sfxCraftingComplete: {fileID: 0}
 --- !u!114 &8175518535255797117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15285,6 +15292,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemSpawnAnchor: {fileID: 2928662469247941158}
+  _itemCollectAnchor: {fileID: 0}
+  _sfxToss: {fileID: 11400000, guid: c5e2bccf929b34aa78532d6f8e3a2c95, type: 2}
 --- !u!54 &8435698263401213742
 Rigidbody:
   m_ObjectHideFlags: 0

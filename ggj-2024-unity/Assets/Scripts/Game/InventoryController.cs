@@ -17,6 +17,12 @@ public class InventoryController : MonoBehaviour
   [SerializeField]
   private Transform _itemCollectAnchor = null;
 
+  [SerializeField]
+  private SoundBank _sfxToss = null;
+
+  [SerializeField]
+  private SoundBank _sfxCollect = null;
+
   private List<ItemDefinition> _items = new();
   private List<ItemController> _pendingItemPickups = new();
   private List<float> _pendingItemPickupTimers = new();
@@ -59,6 +65,9 @@ public class InventoryController : MonoBehaviour
       _pendingItemPickupTimers.Add(0);
       _pendingItemPickupOrigins.Add(item.transform.position);
       PickupStarted?.Invoke(item);
+
+      if (_sfxCollect != null)
+        AudioManager.Instance.PlaySound(gameObject, _sfxCollect);
     }
   }
 
@@ -108,6 +117,9 @@ public class InventoryController : MonoBehaviour
 
       UIHydrate hydrate = itemController.gameObject.AddComponent<UIHydrate>();
       hydrate.Hydrate();
+
+      if (_sfxToss != null)
+        AudioManager.Instance.PlaySound(gameObject, _sfxToss);
 
       return itemController;
     }

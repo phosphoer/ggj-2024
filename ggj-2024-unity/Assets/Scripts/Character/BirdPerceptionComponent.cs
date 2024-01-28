@@ -20,6 +20,13 @@ public class BirdPerceptionComponent : MonoBehaviour
     get { return _nearbyFood != null; }
   }
 
+  private PerchController _nearbyPublicPerch = null;
+  public PerchController NearbyPublicPerch => _nearbyPublicPerch;
+  public bool SeesNearbyPublicPerch
+  {
+    get { return _nearbyFood != null; }
+  }
+
   void Start()
   {
     _refreshTimer = Random.Range(0, RefreshInterval); // Randomly offset that that minimize AI spawned the same frame updating at the same time
@@ -32,6 +39,8 @@ public class BirdPerceptionComponent : MonoBehaviour
     {
       _refreshTimer = RefreshInterval;
       RefreshNearbyFoodInformation();
+      RefreshNearbyPerchInformation();
+      RedrawVisionRadius();
     }
   }
 
@@ -52,7 +61,29 @@ public class BirdPerceptionComponent : MonoBehaviour
         }
       }
     }
+  }
 
+  void RefreshNearbyPerchInformation()
+  {
+    _nearbyPublicPerch= null;
+
+    float closestDistance= 0.0f;
+    foreach (PerchController perch in PerchController.Instances)
+    {
+      if (perch.IsPublicPerch && !perch.IsPerchReserved())
+      {
+        float perchDistance = Vector3.Distance(transform.position, perch.transform.position);
+        if (_nearbyPublicPerch == null || perchDistance < closestDistance)
+        {
+          closestDistance= perchDistance;
+          _nearbyPublicPerch= perch;
+        }
+      }
+    }
+  }
+
+  void RedrawVisionRadius()
+  {
     if (DrawDebug)
     {
       Vector3 origin = transform.position;
@@ -73,7 +104,7 @@ public class BirdPerceptionComponent : MonoBehaviour
 
           Debug.DrawLine(
             prevFrontPoint, nextFrontPoint,
-            _nearbyFood != null ? Color.green : Color.gray,
+            SeesNearbyFood || SeesNearbyPublicPerch ? Color.green : Color.gray,
             _refreshTimer);
           prevFrontPoint = nextFrontPoint;
         }

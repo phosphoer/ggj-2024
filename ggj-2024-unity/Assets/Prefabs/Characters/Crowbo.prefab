@@ -64,6 +64,8 @@ MonoBehaviour:
   _cameraPlayerPrefab: {fileID: 1950268338973255397, guid: ba7fedb4f69f44a158b5eb1f53fd9498, type: 3}
   _staffPerches:
   - {fileID: 2937878460435715271}
+  _sfxPickup: {fileID: 11400000, guid: 1ae912877565e47db8cfd67715a639df, type: 2}
+  _sfxAttack: {fileID: 11400000, guid: 11269a17ccbc84c1ab2d908f007c3c85, type: 2}
 --- !u!114 &3215897674524226828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemSpawnAnchor: {fileID: 959448567414112341}
   _itemCollectAnchor: {fileID: 0}
+  _sfxToss: {fileID: 11400000, guid: c5e2bccf929b34aa78532d6f8e3a2c95, type: 2}
 --- !u!114 &4088988399815621296
 MonoBehaviour:
   m_ObjectHideFlags: 0

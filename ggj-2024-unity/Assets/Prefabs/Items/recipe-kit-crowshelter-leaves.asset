@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: recipe-kit-crowshelter-leaves
   m_EditorClassIdentifier: 
   Result: {fileID: 11400000, guid: 1a40ce5f365b54763b6ff34d7cb12424, type: 2}
-  CookDuration: 5
+  CookDuration: 3
   Ingredients:
   - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
     Count: 1

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c345fe0be4353445895a73c7861c323d, type: 3}
+  m_Name: soundbank-crowbo-footstep
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: b0547abd8d5d8ae4696136cc2b5960d1, type: 3}
+  - {fileID: 8300000, guid: 6de98e676502cdc438b6d838f22defef, type: 3}
+  - {fileID: 8300000, guid: 4488ba97cb3965d4cac3aad65d39d038, type: 3}
+  - {fileID: 8300000, guid: 065235d869f6b8843993c84ff62cf0f2, type: 3}
+  SequencedClips: []
+  IsLooping: 0
+  IsSpatial: 1
+  MaxDistance: 50
+  MinDistance: 10
+  VolumeScale: 1
+  DopplerLevel: 0
+  PitchOffset: 0
+  PitchOffsetRange:
+    MinValue: -0.1
+    MaxValue: 0.1
+  AudioMixerGroup: {fileID: 0}

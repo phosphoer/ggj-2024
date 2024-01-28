@@ -36,6 +36,15 @@ public class CraftBenchController : MonoBehaviour
   [SerializeField]
   private string _craftItemString = "Craft {0}";
 
+  [SerializeField]
+  private SoundBank _sfxIngredientAdded = null;
+
+  [SerializeField]
+  private SoundBank _sfxCraftingStarted = null;
+
+  [SerializeField]
+  private SoundBank _sfxCraftingComplete = null;
+
   private bool _isConstructing = false;
   private float _constructionTimer = 0;
   private RecipeDefinition _activeRecipe = null;
@@ -110,6 +119,9 @@ public class CraftBenchController : MonoBehaviour
 
     _pendingIngredients.Add(item);
 
+    if (_sfxIngredientAdded != null)
+      AudioManager.Instance.PlaySound(gameObject, _sfxIngredientAdded);
+
     UpdateInteractable();
   }
 
@@ -173,6 +185,9 @@ public class CraftBenchController : MonoBehaviour
     _interactable.enabled = false;
     _constructionTimer = 0;
 
+    if (_sfxCraftingStarted != null)
+      AudioManager.Instance.PlaySound(gameObject, _sfxCraftingStarted);
+
     foreach (var fx in _fxConstruction)
       fx.Play();
   }
@@ -189,13 +204,9 @@ public class CraftBenchController : MonoBehaviour
     ItemDefinition outputItemDef = _activeRecipe.Result;
     _inventory.AddItem(outputItemDef);
     _inventory.TossItem(outputItemDef, (Random.insideUnitCircle.OnXZPlane() + Vector3.up) * 3, markAsThrown: false);
-    // ItemController outputItem = Instantiate(outputItemDef.Prefab);
-    // outputItem.transform.position = _inventory.ItemSpawnAnchor.position;
-    // outputItem.Rigidbody.AddForce((Random.insideUnitCircle.OnXZPlane() + Vector3.up) * 3, ForceMode.VelocityChange);
-    // outputItem.WasThrown = false;
 
-    // UIHydrate hydrate = outputItem.gameObject.AddComponent<UIHydrate>();
-    // hydrate.Hydrate();
+    if (_sfxCraftingComplete != null)
+      AudioManager.Instance.PlaySound(gameObject, _sfxCraftingComplete);
   }
 
   private RecipeDefinition GetRecipeForIngredients()

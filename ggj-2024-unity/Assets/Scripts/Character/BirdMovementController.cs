@@ -53,6 +53,9 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   [SerializeField]
   private float _standCapsuleHeight = 2f;
 
+  [SerializeField]
+  private SoundBank _sfxTakeOff = null;
+
   private bool _firedTakeoffImpulse = false;
   private bool _hasReachedTakeoffApex = false;
   private Vector3 _perchStartPosition = Vector3.zero;
@@ -173,16 +176,6 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     switch (_movementMode)
     {
       case MovementMode.Walking:
-        if (!Motor.GroundingStatus.IsStableOnGround)
-        {
-          newMovementMode = MovementMode.Falling;
-        }
-        break;
-      case MovementMode.Falling:
-        if (Motor.GroundingStatus.IsStableOnGround)
-        {
-          newMovementMode = MovementMode.Walking;
-        }
         break;
       case MovementMode.TakeOffWindup:
         if (_firedTakeoffImpulse)
@@ -265,6 +258,12 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
         this.transform.parent = _targetPerchTransform;
       }
 
+      if (newMode == MovementMode.TakeOffWindup)
+      {
+        if (_sfxTakeOff != null)
+          AudioManager.Instance.PlaySound(gameObject, _sfxTakeOff);
+      }
+
       _timeInMovementMode = 0.0f;
       _movementMode = newMode;
     }
@@ -287,9 +286,6 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     {
       case MovementMode.Walking:
         UpdateWalkingVelocity(ref currentVelocity, deltaTime);
-        break;
-      case MovementMode.Falling:
-        UpdateFallingVelocity(ref currentVelocity, deltaTime);
         break;
       case MovementMode.TakeOffWindup:
         UpdateTakeOffWindUpVelocity(ref currentVelocity, deltaTime);
@@ -337,13 +333,6 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       // Smooth movement Velocity
       currentVelocity = Mathfx.Damp(currentVelocity, targetMovementVelocity, 0.25f, deltaTime * MoveAccel);
     }
-  }
-
-  private void UpdateFallingVelocity(ref Vector3 currentVelocity, float deltaTime)
-  {
-    ApplyAirControl(ref currentVelocity, deltaTime);
-    ApplyGravity(ref currentVelocity, deltaTime);
-    ApplyDrag(ref currentVelocity, deltaTime);
   }
 
   private void UpdateTakeOffWindUpVelocity(ref Vector3 currentVelocity, float deltaTime)
