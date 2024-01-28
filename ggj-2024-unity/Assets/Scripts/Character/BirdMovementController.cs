@@ -62,6 +62,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
   private Vector3 _targetPerchLocation = Vector3.zero;
   private Transform _targetPerchTransform = null;
   private Vector3 _lastAirVelocity;
+  private float _lastTakeoffSfxTimer;
   private Collider[] _probedColliders = new Collider[8];
 
   public float GetSpeed()
@@ -142,6 +143,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
 
   private void Update()
   {
+    _lastTakeoffSfxTimer += Time.deltaTime;
     MovementMode newMovementMode = _movementMode;
 
     if (_movementMode == MovementMode.Perching)
@@ -258,10 +260,13 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
         this.transform.parent = _targetPerchTransform;
       }
 
-      if (newMode == MovementMode.TakeOffWindup)
+      if (newMode == MovementMode.TakeOffWindup || newMode == MovementMode.Flying)
       {
-        if (_sfxTakeOff != null)
+        if (_sfxTakeOff != null && _lastTakeoffSfxTimer > 3)
+        {
+          _lastTakeoffSfxTimer = 0;
           AudioManager.Instance.PlaySound(gameObject, _sfxTakeOff);
+        }
       }
 
       _timeInMovementMode = 0.0f;
