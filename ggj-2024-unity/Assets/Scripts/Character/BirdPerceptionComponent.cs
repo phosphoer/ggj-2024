@@ -54,6 +54,10 @@ public class BirdPerceptionComponent : MonoBehaviour
       if (item.ItemDefinition.IsCrowFood && !item.IsBeingCollected)
       {
         float foodDistance = Vector3.Distance(transform.position, item.transform.position);
+
+        if (foodDistance > VisionDistance)
+          continue;
+
         if (_nearbyFood == null || foodDistance < closestDistance)
         {
           closestDistance= foodDistance;
@@ -73,6 +77,10 @@ public class BirdPerceptionComponent : MonoBehaviour
       if (perch.IsPublicPerch && !perch.IsPerchReserved())
       {
         float perchDistance = Vector3.Distance(transform.position, perch.transform.position);
+
+        if (perchDistance > VisionDistance)
+          continue;
+
         if (_nearbyPublicPerch == null || perchDistance < closestDistance)
         {
           closestDistance= perchDistance;
