@@ -15256,8 +15256,9 @@ MonoBehaviour:
   _returnMaterialString: Return Materials
   _craftItemString: Craft {0}
   _sfxIngredientAdded: {fileID: 0}
-  _sfxCraftingStarted: {fileID: 0}
+  _sfxCraftingStarted: {fileID: 11400000, guid: f32b6258a3c054d98a9c8e9ca0f2dc02, type: 2}
   _sfxCraftingComplete: {fileID: 0}
+  _sfxCraftingFail: {fileID: 11400000, guid: 6ab21df2ec0594e22a6f6790ba8cb173, type: 2}
 --- !u!114 &8175518535255797117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15294,6 +15295,7 @@ MonoBehaviour:
   _itemSpawnAnchor: {fileID: 2928662469247941158}
   _itemCollectAnchor: {fileID: 0}
   _sfxToss: {fileID: 11400000, guid: c5e2bccf929b34aa78532d6f8e3a2c95, type: 2}
+  _sfxCollect: {fileID: 0}
 --- !u!54 &8435698263401213742
 Rigidbody:
   m_ObjectHideFlags: 0

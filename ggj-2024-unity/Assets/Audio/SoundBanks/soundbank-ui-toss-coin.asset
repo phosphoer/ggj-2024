@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: soundbank-ui-toss-coin
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: 70d3ce09b4858461783f0dc39845bf45, type: 3}
+  - {fileID: 8300000, guid: 4d358f1d622629745b4f74860135e76d, type: 3}
+  - {fileID: 8300000, guid: ce489154e4bf192448afe271e322deec, type: 3}
+  - {fileID: 8300000, guid: 0cbe072aaf07e9e4cbb05157ead0921f, type: 3}
+  - {fileID: 8300000, guid: fdd1f472452ff2c4384b343945b8ae7a, type: 3}
+  - {fileID: 8300000, guid: 9167113af6570f242a8cec18822b95ca, type: 3}
   SequencedClips: []
   IsLooping: 0
   IsSpatial: 1
-  MaxDistance: 50
-  MinDistance: 10
+  MaxDistance: 10
+  MinDistance: 1
   VolumeScale: 1
   DopplerLevel: 0
   PitchOffset: 0

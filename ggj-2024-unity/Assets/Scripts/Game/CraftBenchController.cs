@@ -45,10 +45,14 @@ public class CraftBenchController : MonoBehaviour
   [SerializeField]
   private SoundBank _sfxCraftingComplete = null;
 
+  [SerializeField]
+  private SoundBank _sfxCraftingFail = null;
+
   private bool _isConstructing = false;
   private float _constructionTimer = 0;
   private RecipeDefinition _activeRecipe = null;
   private List<ItemController> _pendingIngredients = new();
+  private AudioManager.AudioInstance _audioCookingInstance;
 
   private void Awake()
   {
@@ -205,8 +209,19 @@ public class CraftBenchController : MonoBehaviour
     _inventory.AddItem(outputItemDef);
     _inventory.TossItem(outputItemDef, (Random.insideUnitCircle.OnXZPlane() + Vector3.up) * 3, markAsThrown: false);
 
-    if (_sfxCraftingComplete != null)
-      AudioManager.Instance.PlaySound(gameObject, _sfxCraftingComplete);
+    if (_sfxCraftingStarted != null)
+      AudioManager.Instance.StopSound(gameObject, _sfxCraftingStarted);
+
+    if (outputItemDef == _invalidRecipe)
+    {
+      if (_sfxCraftingFail != null)
+        AudioManager.Instance.PlaySound(gameObject, _sfxCraftingFail);
+    }
+    else
+    {
+      if (_sfxCraftingComplete != null)
+        AudioManager.Instance.PlaySound(gameObject, _sfxCraftingComplete);
+    }
   }
 
   private RecipeDefinition GetRecipeForIngredients()
