@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: recipe-kit-lantern
   m_EditorClassIdentifier: 
   Result: {fileID: 11400000, guid: 9006b58b559a1e849b5fbac755613509, type: 2}
-  CookDuration: 3
+  CookDuration: 30
   Ingredients:
   - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
     Count: 3

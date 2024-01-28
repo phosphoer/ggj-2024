@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemController: {fileID: 5595659566637781942}
-  _constructPrefab: {fileID: 3241135231911254547, guid: 1f8a97b5916560f43a5a6ff17ebbb8c4, type: 3}
+  _constructPrefab: {fileID: 3547661691815901795, guid: a4b82a01885ba524aacf8840574b7a73, type: 3}
   _fxConstructPoofPrefab: {fileID: 198122108360337520, guid: fe0603d69e17942c39ed76ac7b79865c, type: 3}
   _constructTerrainMask:
     serializedVersion: 2

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: recipe-kit-cookingpot
   m_EditorClassIdentifier: 
   Result: {fileID: 11400000, guid: f291c1b84a8244ee6b6472195fb8b2fc, type: 2}
-  CookDuration: 3
+  CookDuration: 60
   Ingredients:
   - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
     Count: 3

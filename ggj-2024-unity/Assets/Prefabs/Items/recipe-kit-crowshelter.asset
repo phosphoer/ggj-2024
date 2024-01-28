@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: recipe-kit-crowshelter
   m_EditorClassIdentifier: 
   Result: {fileID: 11400000, guid: 311978d02c9f2413e9ed43b145d61399, type: 2}
-  CookDuration: 3
+  CookDuration: 60
   Ingredients:
   - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
-    Count: 1
+    Count: 2
   - Item: {fileID: 11400000, guid: f398260bccc474b1da61dcf7a23f6979, type: 2}
-    Count: 1
+    Count: 2
+  - Item: {fileID: 11400000, guid: 723376d26001bcc4bb5629f69ab36fbf, type: 2}
+    Count: 2
+  - Item: {fileID: 11400000, guid: 8c33238707f419148804f1921d911cde, type: 2}
+    Count: 2
