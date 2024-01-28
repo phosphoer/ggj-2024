@@ -38,7 +38,6 @@ public class BirdAnimatorController : MonoBehaviour
   private static readonly int kAnimIsPerching = Animator.StringToHash("IsPerching");
   private static readonly int kAnimIsChanneling = Animator.StringToHash("IsChanneling");
 
-
   public void AddBlingAnimator(Animator animator)
   {
     ApplyStateToAnimator(animator);

@@ -173,16 +173,6 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     switch (_movementMode)
     {
       case MovementMode.Walking:
-        if (!Motor.GroundingStatus.IsStableOnGround)
-        {
-          newMovementMode = MovementMode.Falling;
-        }
-        break;
-      case MovementMode.Falling:
-        if (Motor.GroundingStatus.IsStableOnGround)
-        {
-          newMovementMode = MovementMode.Walking;
-        }
         break;
       case MovementMode.TakeOffWindup:
         if (_firedTakeoffImpulse)
@@ -288,9 +278,6 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       case MovementMode.Walking:
         UpdateWalkingVelocity(ref currentVelocity, deltaTime);
         break;
-      case MovementMode.Falling:
-        UpdateFallingVelocity(ref currentVelocity, deltaTime);
-        break;
       case MovementMode.TakeOffWindup:
         UpdateTakeOffWindUpVelocity(ref currentVelocity, deltaTime);
         break;
@@ -337,13 +324,6 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       // Smooth movement Velocity
       currentVelocity = Mathfx.Damp(currentVelocity, targetMovementVelocity, 0.25f, deltaTime * MoveAccel);
     }
-  }
-
-  private void UpdateFallingVelocity(ref Vector3 currentVelocity, float deltaTime)
-  {
-    ApplyAirControl(ref currentVelocity, deltaTime);
-    ApplyGravity(ref currentVelocity, deltaTime);
-    ApplyDrag(ref currentVelocity, deltaTime);
   }
 
   private void UpdateTakeOffWindUpVelocity(ref Vector3 currentVelocity, float deltaTime)

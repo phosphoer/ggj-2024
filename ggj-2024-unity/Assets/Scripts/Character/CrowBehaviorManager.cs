@@ -7,6 +7,7 @@ public class CrowBehaviorManager : MonoBehaviour
   public enum BehaviorState
   {
     Wander = 0,
+    MoveToPublicPerch,
     Idle,
     SeekFood,
     SeekCommandTarget,
@@ -88,7 +89,7 @@ public class CrowBehaviorManager : MonoBehaviour
   public float PlayerApproachTimeOut = 4.0f;
   public float PlayerApproachRange = 30.0f;
   // -- Return Item ---
-  public float ReturnItemDropRange = 10.0f;
+  public float ReturnItemPlayerOffset = 2.0f;
   public float VomitStrength = 1.0f;
   //-- Attack --
   public float AttackRange = 2.0f;
@@ -106,7 +107,6 @@ public class CrowBehaviorManager : MonoBehaviour
 
   // Crow target state
   CrowTarget _currentCrowTarget = null;
-  bool _isGatheringFromCrowTarget = false;
 
   // Path Finding State
   public float WaypointTolerance = 1.0f;
@@ -417,7 +417,7 @@ public class CrowBehaviorManager : MonoBehaviour
       bool IsFlying = _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying;
 
       // Use the current player location rather than stale perception location to prevent oscillation
-      Vector3 targetLocation = _pathDestinationTransform.position;
+      Vector3 targetLocation = _pathDestinationTransform.position + _pathDestinationTransform.forward*ReturnItemPlayerOffset;
 
       if (IsPathStale && IsFlying)
       {
@@ -614,7 +614,7 @@ public class CrowBehaviorManager : MonoBehaviour
       case BehaviorState.ReturnItem:
         {
           Transform playerTargetTransform = PlayerActorController.Instance.transform;
-          Vector3 playerTargetLocation = playerTargetTransform.position;
+          Vector3 playerTargetLocation = playerTargetTransform.position + playerTargetTransform.forward*ReturnItemPlayerOffset;
 
           _throttleUrgency = 1.0f; // full speed
           _pathRefreshPeriod = 2.0f; // refresh path every 2 seconds while approaching the player
