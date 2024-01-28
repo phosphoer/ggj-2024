@@ -106,6 +106,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6279032699332499817}
     m_Modifications:
+    - target: {fileID: 2830815730402560723, guid: 4c613f80c143c7048826eb2a7d29f0c4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ceb36ea3372d09d44b60cd975a47d7f0, type: 2}
     - target: {fileID: 5029135845008377465, guid: 4c613f80c143c7048826eb2a7d29f0c4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -146,6 +150,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6053546451330805897, guid: 4c613f80c143c7048826eb2a7d29f0c4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ceb36ea3372d09d44b60cd975a47d7f0, type: 2}
+    - target: {fileID: 6053546451330805897, guid: 4c613f80c143c7048826eb2a7d29f0c4, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 313455be7e8b36a439412b3c9ce50592, type: 2}
+    - target: {fileID: 8935554590021539276, guid: 4c613f80c143c7048826eb2a7d29f0c4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ceb36ea3372d09d44b60cd975a47d7f0, type: 2}
     - target: {fileID: 8964461609567716013, guid: 4c613f80c143c7048826eb2a7d29f0c4, type: 3}
       propertyPath: m_Name
       value: GoldenSaucer
