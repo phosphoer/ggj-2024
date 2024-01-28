@@ -5,15 +5,26 @@ public class CrowTarget : MonoBehaviour
 {
   public static IReadOnlyList<CrowTarget> Instances => _instances;
 
+  public float GatherTime= 10.0f;
+
   [SerializeField]
   private GameObject _targetedHighlightPrefab = null;
 
   [SerializeField]
   private ItemDefinition _itemReward = null;
 
+  [SerializeField]
+  private PerchController _perch = null;
+  public PerchController Perch => _perch; 
+
   private RectTransform _targetHighlightRoot;
 
   private static List<CrowTarget> _instances = new();
+
+  public ItemDefinition GetItemRewardDefinition()
+  {
+    return _itemReward;
+  }
 
   public void ShowTargetHighlight()
   {
@@ -30,6 +41,18 @@ public class CrowTarget : MonoBehaviour
     {
       PlayerUI.Instance.WorldUI.HideItem(_targetHighlightRoot);
     }
+  }
+
+  public void SelectHighlight()
+  {
+    // Todo: proper highlight
+    _targetHighlightRoot.gameObject.transform.localScale= new Vector3(2.0f, 2.0f, 2.0f);
+  }
+
+  public void UnselectHighlight()
+  {
+    // Todo: proper highlight
+    _targetHighlightRoot.gameObject.transform.localScale= new Vector3(1.0f, 1.0f, 1.0f);
   }
 
   private void OnEnable()
