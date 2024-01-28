@@ -81,9 +81,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourceDefinition: {fileID: 11400000, guid: 05e8eff07aa10f44eae9a105e4f04ea4, type: 2}
   _respawnInterval:
-    MinValue: 15
-    MaxValue: 30
-  _initiallySpawned: 0
+    MinValue: 1000
+    MaxValue: 10000
+  _initiallySpawned: 1
 --- !u!1 &7355985908249350141
 GameObject:
   m_ObjectHideFlags: 0

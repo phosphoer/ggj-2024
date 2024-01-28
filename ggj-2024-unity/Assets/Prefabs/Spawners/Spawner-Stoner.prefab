@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourceDefinition: {fileID: 11400000, guid: 11a91830993461b4181046d189a4233b, type: 2}
   _respawnInterval:
-    MinValue: 15
-    MaxValue: 30
+    MinValue: 1000
+    MaxValue: 5000
   _initiallySpawned: 1
 --- !u!1 &3810053803419729721
 GameObject:
@@ -134,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6890640821879099173}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 37.1, y: -1.427, z: -5.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
