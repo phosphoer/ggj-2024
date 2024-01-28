@@ -3,7 +3,10 @@ guid: c71e7b8dbb723485287ba1285d05089a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _itemSpawnAnchor: {instanceID: 0}
+  - _itemCollectAnchor: {instanceID: 0}
+  - _sfxToss: {fileID: 11400000, guid: c5e2bccf929b34aa78532d6f8e3a2c95, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

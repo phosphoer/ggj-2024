@@ -104,6 +104,7 @@ MonoBehaviour:
   _visualRoot: {fileID: 0}
   _standHeight: 1.6
   _standCapsuleHeight: 2
+  _sfxTakeOff: {fileID: 11400000, guid: b739ed94c2ea24cc98bb0b6d044fbf87, type: 2}
 --- !u!114 &8778806101503959225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemSpawnAnchor: {fileID: 3779844070360758584}
   _itemCollectAnchor: {fileID: 0}
+  _sfxToss: {fileID: 11400000, guid: 54192c7e044824ebaaf2c717cc5c46f4, type: 2}
+  _sfxCollect: {fileID: 11400000, guid: 13bc7e6b83fa643f784ed760a33af37b, type: 2}
 --- !u!1001 &5312377038392121358
 PrefabInstance:
   m_ObjectHideFlags: 0
