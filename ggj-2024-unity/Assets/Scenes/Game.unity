@@ -1751,51 +1751,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6279032699332499817, guid: 13d18d1c78156034b8b8211ff2588948, type: 3}
   m_PrefabInstance: {fileID: 211951698}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1698901819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1698901821}
-  - component: {fileID: 1698901822}
-  m_Layer: 0
-  m_Name: StickyRadio
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1698901821
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698901819}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.129, y: 2.923, z: -5.887}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1698901822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698901819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc55ad9a92428457fa5595d070fcbfa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sfxRadio: {fileID: 11400000, guid: b765226feb5cf44b189314a3888ed8dd, type: 2}
 --- !u!1001 &1734519075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2538,4 +2493,3 @@ SceneRoots:
   - {fileID: 822010252}
   - {fileID: 7212059840098148185}
   - {fileID: 1067521590}
-  - {fileID: 1698901821}
