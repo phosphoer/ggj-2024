@@ -24,7 +24,7 @@ public class BirdPerceptionComponent : MonoBehaviour
   public PerchController NearbyPublicPerch => _nearbyPublicPerch;
   public bool SeesNearbyPublicPerch
   {
-    get { return _nearbyFood != null; }
+    get { return _nearbyPublicPerch != null; }
   }
 
   void Start()
