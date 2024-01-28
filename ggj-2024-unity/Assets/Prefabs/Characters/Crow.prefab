@@ -41,6 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5635097939542065125}
+  - {fileID: 3663150292846402714}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7876327492822020898
@@ -128,6 +129,9 @@ MonoBehaviour:
   IdleMaxDuration: 3
   EatFoodRange: 2
   CommandTargetRange: 3
+  FlyPathHeightRange:
+    MinValue: 2
+    MaxValue: 4
   WanderRange: 10
   PlayerApproachTimeOut: 4
   PlayerApproachRange: 30
@@ -355,6 +359,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6536707833894280816}
   m_SourcePrefab: {fileID: 100100000, guid: 52d4a8969e40225448a014a8905aa459, type: 3}
+--- !u!4 &2937086647760867039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2198888584636164399, guid: 52d4a8969e40225448a014a8905aa459, type: 3}
+  m_PrefabInstance: {fileID: 5312377038392121358}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3779844070360758584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -158207753188941514, guid: 52d4a8969e40225448a014a8905aa459, type: 3}
@@ -420,8 +429,74 @@ MonoBehaviour:
     FXObj: {fileID: 6105069819486056908, guid: ddec08d26650c364b92ac2c9c3cdbf32, type: 3}
     SpawnLocation: {fileID: 4060823890728013175}
     ParentFX: 0
+  - FXKey: FeatherBurst
+    FXObj: {fileID: 3178214621239677196, guid: 071e6e131853ec0469586302ed18d8be, type: 3}
+    SpawnLocation: {fileID: 2937086647760867039}
+    ParentFX: 1
 --- !u!4 &5635097939542065125 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 52d4a8969e40225448a014a8905aa459, type: 3}
   m_PrefabInstance: {fileID: 5312377038392121358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6379607916659710814
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1194938130001314113}
+    m_Modifications:
+    - target: {fileID: 2041445995776647472, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_Name
+      value: Feathers_Trail
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.182
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.103
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6937fea49987b7948b5647721342d018, type: 3}
+--- !u!4 &3663150292846402714 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7664832244648757188, guid: 6937fea49987b7948b5647721342d018, type: 3}
+  m_PrefabInstance: {fileID: 6379607916659710814}
   m_PrefabAsset: {fileID: 0}

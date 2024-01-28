@@ -441,15 +441,15 @@ MonoBehaviour:
   - FXKey: Call
     FXObj: {fileID: 6105069819486056908, guid: 9d207984dff60f94883fc9546db9f592, type: 3}
     SpawnLocation: {fileID: 2822638720796671857}
-    ParentFX: 1
+    ParentFX: 0
   - FXKey: Call
     FXObj: {fileID: 6105069819486056908, guid: edc9f6c4510d21a45ae5bef0a2179c26, type: 3}
     SpawnLocation: {fileID: 2822638720796671857}
-    ParentFX: 1
+    ParentFX: 0
   - FXKey: Call
     FXObj: {fileID: 6105069819486056908, guid: 4ea521abd5c74234eb1296b64814a869, type: 3}
     SpawnLocation: {fileID: 2822638720796671857}
-    ParentFX: 1
+    ParentFX: 0
 --- !u!4 &5568470705204194600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b61cfefabad855744bf940273f956d5a, type: 3}
