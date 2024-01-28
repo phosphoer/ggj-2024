@@ -409,10 +409,12 @@ public class CrowBehaviorManager : MonoBehaviour
 
     if (_pathDestinationTransform != null)
     {
+      bool IsFlying= _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying;
+
       // Use the current player location rather than stale perception location to prevent oscillation
       Vector3 targetLocation = _pathDestinationTransform.position;
 
-      if (IsPathStale)
+      if (IsPathStale && IsFlying)
       {
         if (!RecomputePathTo(targetLocation, _pathDestinationTransform, PathDestinationType.Ground))
         {
@@ -661,12 +663,20 @@ public class CrowBehaviorManager : MonoBehaviour
 
   bool RecomputePathTo(Vector3 targetLocation, Transform targetTransform, PathDestinationType destinationType)
   {
+    bool hasFlyingTarget = IsFlyingPathTarget(destinationType);
+    bool isWalking = _birdMovement.MoveMode == BirdMovementController.MovementMode.Walking;
+    bool isPerched = _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched;
+    bool isFlying = _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying;
+    bool wantsTakeOff= ((isWalking && hasFlyingTarget) || isPerched);
+
     _pathRefreshTimer = _pathRefreshPeriod;
     _pathWaypointIndex = 0;
     _pathfollowingStuckTimer = 0.0f;
 
     bool bComputedPath= false;
-    if (IsFlyingPathTarget(destinationType))
+
+    // Compute a flying path if we either are flying or ar about to take off
+    if (wantsTakeOff || isFlying)
     {
       Vector3 sourceLocation= this.transform.position;
       Vector3 midpoint= (sourceLocation + targetLocation) * 0.5f;
@@ -694,10 +704,7 @@ public class CrowBehaviorManager : MonoBehaviour
       _pathDestinationType = destinationType;
 
       // Take off if we need to fly to something
-      bool hasFlyingTarget = HasFlyingPathTarget();
-      bool isWalking = _birdMovement.MoveMode == BirdMovementController.MovementMode.Walking;
-      bool isPerched = _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched;
-      if ((isWalking && hasFlyingTarget) || isPerched)
+      if (wantsTakeOff)
       {
         _birdMovement.TakeOff();
       }

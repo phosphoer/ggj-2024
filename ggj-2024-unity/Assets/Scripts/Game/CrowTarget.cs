@@ -46,13 +46,13 @@ public class CrowTarget : MonoBehaviour
   public void SelectHighlight()
   {
     // Todo: proper highlight
-    _targetHighlightRoot.gameObject.transform.localScale= new Vector3(2.0f, 2.0f, 2.0f);
+    _targetHighlightRoot.transform.localScale= new Vector3(2.0f, 2.0f, 2.0f);
   }
 
   public void UnselectHighlight()
   {
     // Todo: proper highlight
-    _targetHighlightRoot.gameObject.transform.localScale= new Vector3(1.0f, 1.0f, 1.0f);
+    _targetHighlightRoot.transform.localScale= new Vector3(1.0f, 1.0f, 1.0f);
   }
 
   private void OnEnable()
