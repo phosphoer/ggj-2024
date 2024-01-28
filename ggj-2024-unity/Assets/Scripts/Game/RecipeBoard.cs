@@ -101,8 +101,14 @@ public class RecipeBoard : MonoBehaviour
       }
 
       _recipeBoardRoot.localScale = _recipeBoardRoot.localScale.WithY(_itemMaxSize * _recipe.Ingredients.Length - _recipeListRoot.localPosition.y);
-      transform.rotation = originalRotation;
 
+      // Duplicate the list onto the reverse side 
+      Transform boardOtherSide = Instantiate(_recipeListRoot, transform);
+      boardOtherSide.localPosition = boardOtherSide.localPosition.WithZ(-boardOtherSide.localPosition.z);
+      boardOtherSide.localRotation = Quaternion.Euler(0, 180, 0);
+      boardOtherSide.localPosition = boardOtherSide.localPosition.WithX(-boardOtherSide.localPosition.x);
+
+      transform.rotation = originalRotation;
     }
   }
 }
