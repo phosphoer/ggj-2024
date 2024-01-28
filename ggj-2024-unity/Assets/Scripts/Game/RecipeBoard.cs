@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class RecipeBoard : MonoBehaviour
 {
@@ -33,14 +34,25 @@ public class RecipeBoard : MonoBehaviour
 
   private RecipeDefinition _recipe;
 
-  private void Start()
+  private IEnumerator Start()
   {
     _ingredientCountText.gameObject.SetActive(false);
+
+    UIHydrate uiHydrate = GetComponent<UIHydrate>();
+    if (uiHydrate != null)
+    {
+      while (uiHydrate.IsAnimating || transform.localScale.x < Mathf.Epsilon)
+        yield return null;
+    }
+
     Recipe = _initialRecipe;
   }
 
   private void EnsureRecipe()
   {
+    Quaternion originalRotation = transform.rotation;
+    transform.rotation = Quaternion.identity;
+
     if (_recipe != null)
     {
       for (int i = 0; i < _recipe.Ingredients.Length; ++i)
@@ -70,11 +82,13 @@ public class RecipeBoard : MonoBehaviour
         }
 
         itemBounds = itemIcon.gameObject.GetHierarchyBounds();
+        itemBounds.size = transform.InverseTransformDirection(itemBounds.size);
         float maxSize = Mathf.Max(itemBounds.size.x, itemBounds.size.y, itemBounds.size.z);
         float scaleFactor = (_itemMaxSize / maxSize) * 0.75f;
         itemIcon.transform.localScale *= scaleFactor;
 
         itemBounds = itemIcon.gameObject.GetHierarchyBounds();
+        itemBounds.size = transform.InverseTransformDirection(itemBounds.size);
         Vector3 desiredPos = Vector3.down * i * _itemVerticalSpacing;
         Vector3 iconBoundsOffset = (itemIcon.transform.position - itemBounds.center);
         itemIcon.transform.localPosition = desiredPos + iconBoundsOffset;
@@ -87,6 +101,8 @@ public class RecipeBoard : MonoBehaviour
       }
 
       _recipeBoardRoot.localScale = _recipeBoardRoot.localScale.WithY(_itemMaxSize * _recipe.Ingredients.Length - _recipeListRoot.localPosition.y);
+      transform.rotation = originalRotation;
+
     }
   }
 }
