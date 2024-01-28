@@ -64,10 +64,11 @@ public class InventoryController : MonoBehaviour
     ItemAdded?.Invoke(item);
   }
 
-  public void RemoveItem(ItemDefinition item)
+  public bool RemoveItem(ItemDefinition item)
   {
-    _items.Remove(item);
+    bool wasRemoved = _items.Remove(item);
     ItemRemoved?.Invoke(item);
+    return wasRemoved;
   }
 
   public void ClearItems()
@@ -78,15 +79,15 @@ public class InventoryController : MonoBehaviour
     }
   }
 
-  public ItemController TossItem(ItemDefinition item, Vector3 force)
+  public ItemController TossItem(ItemDefinition item, Vector3 force, bool markAsThrown = true)
   {
-    if (_items.Remove(item))
+    if (RemoveItem(item))
     {
       ItemController itemController = Instantiate(item.Prefab);
       itemController.transform.position = _itemSpawnAnchor.position;
       itemController.transform.rotation = Random.rotation;
       itemController.Rigidbody.AddForce(force, ForceMode.VelocityChange);
-      itemController.WasThrown = true;
+      itemController.WasThrown = markAsThrown;
       itemController.SetInteractionEnabled(false);
       itemController.SetCollidersEnabled(false);
       itemController.StartCoroutine(Tween.DelayCall(1, () =>
@@ -100,6 +101,9 @@ public class InventoryController : MonoBehaviour
         if (itemController != null)
           itemController.SetCollidersEnabled(true);
       }));
+
+      UIHydrate hydrate = itemController.gameObject.AddComponent<UIHydrate>();
+      hydrate.Hydrate();
 
       return itemController;
     }

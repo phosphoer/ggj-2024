@@ -5557,6 +5557,7 @@ MonoBehaviour:
   - {fileID: 9055998340556383364}
   - {fileID: 2747712367989506643}
   - {fileID: 7199397783722874071}
+  _allowInvalidRecipe: 0
   _recipes:
   - {fileID: 11400000, guid: 7cb7a04593e7743fe941c7c0d1db7e6b, type: 2}
   _invalidRecipe: {fileID: 11400000, guid: 073a6e18cfae44819abcde664e5ef72d, type: 2}
