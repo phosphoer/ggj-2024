@@ -232,7 +232,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.20564517
+      - time: 0.16107693
         functionName: PlayAnimFX
         data: Attack
         objectReferenceParameter: {instanceID: 0}
