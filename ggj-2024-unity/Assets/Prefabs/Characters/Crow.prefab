@@ -93,7 +93,7 @@ MonoBehaviour:
   SprintSpeed: 4
   RotateSpeed: 5
   TakeoffPower: 10
-  PerchingTime: 0.25
+  PerchingTime: 0.5
   JumpScalableForwardSpeed: 1
   AllowJumpingWhenSliding: 1
   _movementMode: 7
@@ -119,7 +119,6 @@ MonoBehaviour:
   _birdMovement: {fileID: 2952562628403108043}
   _inventoryController: {fileID: 5561704545250357670}
   _statsManager: {fileID: 9221079697861785601}
-  _cawSound: {fileID: 0}
   _attackFX: {fileID: 0}
   _attackSound: {fileID: 0}
   _deathFX: {fileID: 0}
@@ -127,9 +126,12 @@ MonoBehaviour:
   IdleMinDuration: 0.5
   IdleMaxDuration: 3
   EatFoodRange: 2
+  CommandTargetRange: 3
   WanderRange: 10
   PlayerApproachTimeOut: 4
   PlayerApproachRange: 30
+  ReturnItemDropRange: 10
+  VomitStrength: 1
   AttackRange: 2
   AttackDuration: 2
   AttackTurnSpeed: 5
@@ -280,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemSpawnAnchor: {fileID: 3779844070360758584}
+  _itemCollectAnchor: {fileID: 0}
 --- !u!1001 &5312377038392121358
 PrefabInstance:
   m_ObjectHideFlags: 0

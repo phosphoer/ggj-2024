@@ -35,7 +35,7 @@ public class CrowBehaviorManager : MonoBehaviour
   };
 
   public static IReadOnlyList<CrowBehaviorManager> Instances => _instances;
-  private static List<CrowBehaviorManager> _instances = new ();
+  private static List<CrowBehaviorManager> _instances = new();
 
   public BirdMovementController BirdMovement => _birdMovement;
   public BirdPerceptionComponent Perception => _perceptionComponent;
@@ -81,6 +81,7 @@ public class CrowBehaviorManager : MonoBehaviour
   public float EatFoodRange = 3.0f;
   //-- Seek Command Target ---
   public float CommandTargetRange = 3.0f;
+  public RangedFloat FlyPathHeightRange = new RangedFloat(2, 4);
   //-- Wander --
   public float WanderRange = 10.0f;
   //-- FlyToPlayerStaff --
@@ -104,8 +105,8 @@ public class CrowBehaviorManager : MonoBehaviour
   }
 
   // Crow target state
-  CrowTarget _currentCrowTarget= null;
-  bool _isGatheringFromCrowTarget= false;
+  CrowTarget _currentCrowTarget = null;
+  bool _isGatheringFromCrowTarget = false;
 
   // Path Finding State
   public float WaypointTolerance = 1.0f;
@@ -182,7 +183,7 @@ public class CrowBehaviorManager : MonoBehaviour
 
   public bool CanSummonCrow(out float outDistance)
   {
-    outDistance= 0.0f;
+    outDistance = 0.0f;
     if (_behaviorState == BehaviorState.Idle || _behaviorState == BehaviorState.Wander)
     {
       Vector3 playerLocation2d = Vector3.ProjectOnPlane(GetCurrentPlayerLocation(), Vector3.up);
@@ -191,7 +192,7 @@ public class CrowBehaviorManager : MonoBehaviour
 
       if (distanceToPlayer <= PlayerApproachRange)
       {
-        outDistance= distanceToPlayer;
+        outDistance = distanceToPlayer;
         return true;
       }
     }
@@ -228,29 +229,29 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     if (_behaviorState == BehaviorState.PlayerStaffIdle)
     {
-        Transform crowTargetTransform= crowTarget.transform;
-        Vector3 crowTargetLocation = crowTargetTransform.position;
+      Transform crowTargetTransform = crowTarget.transform;
+      Vector3 crowTargetLocation = crowTargetTransform.position;
 
-        _throttleUrgency = 1.0f; // full speed
-        _pathRefreshPeriod = 2.0f; // refresh path every 2 seconds while approaching the player
+      _throttleUrgency = 1.0f; // full speed
+      _pathRefreshPeriod = 2.0f; // refresh path every 2 seconds while approaching the player
 
-        // Relinquish our reservation on the player staff
-        PlayerActorController.Instance.LeaveStaffPerch(this);
+      // Relinquish our reservation on the player staff
+      PlayerActorController.Instance.LeaveStaffPerch(this);
 
-        // Reserve this perch
-        crowTarget.Perch.ReservePerch(this);
+      // Reserve this perch
+      crowTarget.Perch.ReservePerch(this);
 
-        // Remember this crow target
-        _currentCrowTarget= crowTarget;
+      // Remember this crow target
+      _currentCrowTarget = crowTarget;
 
-        // Head to a perch location on the crow target
-        // If this fails we take care of it in approach update
-        if (RecomputePathTo(crowTargetLocation, crowTargetTransform, PathDestinationType.StaticPerch))
-        {
-          _currentCrowTarget= crowTarget;
-          SetBehaviorState(BehaviorState.SeekCommandTarget);
-          return true;
-        }
+      // Head to a perch location on the crow target
+      // If this fails we take care of it in approach update
+      if (RecomputePathTo(crowTargetLocation, crowTargetTransform, PathDestinationType.StaticPerch))
+      {
+        _currentCrowTarget = crowTarget;
+        SetBehaviorState(BehaviorState.SeekCommandTarget);
+        return true;
+      }
     }
 
     return false;
@@ -268,35 +269,35 @@ public class CrowBehaviorManager : MonoBehaviour
 
     switch (_behaviorState)
     {
-    case BehaviorState.Idle:
-      nextBehavior = UpdateBehavior_Idle();
-      break;
-    case BehaviorState.SeekFood:
-      nextBehavior = UpdateBehavior_SeekFood();
-      break;
-    case BehaviorState.SeekCommandTarget:
-      nextBehavior = UpdateBehavior_SeekCommandTarget();
-      break;
-    case BehaviorState.Wander:
-      nextBehavior = UpdateBehavior_Wander();
-      break;
-    case BehaviorState.FlyToPlayerStaff:
-      nextBehavior = UpdateBehavior_FlyToPlayerStaff();
-      break;
-    case BehaviorState.PlayerStaffIdle:
-      // Just chill while idling on the player staff
-      break;
-    case BehaviorState.GatherItem:
-      nextBehavior = UpdateBehavior_GatherItem();
-      break;
-    case BehaviorState.ReturnItem:
-      nextBehavior = UpdateBehavior_ReturnItem();
-      break;
-    case BehaviorState.Attack:
-      nextBehavior = UpdateBehavior_Attack();
-      break;
-    case BehaviorState.Dead:
-      break;
+      case BehaviorState.Idle:
+        nextBehavior = UpdateBehavior_Idle();
+        break;
+      case BehaviorState.SeekFood:
+        nextBehavior = UpdateBehavior_SeekFood();
+        break;
+      case BehaviorState.SeekCommandTarget:
+        nextBehavior = UpdateBehavior_SeekCommandTarget();
+        break;
+      case BehaviorState.Wander:
+        nextBehavior = UpdateBehavior_Wander();
+        break;
+      case BehaviorState.FlyToPlayerStaff:
+        nextBehavior = UpdateBehavior_FlyToPlayerStaff();
+        break;
+      case BehaviorState.PlayerStaffIdle:
+        // Just chill while idling on the player staff
+        break;
+      case BehaviorState.GatherItem:
+        nextBehavior = UpdateBehavior_GatherItem();
+        break;
+      case BehaviorState.ReturnItem:
+        nextBehavior = UpdateBehavior_ReturnItem();
+        break;
+      case BehaviorState.Attack:
+        nextBehavior = UpdateBehavior_Attack();
+        break;
+      case BehaviorState.Dead:
+        break;
     }
 
     SetBehaviorState(nextBehavior);
@@ -412,7 +413,7 @@ public class CrowBehaviorManager : MonoBehaviour
 
     if (_pathDestinationTransform != null)
     {
-      bool IsFlying= _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying;
+      bool IsFlying = _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying;
 
       // Use the current player location rather than stale perception location to prevent oscillation
       Vector3 targetLocation = _pathDestinationTransform.position;
@@ -452,7 +453,7 @@ public class CrowBehaviorManager : MonoBehaviour
     }
 
     // Vomit them up
-    Vector3 vomitForce= transform.forward * VomitStrength;
+    Vector3 vomitForce = transform.forward * VomitStrength;
     foreach (ItemDefinition itemDefinition in playerItems)
     {
       _inventoryController.TossItem(itemDefinition, vomitForce);
@@ -464,7 +465,7 @@ public class CrowBehaviorManager : MonoBehaviour
     if (_currentCrowTarget != null)
     {
       _currentCrowTarget.Perch.LeavePerch(this);
-      _currentCrowTarget= null;
+      _currentCrowTarget = null;
     }
   }
 
@@ -537,29 +538,29 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     switch (oldBehavior)
     {
-    case BehaviorState.Idle:
-      break;
-    case BehaviorState.Wander:
-      break;
-    case BehaviorState.SeekFood:
-      break;
-    case BehaviorState.SeekCommandTarget:
-      break;
-    case BehaviorState.GatherItem:
-      _birdAnimator.IsChanneling= false;
-      break;
-    case BehaviorState.ReturnItem:
-      break;
-    case BehaviorState.FlyToPlayerStaff:
-      break;
-    case BehaviorState.PlayerStaffIdle:
-      break;
-    case BehaviorState.Attack:
-      break;
-    case BehaviorState.Flee:
-      break;
-    case BehaviorState.Dead:
-      break;
+      case BehaviorState.Idle:
+        break;
+      case BehaviorState.Wander:
+        break;
+      case BehaviorState.SeekFood:
+        break;
+      case BehaviorState.SeekCommandTarget:
+        break;
+      case BehaviorState.GatherItem:
+        _birdAnimator.IsChanneling = false;
+        break;
+      case BehaviorState.ReturnItem:
+        break;
+      case BehaviorState.FlyToPlayerStaff:
+        break;
+      case BehaviorState.PlayerStaffIdle:
+        break;
+      case BehaviorState.Attack:
+        break;
+      case BehaviorState.Flee:
+        break;
+      case BehaviorState.Dead:
+        break;
     }
   }
 
@@ -567,45 +568,45 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     switch (newBehavior)
     {
-    case BehaviorState.Idle:
-      _throttleUrgency = 0.0f; // stop
-      _pathRefreshPeriod = -1.0f; // no refresh
-      _idleDuration = Random.Range(IdleMinDuration, IdleMaxDuration);
-      break;
-    case BehaviorState.Wander:
-      _throttleUrgency = 0.5f; // half speed
-      _pathRefreshPeriod = -1.0f; // manual refresh
-                                  // Pick a path to a wander target
-      {
-        Vector2 offset = Random.insideUnitCircle * WanderRange;
-        Vector3 wanderTarget = _spawnLocation + Vector3.left * offset.x + Vector3.forward * offset.y;
-        RecomputePathTo(wanderTarget, null, PathDestinationType.Ground);
-      }
-      break;
-    case BehaviorState.FlyToPlayerStaff:
-      break;
-    case BehaviorState.SeekFood:
-      {
-        ItemController food = _perceptionComponent.NearbyFood;
-        Vector3 foodLocation = food != null ? food.transform.position : Vector3.zero;
+      case BehaviorState.Idle:
+        _throttleUrgency = 0.0f; // stop
+        _pathRefreshPeriod = -1.0f; // no refresh
+        _idleDuration = Random.Range(IdleMinDuration, IdleMaxDuration);
+        break;
+      case BehaviorState.Wander:
+        _throttleUrgency = 0.5f; // half speed
+        _pathRefreshPeriod = -1.0f; // manual refresh
+                                    // Pick a path to a wander target
+        {
+          Vector2 offset = Random.insideUnitCircle * WanderRange;
+          Vector3 wanderTarget = _spawnLocation + Vector3.left * offset.x + Vector3.forward * offset.y;
+          RecomputePathTo(wanderTarget, null, PathDestinationType.Ground);
+        }
+        break;
+      case BehaviorState.FlyToPlayerStaff:
+        break;
+      case BehaviorState.SeekFood:
+        {
+          ItemController food = _perceptionComponent.NearbyFood;
+          Vector3 foodLocation = food != null ? food.transform.position : Vector3.zero;
 
-        _throttleUrgency = 1.0f; // full speed
-        _pathRefreshPeriod = 2.0f; // manual refresh
+          _throttleUrgency = 1.0f; // full speed
+          _pathRefreshPeriod = 2.0f; // manual refresh
 
-        // Head to the food!!
-        RecomputePathTo(foodLocation, null, PathDestinationType.Ground);
-      }
-      break;
-    case BehaviorState.PlayerStaffIdle:
-      break;
-    case BehaviorState.SeekCommandTarget:
-      break;
-    case BehaviorState.GatherItem:
-      _birdAnimator.IsChanneling= true;
-      break;
-    case BehaviorState.ReturnItem:
-      {
-          Transform playerTargetTransform= PlayerActorController.Instance.transform;
+          // Head to the food!!
+          RecomputePathTo(foodLocation, null, PathDestinationType.Ground);
+        }
+        break;
+      case BehaviorState.PlayerStaffIdle:
+        break;
+      case BehaviorState.SeekCommandTarget:
+        break;
+      case BehaviorState.GatherItem:
+        _birdAnimator.IsChanneling = true;
+        break;
+      case BehaviorState.ReturnItem:
+        {
+          Transform playerTargetTransform = PlayerActorController.Instance.transform;
           Vector3 playerTargetLocation = playerTargetTransform.position;
 
           _throttleUrgency = 1.0f; // full speed
@@ -613,45 +614,45 @@ public class CrowBehaviorManager : MonoBehaviour
 
           // Head back to the player
           RecomputePathTo(playerTargetLocation, playerTargetTransform, PathDestinationType.Ground);
-      }
-      break;
-    case BehaviorState.Attack:
-      _throttleUrgency = 0.0f; // Stop and attack in place
-      _pathRefreshPeriod = -1.0f; // manual refresh
+        }
+        break;
+      case BehaviorState.Attack:
+        _throttleUrgency = 0.0f; // Stop and attack in place
+        _pathRefreshPeriod = -1.0f; // manual refresh
 
-      //_birdAnimator.PlayEmote(BirdAnimatorController.EmoteState.Attack);
-      _timeSinceAttack = 0.0f; // We just attacked
+        //_birdAnimator.PlayEmote(BirdAnimatorController.EmoteState.Attack);
+        _timeSinceAttack = 0.0f; // We just attacked
 
-      // Play death effects to cover the transition
-      if (_attackFX != null)
-      {
-        Instantiate(_attackFX, transform.position, Quaternion.identity);
-      }
+        // Play death effects to cover the transition
+        if (_attackFX != null)
+        {
+          Instantiate(_attackFX, transform.position, Quaternion.identity);
+        }
 
-      if (AudioManager.Instance != null)
-        AudioManager.Instance.PlaySound(gameObject, _attackSound);
+        if (AudioManager.Instance != null)
+          AudioManager.Instance.PlaySound(gameObject, _attackSound);
 
-      break;
-    case BehaviorState.Flee:
-      _throttleUrgency = 1.0f; // full speed
-      _pathRefreshPeriod = -1.0f; // manual refresh
-                                  // Head back to spawn location
-                                  // If this fails we take care of it in flee update
-      RecomputePathTo(_spawnLocation, null, PathDestinationType.StaticPerch);
-      break;
-    case BehaviorState.Dead:
-      // Play death effects to cover the transition
-      if (_deathFX != null)
-      {
-        Instantiate(_deathFX, transform.position, Quaternion.identity);
-      }
+        break;
+      case BehaviorState.Flee:
+        _throttleUrgency = 1.0f; // full speed
+        _pathRefreshPeriod = -1.0f; // manual refresh
+                                    // Head back to spawn location
+                                    // If this fails we take care of it in flee update
+        RecomputePathTo(_spawnLocation, null, PathDestinationType.StaticPerch);
+        break;
+      case BehaviorState.Dead:
+        // Play death effects to cover the transition
+        if (_deathFX != null)
+        {
+          Instantiate(_deathFX, transform.position, Quaternion.identity);
+        }
 
-      if (AudioManager.Instance != null)
-        AudioManager.Instance.PlaySound(gameObject, _deathSound);
+        if (AudioManager.Instance != null)
+          AudioManager.Instance.PlaySound(gameObject, _deathSound);
 
-      // Clean ourselves up after a moment
-      Destroy(this, 0.1f);
-      break;
+        // Clean ourselves up after a moment
+        Destroy(this, 0.1f);
+        break;
     }
   }
 
@@ -670,34 +671,35 @@ public class CrowBehaviorManager : MonoBehaviour
     bool isWalking = _birdMovement.MoveMode == BirdMovementController.MovementMode.Walking;
     bool isPerched = _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched;
     bool isFlying = _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying;
-    bool wantsTakeOff= ((isWalking && hasFlyingTarget) || isPerched);
+    bool wantsTakeOff = ((isWalking && hasFlyingTarget) || isPerched);
 
     _pathRefreshTimer = _pathRefreshPeriod;
     _pathWaypointIndex = 0;
     _pathfollowingStuckTimer = 0.0f;
 
-    bool bComputedPath= false;
+    bool bComputedPath = false;
 
     // Compute a flying path if we either are flying or ar about to take off
     if (wantsTakeOff || isFlying)
     {
-      Vector3 sourceLocation= this.transform.position;
-      Vector3 midpoint= (sourceLocation + targetLocation) * 0.5f;
-      float distance= Vector3.Distance(sourceLocation, targetLocation);
-      float heightOffset= distance * 0.1f;
+      Vector3 sourceLocation = this.transform.position;
+      Vector3 midpoint = (sourceLocation + targetLocation) * 0.5f;
+      float distance = Vector3.Distance(sourceLocation, targetLocation);
+      float sourceTargetHeightDelta = Mathf.Abs(sourceLocation.y - targetLocation.y);
+      float heightOffset = FlyPathHeightRange.Clamp(distance * 0.2f - sourceTargetHeightDelta);
 
-      midpoint.y= Mathf.Max(sourceLocation.y, targetLocation.y) + heightOffset;
+      midpoint.y = Mathf.Max(sourceLocation.y, targetLocation.y) + heightOffset;
 
       _lastPath.Clear();
       _lastPath.Add(sourceLocation);
       _lastPath.Add(midpoint);
       _lastPath.Add(targetLocation);
 
-      bComputedPath= true;
+      bComputedPath = true;
     }
     else
     {
-      bComputedPath= PathFindManager.Instance.CalculatePathToPoint(transform.position, targetLocation, _lastPath);
+      bComputedPath = PathFindManager.Instance.CalculatePathToPoint(transform.position, targetLocation, _lastPath);
     }
 
     if (bComputedPath)
@@ -746,7 +748,6 @@ public class CrowBehaviorManager : MonoBehaviour
         // Always throttle at the next waypoint
         Vector3 waypoint = _lastPath[_pathWaypointIndex];
         Vector3 throttleTarget2d = Vector3.ProjectOnPlane(waypoint, Vector3.up);
-        Vector3 position2d = Vector3.ProjectOnPlane(this.transform.position, Vector3.up);
 
         // Advance to the next waypoint 
         if (IsWithingDistanceToTarget2D(throttleTarget2d, WaypointTolerance))
@@ -840,7 +841,9 @@ public class CrowBehaviorManager : MonoBehaviour
     if (_hasValidThrottleTarget && _throttleUrgency > 0.0f)
     {
       worldThrottleDirection = _throttleTarget - this.transform.position;
-      worldThrottleDirection.y = 0;
+      if (_birdMovement.MoveMode != BirdMovementController.MovementMode.Flying)
+        worldThrottleDirection.y = 0;
+
       worldThrottleDirection = Vector3.Normalize(worldThrottleDirection);
     }
 
