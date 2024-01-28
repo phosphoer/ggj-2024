@@ -32,17 +32,25 @@ public class PlayerActorController : Singleton<PlayerActorController>
   [SerializeField]
   private PerchController[] _staffPerches = null;
 
+  [SerializeField]
+  private SoundBank _sfxPickup = null;
+
+  [SerializeField]
+  private SoundBank _sfxAttack = null;
+
   private Rewired.Player _rewiredPlayer;
   private CameraControllerPlayer _cameraPlayer;
-  private CrowBehaviorManager _commandingCrow= null;
-  private CrowTarget _currentCrowTarget= null;
+  private CrowBehaviorManager _commandingCrow = null;
+  private CrowTarget _currentCrowTarget = null;
 
   private static readonly int kAnimMoveSpeed = Animator.StringToHash("MoveSpeed");
   private static readonly int kAnimIsPickingUp = Animator.StringToHash("IsPickingUp");
   private static readonly int kAnimIsCalling = Animator.StringToHash("IsCalling");
   private static readonly int kAnimIsAttacking = Animator.StringToHash("IsAttacking");
 
-  private static readonly float kSelectCosAngleThreshold= Mathf.Cos(30.0f);
+  public const float kSelectAngleThreshold = 30f;
+  public const float kSelectMaxRadius = 40f;
+
 
   private void Awake()
   {
@@ -117,7 +125,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
     if (_commandingCrow != null)
     {
       // Find the best crow target 
-      CrowTarget bestCrowTarget= FindBestCrowTarget();
+      CrowTarget bestCrowTarget = FindBestCrowTarget();
 
       // Update highlight on target change
       if (bestCrowTarget != _currentCrowTarget)
@@ -132,20 +140,21 @@ public class PlayerActorController : Singleton<PlayerActorController>
           bestCrowTarget.SelectHighlight();
         }
 
-        _currentCrowTarget= bestCrowTarget;
+        _currentCrowTarget = bestCrowTarget;
       }
     }
 
     // Prep crow command
     if (_rewiredPlayer.GetButtonTimedPress(RewiredConsts.Action.Caw, 0.5f))
     {
-      _commandingCrow= GetCommandableCrow();
+      _commandingCrow = GetCommandableCrow();
 
       if (_commandingCrow != null)
       {
         foreach (var crowTarget in CrowTarget.Instances)
         {
-          crowTarget.ShowTargetHighlight();
+          if (crowTarget.IsInLineOfSight())
+            crowTarget.ShowTargetHighlight();
         }
       }
     }
@@ -153,8 +162,8 @@ public class PlayerActorController : Singleton<PlayerActorController>
     else if (_commandingCrow != null && _currentCrowTarget != null)
     {
       _commandingCrow.FetchCrowTarget(_currentCrowTarget);
-      _commandingCrow= null;
-      _currentCrowTarget= null;
+      _commandingCrow = null;
+      _currentCrowTarget = null;
 
       foreach (var crowTarget in CrowTarget.Instances)
       {
@@ -177,26 +186,26 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   public CrowTarget FindBestCrowTarget()
   {
-    Vector3 rayOrigin= _cameraPlayer.MountPoint.position;
-    Vector3 rayForward= _cameraPlayer.MountPoint.forward;
+    Vector3 rayOrigin = _cameraPlayer.MountPoint.position;
+    Vector3 rayForward = _cameraPlayer.MountPoint.forward;
 
     // Find the best crow target 
-    CrowTarget bestCrowTarget= null;
-    float bestCrowTargetScore= -1.0f;
+    CrowTarget bestCrowTarget = null;
+    float bestCrowTargetScore = Mathf.Infinity;
     foreach (var crowTarget in CrowTarget.Instances)
     {
-      if (crowTarget.Perch && !crowTarget.Perch.IsPerchReserved())
+      if (crowTarget.Perch && crowTarget.IsInLineOfSight() && !crowTarget.Perch.IsPerchReserved())
       {
-        Vector3 targetPosition= crowTarget.transform.position;
-        Vector3 cameraToTarget= Vector3.Normalize(targetPosition - rayOrigin);
+        Vector3 targetPosition = crowTarget.transform.position;
+        Vector3 cameraToTarget = Vector3.Normalize(targetPosition - rayOrigin);
 
-        float cosAngle= Vector3.Dot(cameraToTarget, rayForward);
-        if (cosAngle >= kSelectCosAngleThreshold)
+        float angle = Vector3.Angle(cameraToTarget, rayForward);
+        if (angle <= kSelectAngleThreshold)
         {
-          if (bestCrowTarget == null || cosAngle > bestCrowTargetScore)
+          if (bestCrowTarget == null || angle < bestCrowTargetScore)
           {
-            bestCrowTarget= crowTarget;
-            bestCrowTargetScore= cosAngle;
+            bestCrowTarget = crowTarget;
+            bestCrowTargetScore = angle;
           }
         }
       }
@@ -237,7 +246,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
   {
     foreach (PerchController perch in _staffPerches)
     {
-      CrowBehaviorManager perchedBird= perch.GetPerchedBird();
+      CrowBehaviorManager perchedBird = perch.GetPerchedBird();
       if (perchedBird != null)
       {
         return perchedBird;

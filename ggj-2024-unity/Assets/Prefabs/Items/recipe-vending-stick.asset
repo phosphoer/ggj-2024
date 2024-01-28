@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: recipe-vending-stick
   m_EditorClassIdentifier: 
   Result: {fileID: 11400000, guid: f398260bccc474b1da61dcf7a23f6979, type: 2}
-  CookDuration: 5
+  CookDuration: 0.5
   Ingredients:
   - Item: {fileID: 11400000, guid: a92ae152688b84c07ae43058acbfb768, type: 2}
     Count: 1
