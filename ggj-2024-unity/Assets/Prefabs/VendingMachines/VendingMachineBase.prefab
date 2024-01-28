@@ -263,6 +263,7 @@ MonoBehaviour:
   _ingredientSlots:
   - {fileID: 3269703123741913649}
   _allowInvalidRecipe: 0
+  _allowInvalidIngredients: 0
   _recipes:
   - {fileID: 11400000, guid: 4b4afc786c7aa440aa89032afe23a0b4, type: 2}
   _invalidRecipe: {fileID: 11400000, guid: 073a6e18cfae44819abcde664e5ef72d, type: 2}
@@ -356,7 +357,7 @@ Transform:
   m_GameObject: {fileID: 5101285645948590531}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.017000169, y: 0.998, z: 0.1279996}
+  m_LocalPosition: {x: -0.296, y: 0.794, z: -0.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
