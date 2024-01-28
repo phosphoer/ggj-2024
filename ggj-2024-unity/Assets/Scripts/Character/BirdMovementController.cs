@@ -338,6 +338,10 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
       // Smooth movement Velocity
       currentVelocity = Mathfx.Damp(currentVelocity, targetMovementVelocity, 0.25f, deltaTime * MoveAccel);
     }
+    else
+    {
+      ApplyGravity(ref currentVelocity, deltaTime);
+    }
   }
 
   private void UpdateTakeOffWindUpVelocity(ref Vector3 currentVelocity, float deltaTime)
