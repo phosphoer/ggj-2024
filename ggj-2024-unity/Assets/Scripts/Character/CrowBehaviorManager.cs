@@ -13,6 +13,7 @@ public class CrowBehaviorManager : MonoBehaviour
     GatherItem,
     ReturnItem,
     FlyToPlayerStaff,
+    PlayerStaffIdle,
     Attack,
     Dead,
     Flee
@@ -225,7 +226,7 @@ public class CrowBehaviorManager : MonoBehaviour
 
   public bool FetchCrowTarget(CrowTarget crowTarget)
   {
-    if (_behaviorState == BehaviorState.Idle || _behaviorState == BehaviorState.Wander)
+    if (_behaviorState == BehaviorState.PlayerStaffIdle)
     {
         Transform crowTargetTransform= crowTarget.transform;
         Vector3 crowTargetLocation = crowTargetTransform.position;
@@ -278,6 +279,9 @@ public class CrowBehaviorManager : MonoBehaviour
       break;
     case BehaviorState.FlyToPlayerStaff:
       nextBehavior = UpdateBehavior_FlyToPlayerStaff();
+      break;
+    case BehaviorState.PlayerStaffIdle:
+      // Just chill while idling on the player staff
       break;
     case BehaviorState.GatherItem:
       nextBehavior = UpdateBehavior_GatherItem();
@@ -366,6 +370,12 @@ public class CrowBehaviorManager : MonoBehaviour
     else if (IsPathFinished && _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched)
     {
       nextBehavior = BehaviorState.GatherItem;
+    }
+
+    // Forget about the crow target if we had to give up
+    if (nextBehavior == BehaviorState.Idle)
+    {
+      ForgetCrowTarget();
     }
 
     return nextBehavior;
@@ -480,7 +490,12 @@ public class CrowBehaviorManager : MonoBehaviour
       // Use the current player location rather than stale perception location to prevent oscillation
       Vector3 targetLocation = _pathDestinationTransform.position;
 
-      if (IsPathStale)
+      if (IsPathFinished)
+      {
+        // Chill on the player staff until given a command
+        nextBehavior = BehaviorState.PlayerStaffIdle;
+      }
+      else if (IsPathStale)
       {
         if (!RecomputePathTo(targetLocation, _pathDestinationTransform, PathDestinationType.PlayerStaff))
         {
@@ -491,12 +506,6 @@ public class CrowBehaviorManager : MonoBehaviour
     else
     {
       nextBehavior = BehaviorState.Idle;
-    }
-
-    // Forget about the crow target if we had to give up
-    if (nextBehavior == BehaviorState.Idle)
-    {
-      ForgetCrowTarget();
     }
 
     return nextBehavior;
@@ -532,10 +541,13 @@ public class CrowBehaviorManager : MonoBehaviour
     case BehaviorState.SeekCommandTarget:
       break;
     case BehaviorState.GatherItem:
+      _birdAnimator.IsChanneling= false;
       break;
     case BehaviorState.ReturnItem:
       break;
     case BehaviorState.FlyToPlayerStaff:
+      break;
+    case BehaviorState.PlayerStaffIdle:
       break;
     case BehaviorState.Attack:
       break;
@@ -579,9 +591,12 @@ public class CrowBehaviorManager : MonoBehaviour
         RecomputePathTo(foodLocation, null, PathDestinationType.Ground);
       }
       break;
+    case BehaviorState.PlayerStaffIdle:
+      break;
     case BehaviorState.SeekCommandTarget:
       break;
     case BehaviorState.GatherItem:
+      _birdAnimator.IsChanneling= true;
       break;
     case BehaviorState.ReturnItem:
       {
@@ -649,17 +664,45 @@ public class CrowBehaviorManager : MonoBehaviour
     _pathRefreshTimer = _pathRefreshPeriod;
     _pathWaypointIndex = 0;
     _pathfollowingStuckTimer = 0.0f;
-    if (PathFindManager.Instance.CalculatePathToPoint(transform.position, targetLocation, _lastPath))
-    {
-      // If pathfinding wasn't running already, flag that the path started
-      if (_pathFollowingStatus != PathFollowingStatus.Running)
-      {
-        OnPathStarted();
-      }
 
+    bool bComputedPath= false;
+    if (IsFlyingPathTarget(destinationType))
+    {
+      Vector3 sourceLocation= this.transform.position;
+      Vector3 midpoint= (sourceLocation + targetLocation) * 0.5f;
+      float distance= Vector3.Distance(sourceLocation, targetLocation);
+      float heightOffset= distance * 0.1f;
+
+      midpoint.y= Mathf.Max(sourceLocation.y, targetLocation.y) + heightOffset;
+
+      _lastPath.Clear();
+      _lastPath.Add(sourceLocation);
+      _lastPath.Add(midpoint);
+      _lastPath.Add(targetLocation);
+
+      bComputedPath= true;
+    }
+    else
+    {
+      bComputedPath= PathFindManager.Instance.CalculatePathToPoint(transform.position, targetLocation, _lastPath);
+    }
+
+    if (bComputedPath)
+    {
       _pathDestinationLocation = targetLocation;
       _pathDestinationTransform = targetTransform;
       _pathDestinationType = destinationType;
+
+      // Take off if we need to fly to something
+      bool hasFlyingTarget = HasFlyingPathTarget();
+      bool isWalking = _birdMovement.MoveMode == BirdMovementController.MovementMode.Walking;
+      bool isPerched = _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched;
+      if ((isWalking && hasFlyingTarget) || isPerched)
+      {
+        _birdMovement.TakeOff();
+      }
+
+      _pathFollowingStatus = PathFollowingStatus.Running;
 
       return true;
     }
@@ -673,7 +716,12 @@ public class CrowBehaviorManager : MonoBehaviour
 
   bool HasFlyingPathTarget()
   {
-    return _pathDestinationType == PathDestinationType.StaticPerch || _pathDestinationType == PathDestinationType.PlayerStaff;
+    return IsFlyingPathTarget(_pathDestinationType);
+  }
+
+  bool IsFlyingPathTarget(PathDestinationType destinationType)
+  {
+    return destinationType == PathDestinationType.StaticPerch || destinationType == PathDestinationType.PlayerStaff;
   }
 
   void UpdatePathFollowing()
@@ -723,20 +771,6 @@ public class CrowBehaviorManager : MonoBehaviour
         OnPathFinished();
       }
     }
-  }
-
-  void OnPathStarted()
-  {
-    bool hasFlyingTarget = HasFlyingPathTarget();
-    bool isWalking = _birdMovement.MoveMode == BirdMovementController.MovementMode.Walking;
-    bool isPerched = _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched;
-
-    if ((isWalking && hasFlyingTarget) || isPerched)
-    {
-      _birdMovement.TakeOff();
-    }
-
-    _pathFollowingStatus = PathFollowingStatus.Running;
   }
 
   void OnPathFinished()
