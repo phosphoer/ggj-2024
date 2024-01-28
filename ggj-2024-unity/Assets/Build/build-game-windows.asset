@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8b8b4c4b7824373a4c8ea1b3f5e208, type: 3}
   m_Name: build-game-windows
   m_EditorClassIdentifier: 
-  LocationPathName: build/game-windows/game.exe
+  LocationPathName: build/caws-windows/caws.exe
   ProductNameOverride: 
   CompanyNameOverride: 
   BuildTarget: 19
