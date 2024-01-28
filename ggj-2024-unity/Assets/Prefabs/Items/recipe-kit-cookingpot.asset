@@ -16,8 +16,8 @@ MonoBehaviour:
   CookDuration: 3
   Ingredients:
   - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
-    Count: 1
+    Count: 3
   - Item: {fileID: 11400000, guid: f398260bccc474b1da61dcf7a23f6979, type: 2}
-    Count: 1
+    Count: 3
   - Item: {fileID: 11400000, guid: a92ae152688b84c07ae43058acbfb768, type: 2}
-    Count: 1
+    Count: 3
