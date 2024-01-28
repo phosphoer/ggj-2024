@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39429c8582b4f14f83ff6927b42ea3a, type: 3}
+  m_Name: resource-stick
+  m_EditorClassIdentifier: 
+  Name: Stick
+  SpawnPhase: 0
+  MinSpawnFrequency: 25
+  MaxSpawnFrequency: 50
+  Prefab: {fileID: 3491684313500310170, guid: 4537d0b68335e475187212177e8e30c0, type: 3}

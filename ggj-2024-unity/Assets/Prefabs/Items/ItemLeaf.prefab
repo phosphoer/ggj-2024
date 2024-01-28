@@ -103,8 +103,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.22949287, y: 0.09546014, z: 1.0930424}
-  m_Center: {x: 0.06126739, y: 0.0060558654, z: 0.030290395}
+  m_Size: {x: 1.0113158, y: 0.19871968, z: 1.0284462}
+  m_Center: {x: -0.0014259815, y: -0.02590543, z: 0.13078976}
 --- !u!1 &8854779869908706096
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 87506204956846299}
   - component: {fileID: 5595659566637781942}
   - component: {fileID: 2874904481558846707}
+  - component: {fileID: 6728982165576771834}
   m_Layer: 0
   m_Name: ItemLeaf
   m_TagString: Untagged
@@ -203,3 +204,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6728982165576771834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854779869908706096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e37767d9e3a144d8cd65d96ca29fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParentSpawner: {fileID: 0}

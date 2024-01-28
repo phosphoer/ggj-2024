@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39429c8582b4f14f83ff6927b42ea3a, type: 3}
+  m_Name: resource-stone
+  m_EditorClassIdentifier: 
+  Name: Stone
+  SpawnPhase: 0
+  MinSpawnFrequency: 25
+  MaxSpawnFrequency: 50
+  Prefab: {fileID: -5160306586166506370, guid: 13d18d1c78156034b8b8211ff2588948, type: 3}
