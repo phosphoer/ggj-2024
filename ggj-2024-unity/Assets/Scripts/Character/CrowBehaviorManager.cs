@@ -90,10 +90,10 @@ public class CrowBehaviorManager : MonoBehaviour
   //-- Public Perch ---
   public float PublicPerchMaxRange = 30.0f;
   public RangedFloat PublicPerchCooldown = new RangedFloat(10, 30);
-  public float _publicPerchCooldownTimer= 0.0f;
+  public float _publicPerchCooldownTimer = 0.0f;
   public RangedFloat PublicPerchIdleDuration = new RangedFloat(3, 8);
-  public float _publicPerchIdleTimeout= 0.0f;
-  private PerchController _reservedPublicPerch= null;
+  public float _publicPerchIdleTimeout = 0.0f;
+  private PerchController _reservedPublicPerch = null;
   //-- Wander --
   public float WanderRange = 10.0f;
   //-- FlyToPlayerStaff --
@@ -293,7 +293,7 @@ public class CrowBehaviorManager : MonoBehaviour
     }
 
     // Update public perch cooldown
-    _publicPerchCooldownTimer= Mathf.Max(_publicPerchCooldownTimer - Time.deltaTime, 0.0f);
+    _publicPerchCooldownTimer = Mathf.Max(_publicPerchCooldownTimer - Time.deltaTime, 0.0f);
 
     switch (_behaviorState)
     {
@@ -337,7 +337,7 @@ public class CrowBehaviorManager : MonoBehaviour
     SetBehaviorState(nextBehavior);
   }
 
-  void SetBehaviorState(BehaviorState nextBehavior)
+  public void SetBehaviorState(BehaviorState nextBehavior)
   {
     if (nextBehavior != _behaviorState)
     {
@@ -358,7 +358,7 @@ public class CrowBehaviorManager : MonoBehaviour
     BehaviorState nextBehavior = BehaviorState.Idle;
 
     if (_birdMovement.MoveMode == BirdMovementController.MovementMode.Walking ||
-        _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying || 
+        _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying ||
         _birdMovement.MoveMode == BirdMovementController.MovementMode.Perched)
     {
       // If we spot food, go to it!
@@ -409,7 +409,7 @@ public class CrowBehaviorManager : MonoBehaviour
     if (_timeInBehavior >= _publicPerchIdleTimeout)
     {
       ForgetPublicPerch();
-      nextBehavior= BehaviorState.Wander;
+      nextBehavior = BehaviorState.Wander;
     }
 
     return nextBehavior;
@@ -503,7 +503,7 @@ public class CrowBehaviorManager : MonoBehaviour
       bool IsFlying = _birdMovement.MoveMode == BirdMovementController.MovementMode.Flying;
 
       // Use the current player location rather than stale perception location to prevent oscillation
-      Vector3 targetLocation = _pathDestinationTransform.position + _pathDestinationTransform.forward*ReturnItemPlayerOffset;
+      Vector3 targetLocation = _pathDestinationTransform.position + _pathDestinationTransform.forward * ReturnItemPlayerOffset;
 
       if (IsPathStale && IsFlying)
       {
@@ -642,7 +642,7 @@ public class CrowBehaviorManager : MonoBehaviour
         break;
       case BehaviorState.PublicPerchIdle:
         {
-          _publicPerchCooldownTimer= Random.Range(PublicPerchCooldown.MinValue, PublicPerchCooldown.MaxValue);
+          _publicPerchCooldownTimer = Random.Range(PublicPerchCooldown.MinValue, PublicPerchCooldown.MaxValue);
           ForgetPublicPerch();
         }
         break;
@@ -677,28 +677,31 @@ public class CrowBehaviorManager : MonoBehaviour
         break;
       case BehaviorState.MoveToPublicPerch:
         {
-          _reservedPublicPerch= _perceptionComponent.NearbyPublicPerch;
-          _reservedPublicPerch.ReservePerch(this);
-
-          Transform perchTransform= _reservedPublicPerch.transform;
-          Vector2 perchPosition= perchTransform.position;
-
-          _throttleUrgency = 0.5f; // full speed
-          _pathRefreshPeriod = -1.0f; // manual refresh
-
-          if (_reservedPublicPerch.IsWalkablePerch)
+          _reservedPublicPerch = _perceptionComponent.NearbyPublicPerch;
+          if (_reservedPublicPerch != null)
           {
-            RecomputePathTo(perchPosition, null, PathDestinationType.Ground);
-          }
-          else
-          {
-            RecomputePathTo(perchPosition, perchTransform, PathDestinationType.StaticPerch);
+            _reservedPublicPerch.ReservePerch(this);
+
+            Transform perchTransform = _reservedPublicPerch.transform;
+            Vector2 perchPosition = perchTransform.position;
+
+            _throttleUrgency = 0.5f; // full speed
+            _pathRefreshPeriod = -1.0f; // manual refresh
+
+            if (_reservedPublicPerch.IsWalkablePerch)
+            {
+              RecomputePathTo(perchPosition, null, PathDestinationType.Ground);
+            }
+            else
+            {
+              RecomputePathTo(perchPosition, perchTransform, PathDestinationType.StaticPerch);
+            }
           }
         }
         break;
       case BehaviorState.PublicPerchIdle:
         {
-          _publicPerchIdleTimeout= Random.Range(PublicPerchIdleDuration.MinValue, PublicPerchIdleDuration.MaxValue);
+          _publicPerchIdleTimeout = Random.Range(PublicPerchIdleDuration.MinValue, PublicPerchIdleDuration.MaxValue);
         }
         break;
       case BehaviorState.Wander:
@@ -735,7 +738,7 @@ public class CrowBehaviorManager : MonoBehaviour
       case BehaviorState.ReturnItem:
         {
           Transform playerTargetTransform = PlayerActorController.Instance.transform;
-          Vector3 playerTargetLocation = playerTargetTransform.position + playerTargetTransform.forward*ReturnItemPlayerOffset;
+          Vector3 playerTargetLocation = playerTargetTransform.position + playerTargetTransform.forward * ReturnItemPlayerOffset;
 
           _throttleUrgency = 1.0f; // full speed
           _pathRefreshPeriod = 2.0f; // refresh path every 2 seconds while approaching the player

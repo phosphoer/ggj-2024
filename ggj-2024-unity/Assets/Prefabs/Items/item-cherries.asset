@@ -15,3 +15,6 @@ MonoBehaviour:
   Name: Cherries
   Prefab: {fileID: 1622440855336301027, guid: 0fdf4d6be6bae47438490a3c73bd732a, type: 3}
   IsIngredient: 1
+  IsCrowFood: 0
+  CrowXP: 0
+  ShopValue: 1
