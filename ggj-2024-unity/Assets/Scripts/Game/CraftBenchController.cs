@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CookingPotController : MonoBehaviour
+public class CraftBenchController : MonoBehaviour
 {
   [SerializeField]
   private Interactable _interactable = null;
@@ -9,13 +9,10 @@ public class CookingPotController : MonoBehaviour
   private InventoryController _inventory = null;
 
   [SerializeField]
-  private ParticleSystem _fxCookingBubbles = null;
+  private ParticleSystem[] _fxConstruction = null;
 
   [SerializeField]
-  private ParticleSystem _fxCookingFire = null;
-
-  [SerializeField]
-  private Transform[] _cookingSlots = null;
+  private Transform[] _ingredientSlots = null;
 
   [SerializeField]
   private RecipeDefinition[] _recipes = null;
@@ -23,8 +20,8 @@ public class CookingPotController : MonoBehaviour
   [SerializeField]
   private RecipeDefinition _invalidRecipe = null;
 
-  private bool _isCooking = false;
-  private float _cookingTimer = 0;
+  private bool _isConstructing = false;
+  private float _constructionTimer = 0;
   private RecipeDefinition _activeRecipe = null;
 
   private void Awake()
@@ -33,25 +30,26 @@ public class CookingPotController : MonoBehaviour
     _inventory.ItemAdded += OnItemAdded;
     _inventory.ItemRemoved += OnItemRemoved;
     _interactable.enabled = _inventory.Items.Count > 0;
-    _fxCookingBubbles.Stop();
-    _fxCookingFire.Stop();
+
+    foreach (var fx in _fxConstruction)
+      fx.Stop();
   }
 
   private void Update()
   {
-    for (int i = 0; i < _cookingSlots.Length; ++i)
+    for (int i = 0; i < _ingredientSlots.Length; ++i)
     {
-      Transform cookingSlot = _cookingSlots[i];
+      Transform cookingSlot = _ingredientSlots[i];
       foreach (Transform child in cookingSlot)
       {
         child.localPosition = Vector3.up * Mathf.Sin(Time.time + i) * 0.1f;
       }
     }
 
-    if (_isCooking)
+    if (_isConstructing)
     {
-      _cookingTimer += Time.deltaTime;
-      if (_cookingTimer >= _activeRecipe.CookDuration)
+      _constructionTimer += Time.deltaTime;
+      if (_constructionTimer >= _activeRecipe.CookDuration)
         StopCooking();
     }
   }
@@ -67,8 +65,8 @@ public class CookingPotController : MonoBehaviour
 
   private void OnItemAdded(ItemDefinition definition)
   {
-    int currentSlotIndex = _cookingSlots.WrapIndex(_inventory.Items.Count);
-    Transform currentSlot = _cookingSlots[currentSlotIndex];
+    int currentSlotIndex = _ingredientSlots.WrapIndex(_inventory.Items.Count);
+    Transform currentSlot = _ingredientSlots[currentSlotIndex];
     ItemController item = Instantiate(definition.Prefab, currentSlot);
     item.transform.SetIdentityTransformLocal();
     item.transform.localRotation = Random.rotation;
@@ -86,7 +84,7 @@ public class CookingPotController : MonoBehaviour
 
   private void OnInteract(InteractionController controller)
   {
-    if (!_isCooking)
+    if (!_isConstructing)
     {
       _activeRecipe = GetRecipeForIngredients();
       StartCooking();
@@ -95,28 +93,30 @@ public class CookingPotController : MonoBehaviour
 
   private void StartCooking()
   {
-    _isCooking = true;
+    _isConstructing = true;
     _interactable.enabled = false;
-    _fxCookingBubbles.Play();
-    _fxCookingFire.Play();
-    _cookingTimer = 0;
+    _constructionTimer = 0;
+
+    foreach (var fx in _fxConstruction)
+      fx.Play();
   }
 
   private void StopCooking()
   {
-    _isCooking = false;
-    _fxCookingBubbles.Stop();
-    _fxCookingFire.Stop();
+    _isConstructing = false;
 
-    foreach (var cookSlot in _cookingSlots)
+    foreach (var ingredientSlot in _ingredientSlots)
     {
-      foreach (Transform child in cookSlot)
+      foreach (Transform child in ingredientSlot)
       {
         var dehydrate = child.gameObject.AddComponent<UIHydrate>();
         dehydrate.DestroyOnDehydrate = true;
         dehydrate.Dehydrate();
       }
     }
+
+    foreach (var fx in _fxConstruction)
+      fx.Stop();
 
     _inventory.ClearItems();
 
