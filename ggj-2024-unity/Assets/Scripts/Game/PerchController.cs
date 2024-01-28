@@ -11,6 +11,22 @@ public class PerchController : MonoBehaviour
     return _owningBird != null;
   }
 
+  public CrowBehaviorManager GetOwningBird()
+  {
+    return _owningBird;
+  }
+
+  public CrowBehaviorManager GetPerchedBird()
+  {
+    if (_owningBird != null)
+    {
+      // Only return the owning bird if it has actually attached itself to the perch
+      return _owningBird.transform.parent == this.transform ? _owningBird : null;
+    }
+
+    return null;
+  }
+
   public bool ReservePerch(CrowBehaviorManager bird)
   {
     if (!IsPerchReserved())

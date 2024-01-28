@@ -24,6 +24,15 @@ public class CraftBenchController : MonoBehaviour
   [SerializeField]
   private RecipeDefinition _invalidRecipe = null;
 
+  [SerializeField]
+  private TMPro.TMP_Text _recipeCostText = null;
+
+  [SerializeField]
+  private string _returnMaterialString = "Return Materials";
+
+  [SerializeField]
+  private string _craftItemString = "Craft {0}";
+
   private bool _isConstructing = false;
   private float _constructionTimer = 0;
   private RecipeDefinition _activeRecipe = null;
@@ -40,6 +49,11 @@ public class CraftBenchController : MonoBehaviour
       fx.Stop();
 
     UpdateInteractable();
+
+    if (_recipeCostText != null && _recipes.Length > 0)
+    {
+      _recipeCostText.text = $"{_recipes[0].Ingredients[0].Count:00}";
+    }
   }
 
   private void Update()
@@ -131,11 +145,11 @@ public class CraftBenchController : MonoBehaviour
       RecipeDefinition pendingRecipe = GetRecipeForIngredients();
       if (pendingRecipe == _invalidRecipe)
       {
-        _interactable.SetInteractionText("Return Materials");
+        _interactable.SetInteractionText(_returnMaterialString);
       }
       else
       {
-        _interactable.SetInteractionText($"Craft {pendingRecipe.Result.Name}");
+        _interactable.SetInteractionText(string.Format(_craftItemString, pendingRecipe.Result.Name));
       }
     }
   }
