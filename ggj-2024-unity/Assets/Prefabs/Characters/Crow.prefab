@@ -122,6 +122,7 @@ MonoBehaviour:
   _birdMovement: {fileID: 2952562628403108043}
   _inventoryController: {fileID: 5561704545250357670}
   _statsManager: {fileID: 9221079697861785601}
+  _levelUpFX: {fileID: 7708940225935993173, guid: ed97a5a66307ee941a6b39ccb21dae50, type: 3}
   _attackFX: {fileID: 0}
   _attackSound: {fileID: 0}
   _deathFX: {fileID: 0}

@@ -61,6 +61,9 @@ public class CrowBehaviorManager : MonoBehaviour
   private CrowStatsManager _statsManager = null;
 
   [SerializeField]
+  private GameObject _levelUpFX = null;
+
+  [SerializeField]
   private GameObject _attackFX = null;
 
   [SerializeField]
@@ -171,6 +174,19 @@ public class CrowBehaviorManager : MonoBehaviour
   private void OnDestroy()
   {
     _instances.Remove(this);
+  }
+
+  private void Start()
+  {
+    _statsManager.LeveledUp += OnLeveledUp;
+  }
+
+  private void OnLeveledUp(int newLevel)
+  {
+    if (_levelUpFX != null)
+    {
+      Instantiate(_levelUpFX, this.transform);
+    }
   }
 
   private void Update()
