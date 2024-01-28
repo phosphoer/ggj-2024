@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8b8b4c4b7824373a4c8ea1b3f5e208, type: 3}
   m_Name: build-game-mac
   m_EditorClassIdentifier: 
-  LocationPathName: build/game-mac/game.app
+  LocationPathName: build/caws-mac/caws.app
   ProductNameOverride: 
   CompanyNameOverride: 
   BuildTarget: 2
