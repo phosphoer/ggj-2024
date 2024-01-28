@@ -237,54 +237,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4537d0b68335e475187212177e8e30c0, type: 3}
---- !u!1 &119655110
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 119655112}
-  - component: {fileID: 119655111}
-  m_Layer: 0
-  m_Name: TestCrowTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &119655111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 119655110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dc5410b34b69433b8894416a76078cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GatherTime: 10
-  _targetedHighlightPrefab: {fileID: 7937580347531802412, guid: fb19aba768e834de3814c5bb8b1c0079, type: 3}
-  _itemReward: {fileID: 11400000, guid: e44a7c1cd321e4ccd8019ae423022d62, type: 2}
-  _perch: {fileID: 0}
---- !u!4 &119655112
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 119655110}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.55, y: 5.9804497, z: 35.28}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &153654871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2436,4 +2388,3 @@ SceneRoots:
   - {fileID: 1133752873}
   - {fileID: 1106234662}
   - {fileID: 822010252}
-  - {fileID: 119655112}

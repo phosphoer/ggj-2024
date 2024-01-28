@@ -233,6 +233,7 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
         if (_targetPerchTransform != null && this.transform.parent == _targetPerchTransform)
         {
           this.transform.parent= null;
+          this.transform.localScale= Vector3.one;
           _targetPerchTransform= null;
         }
       }
