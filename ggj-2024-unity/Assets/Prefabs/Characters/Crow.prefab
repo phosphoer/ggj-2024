@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 9089116607555004450}
+  _blingAnimators: []
 --- !u!114 &2952562628403108043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +120,6 @@ MonoBehaviour:
   _birdMovement: {fileID: 2952562628403108043}
   _inventoryController: {fileID: 5561704545250357670}
   _statsManager: {fileID: 9221079697861785601}
-  _cawSound: {fileID: 0}
   _attackFX: {fileID: 0}
   _attackSound: {fileID: 0}
   _deathFX: {fileID: 0}
@@ -127,9 +127,12 @@ MonoBehaviour:
   IdleMinDuration: 0.5
   IdleMaxDuration: 3
   EatFoodRange: 2
+  CommandTargetRange: 3
   WanderRange: 10
   PlayerApproachTimeOut: 4
   PlayerApproachRange: 30
+  ReturnItemDropRange: 10
+  VomitStrength: 1
   AttackRange: 2
   AttackDuration: 2
   AttackTurnSpeed: 5
@@ -149,6 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6a902a596293d4088178a6763f489d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelBlingTable:
+  - {fileID: 528024529023805529, guid: 8d834fda0332dc14090d68687410987e, type: 3}
+  - {fileID: 6892732152233382112, guid: 6be96a74112cf004eab8212ed498b690, type: 3}
+  - {fileID: 8521441528117889179, guid: 4870ba3f48fd2ab4a99f086a302436de, type: 3}
+  - {fileID: 3925123128236013896, guid: fe16d9e5ca178234ba84e2f30bbea554, type: 3}
+  - {fileID: 4168567380550129219, guid: 880773729f032eb4f82498b1e8d4cde9, type: 3}
+  _birdAnimationController: {fileID: 3211435005685317393}
+  _statsManager: {fileID: 9221079697861785601}
 --- !u!114 &8315566417519928388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemSpawnAnchor: {fileID: 3779844070360758584}
+  _itemCollectAnchor: {fileID: 0}
 --- !u!1001 &5312377038392121358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -367,7 +379,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5005807150207919455}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 52d4a8969e40225448a014a8905aa459, type: 3}
   m_Controller: {fileID: 9100000, guid: 024c70ae783f8be419740aac5fa3cd94, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
