@@ -75,6 +75,11 @@ public class BirdMovementController : MonoBehaviour, ICharacterController
     return GetSpeed() > 0.01f;
   }
 
+  public bool IsInBadWalkingLocation()
+  {
+    return _movementMode == MovementMode.Walking && !Motor.GroundingStatus.IsStableOnGround;
+  }
+
   public bool IsStationary()
   {
     return !IsMoving();
