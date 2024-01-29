@@ -2296,6 +2296,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3206798662049462987}
   - component: {fileID: 4956451771267976622}
+  - component: {fileID: 3791315009285918821}
+  - component: {fileID: 3060243941757670518}
   m_Layer: 0
   m_Name: TutorialBoard_Interact
   m_TagString: Untagged
@@ -2352,6 +2354,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3791315009285918821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394824925710483368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82cf4762017547ebbc8ef44a3d4d991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: {fileID: 3060243941757670518}
+--- !u!114 &3060243941757670518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394824925710483368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b8e5362b91e4451aefe5def84c8a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactableUIPrefab: {fileID: 8806826485105270308, guid: 220aad5cc92714ff7993c2fe115a3b46, type: 3}
+  _interactionUIAnchor: {fileID: 0}
+  _interactionUIHeight: 0.5
+  _interactionText: Dismiss
+  _interactionRadius: 2
+  _requiresLineOfSight: 0
+  _autoInteract: 0
+  _enableInteraction: 1
+  _disableOnInteract: 0
 --- !u!1 &3418254214719462302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,6 +2398,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1322305947361142541}
   - component: {fileID: 8910364553414202523}
+  - component: {fileID: 6417508708077991154}
+  - component: {fileID: 4858255338127238123}
   m_Layer: 0
   m_Name: TutorialBoard_CraftingBench
   m_TagString: Untagged
@@ -2413,6 +2451,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6417508708077991154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3418254214719462302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82cf4762017547ebbc8ef44a3d4d991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: {fileID: 4858255338127238123}
+--- !u!114 &4858255338127238123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3418254214719462302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b8e5362b91e4451aefe5def84c8a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactableUIPrefab: {fileID: 8806826485105270308, guid: 220aad5cc92714ff7993c2fe115a3b46, type: 3}
+  _interactionUIAnchor: {fileID: 0}
+  _interactionUIHeight: 0.5
+  _interactionText: Dismiss
+  _interactionRadius: 2
+  _requiresLineOfSight: 0
+  _autoInteract: 0
+  _enableInteraction: 1
+  _disableOnInteract: 0
 --- !u!1 &3595743670119601999
 GameObject:
   m_ObjectHideFlags: 0
@@ -3069,6 +3141,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7904659728483757686}
   - component: {fileID: 3349137106195111459}
+  - component: {fileID: 7918670596091116050}
+  - component: {fileID: 3357816176175947716}
   m_Layer: 0
   m_Name: TutorialBoard_Throw
   m_TagString: Untagged
@@ -3124,6 +3198,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7918670596091116050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4295577306460723657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82cf4762017547ebbc8ef44a3d4d991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: {fileID: 3357816176175947716}
+--- !u!114 &3357816176175947716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4295577306460723657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b8e5362b91e4451aefe5def84c8a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactableUIPrefab: {fileID: 8806826485105270308, guid: 220aad5cc92714ff7993c2fe115a3b46, type: 3}
+  _interactionUIAnchor: {fileID: 0}
+  _interactionUIHeight: 0.5
+  _interactionText: Dismiss
+  _interactionRadius: 2
+  _requiresLineOfSight: 0
+  _autoInteract: 0
+  _enableInteraction: 1
+  _disableOnInteract: 0
 --- !u!1 &4303727846457451370
 GameObject:
   m_ObjectHideFlags: 0
@@ -6097,6 +6205,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9117620512405557557}
   - component: {fileID: 5333992365528612630}
+  - component: {fileID: 6865685244004273076}
+  - component: {fileID: 5152298587114814212}
   m_Layer: 0
   m_Name: TutorialBoard_Move
   m_TagString: Untagged
@@ -6152,6 +6262,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6865685244004273076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9113401767760046173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82cf4762017547ebbc8ef44a3d4d991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: {fileID: 5152298587114814212}
+--- !u!114 &5152298587114814212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9113401767760046173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b8e5362b91e4451aefe5def84c8a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactableUIPrefab: {fileID: 8806826485105270308, guid: 220aad5cc92714ff7993c2fe115a3b46, type: 3}
+  _interactionUIAnchor: {fileID: 0}
+  _interactionUIHeight: 0.5
+  _interactionText: Dismiss
+  _interactionRadius: 2
+  _requiresLineOfSight: 0
+  _autoInteract: 0
+  _enableInteraction: 1
+  _disableOnInteract: 0
 --- !u!1001 &15665462002436473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6414,55 +6558,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.914
+      value: -40.545
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.853
+      value: 4.207
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.759
+      value: 34.75
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6593271
+      value: 0.48456973
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.10842018
+      value: -0.28600624
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.73413825
+      value: 0.75357735
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.1207222
+      value: 0.33987328
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -18.676
+      value: -52.131
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 96.146
+      value: 119.188
       objectReference: {fileID: 0}
     - target: {fileID: 916194606571519654, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4611796274312845010, guid: 74d99f0de263447319c383267bb130f6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -17.619
-      objectReference: {fileID: 0}
-    - target: {fileID: 4611796274312845010, guid: 74d99f0de263447319c383267bb130f6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.095
-      objectReference: {fileID: 0}
-    - target: {fileID: 4611796274312845010, guid: 74d99f0de263447319c383267bb130f6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -11.814
+      value: -9.534
       objectReference: {fileID: 0}
     - target: {fileID: 5815291085822966291, guid: 74d99f0de263447319c383267bb130f6, type: 3}
       propertyPath: m_Name
