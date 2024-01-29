@@ -128,6 +128,9 @@ MonoBehaviour:
   IdleMaxDuration: 3
   EatFoodRange: 2
   CommandTargetRange: 3
+  FlyPathHeightRange:
+    MinValue: 2
+    MaxValue: 4
   WanderRange: 10
   PlayerApproachTimeOut: 4
   PlayerApproachRange: 30
@@ -355,6 +358,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6536707833894280816}
   m_SourcePrefab: {fileID: 100100000, guid: 52d4a8969e40225448a014a8905aa459, type: 3}
+--- !u!4 &2937086647760867039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2198888584636164399, guid: 52d4a8969e40225448a014a8905aa459, type: 3}
+  m_PrefabInstance: {fileID: 5312377038392121358}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3779844070360758584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -158207753188941514, guid: 52d4a8969e40225448a014a8905aa459, type: 3}
@@ -419,6 +427,10 @@ MonoBehaviour:
   - FXKey: Caw
     FXObj: {fileID: 6105069819486056908, guid: ddec08d26650c364b92ac2c9c3cdbf32, type: 3}
     SpawnLocation: {fileID: 4060823890728013175}
+    ParentFX: 0
+  - FXKey: FeatherBurst
+    FXObj: {fileID: 3178214621239677196, guid: 071e6e131853ec0469586302ed18d8be, type: 3}
+    SpawnLocation: {fileID: 2937086647760867039}
     ParentFX: 0
 --- !u!4 &5635097939542065125 stripped
 Transform:
