@@ -10,15 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c345fe0be4353445895a73c7861c323d, type: 3}
-  m_Name: soundbank-crowbo-attack
+  m_Name: soundbank-crowbo-cane-ground
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: 8e339a61055574b5bb88008ad99ebb04, type: 3}
+  - {fileID: 8300000, guid: b5e71a2eb92294345b2b740134b4256e, type: 3}
+  - {fileID: 8300000, guid: 8ed64d3b68da0f048b43692e0a009314, type: 3}
+  - {fileID: 8300000, guid: 83185a073311a494aa9e058f3249e436, type: 3}
+  - {fileID: 8300000, guid: 7a0cbe6cc4ff20e45a9a59dd33e1a683, type: 3}
+  - {fileID: 8300000, guid: 6453394a64cf27d47a2750ea00bc9a4b, type: 3}
   SequencedClips: []
   IsLooping: 0
   IsSpatial: 1
-  MaxDistance: 50
-  MinDistance: 10
+  MaxDistance: 10
+  MinDistance: 2
   VolumeScale: 0.5
   DopplerLevel: 0
   PitchOffset: 0

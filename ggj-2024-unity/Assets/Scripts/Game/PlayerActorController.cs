@@ -18,6 +18,9 @@ public class PlayerActorController : Singleton<PlayerActorController>
   private Animator _animator = null;
 
   [SerializeField]
+  private AnimatorCallbacks _animatorCallbacks = null;
+
+  [SerializeField]
   private InteractionController _interactionController = null;
 
   [SerializeField]
@@ -37,6 +40,12 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   [SerializeField]
   private SoundBank _sfxAttack = null;
+
+  [SerializeField]
+  private SoundBank _sfxFootstep = null;
+
+  [SerializeField]
+  private SoundBank _sfxWalkingStick = null;
 
   private Rewired.Player _rewiredPlayer;
   private CameraControllerPlayer _cameraPlayer;
@@ -61,6 +70,16 @@ public class PlayerActorController : Singleton<PlayerActorController>
     _cameraPlayer.TargetTransform = transform;
     _inventory.ItemAdded += OnItemAdded;
     _inventory.ItemRemoved += OnItemRemoved;
+
+    _animatorCallbacks.AddCallback("Footstep", () =>
+    {
+      AudioManager.Instance.PlaySound(gameObject, _sfxFootstep);
+    });
+
+    _animatorCallbacks.AddCallback("WalkingStick", () =>
+    {
+      AudioManager.Instance.PlaySound(gameObject, _sfxWalkingStick);
+    });
   }
 
   private void Update()
@@ -121,7 +140,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
       // Ask for a crow to come to us
       SummonClosestCrow();
 
-      _attackCooldownTimer = 1.5f;
+      _attackCooldownTimer = 2.5f;
       _animator.SetBool(kAnimIsCalling, true);
     }
 

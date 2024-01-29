@@ -20,7 +20,7 @@ MonoBehaviour:
   SequencedClips: []
   IsLooping: 0
   IsSpatial: 1
-  MaxDistance: 50
+  MaxDistance: 20
   MinDistance: 10
   VolumeScale: 1
   DopplerLevel: 0

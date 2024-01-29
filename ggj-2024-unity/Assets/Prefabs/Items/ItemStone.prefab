@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactableUIPrefab: {fileID: 8806826485105270308, guid: 220aad5cc92714ff7993c2fe115a3b46, type: 3}
   _interactionUIAnchor: {fileID: 0}
-  _interactionUIHeight: 1.5
+  _interactionUIHeight: 1
   _interactionText: Pickup
   _interactionRadius: 2
   _requiresLineOfSight: 0

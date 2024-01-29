@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 670254275369873578}
   - component: {fileID: 3537565490238447652}
   - component: {fileID: 4088988399815621296}
+  - component: {fileID: 496378172871487993}
   m_Layer: 6
   m_Name: Crowbo
   m_TagString: Untagged
@@ -58,6 +59,7 @@ MonoBehaviour:
   _aiVisibilityTarget: {fileID: 0}
   _actor: {fileID: 3215897674524226828}
   _animator: {fileID: 1992563898202502994}
+  _animatorCallbacks: {fileID: 3864049217150316513}
   _interactionController: {fileID: 670254275369873578}
   _inventory: {fileID: 3537565490238447652}
   _inventorySelector: {fileID: 4088988399815621296}
@@ -66,6 +68,8 @@ MonoBehaviour:
   - {fileID: 2937878460435715271}
   _sfxPickup: {fileID: 11400000, guid: 1ae912877565e47db8cfd67715a639df, type: 2}
   _sfxAttack: {fileID: 11400000, guid: 11269a17ccbc84c1ab2d908f007c3c85, type: 2}
+  _sfxFootstep: {fileID: 11400000, guid: f56cc0bae4fa840e483fd0c298437ab2, type: 2}
+  _sfxWalkingStick: {fileID: 11400000, guid: 75fc4c99c160f48ee8ef578e3fe174d1, type: 2}
 --- !u!114 &3215897674524226828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +232,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventory: {fileID: 3537565490238447652}
   _itemDisplayAnchor: {fileID: 3272373333460452974}
+--- !u!81 &496378172871487993
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534771727403084173}
+  m_Enabled: 1
 --- !u!1 &2998651597243687968
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +425,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b61cfefabad855744bf940273f956d5a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 933805951013977636}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b61cfefabad855744bf940273f956d5a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3864049217150316513}
   m_SourcePrefab: {fileID: 100100000, guid: b61cfefabad855744bf940273f956d5a, type: 3}
 --- !u!95 &1992563898202502994 stripped
 Animator:
@@ -458,6 +473,18 @@ MonoBehaviour:
     FXObj: {fileID: 6105069819486056908, guid: c0500c7787a419c409ccbda0077c10dd, type: 3}
     SpawnLocation: {fileID: 7731201296418163614}
     ParentFX: 0
+--- !u!114 &3864049217150316513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5047688794274084754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920e602e90a36469da3bec464156b905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5568470705204194600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b61cfefabad855744bf940273f956d5a, type: 3}
