@@ -110,6 +110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemSpawnAnchor: {fileID: 1867624979182475846}
   _itemCollectAnchor: {fileID: 1867624979182475846}
+  _sfxToss: {fileID: 11400000, guid: 857bf534e91734cd5804e6b97c622358, type: 2}
+  _sfxCollect: {fileID: 11400000, guid: 915548ecbde2e4a8e9a6e5a69f378093, type: 2}
 --- !u!114 &2398366898112241457
 MonoBehaviour:
   m_ObjectHideFlags: 0
