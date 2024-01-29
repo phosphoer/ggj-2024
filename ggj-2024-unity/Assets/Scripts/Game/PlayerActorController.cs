@@ -121,6 +121,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
       // Ask for a crow to come to us
       SummonClosestCrow();
 
+      _attackCooldownTimer = 1.5f;
       _animator.SetBool(kAnimIsCalling, true);
     }
 
@@ -174,7 +175,12 @@ public class PlayerActorController : Singleton<PlayerActorController>
     if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Attack) && _attackCooldownTimer <= 0)
     {
       if (_sfxAttack != null)
-        AudioManager.Instance.PlaySound(gameObject, _sfxAttack);
+      {
+        StartCoroutine(Tween.DelayCall(0.2f, () =>
+        {
+          AudioManager.Instance.PlaySound(gameObject, _sfxAttack);
+        }));
+      }
 
       _animator.SetBool(kAnimIsAttacking, true);
       _attackCooldownTimer = 1.5f;
