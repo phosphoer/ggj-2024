@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 4009412060636410728}
   - component: {fileID: 6395955258578356078}
   - component: {fileID: 351454309761544150}
+  - component: {fileID: -865982317357269636}
   m_Layer: 0
   m_Name: Crow_Caw_4
   m_TagString: Untagged
@@ -450,3 +451,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Countdown: 2
   ToDestroy: {fileID: 0}
+--- !u!114 &-865982317357269636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105069819486056908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbeb300aee78b7142a8925b79634fe39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SetRandomPitch: 1
+  PitchRange: {x: 1.1, y: 0.9}

@@ -463,3 +463,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbeb300aee78b7142a8925b79634fe39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetRandomPitch: 1
+  PitchRange: {x: 1, y: 1}
