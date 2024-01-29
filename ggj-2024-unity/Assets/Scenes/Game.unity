@@ -1325,6 +1325,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1525889332263242318, guid: 795d6574c23f811478acf4a8fce10f43, type: 3}
   m_PrefabInstance: {fileID: 489243644}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &495318112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 495318113}
+  m_Layer: 0
+  m_Name: RecipeWall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &495318113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495318112}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &498877536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3323,6 +3354,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 4254964307198427936, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8819470997423410274, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 9059935561185022319, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
@@ -6580,3 +6614,4 @@ SceneRoots:
   - {fileID: 822010252}
   - {fileID: 7212059840098148185}
   - {fileID: 254381159}
+  - {fileID: 495318113}

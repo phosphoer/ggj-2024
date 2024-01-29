@@ -21,6 +21,9 @@ public class RecipeBoard : MonoBehaviour
   private Transform _recipeListRoot = null;
 
   [SerializeField]
+  private TMPro.TMP_Text _recipeOutputText = null;
+
+  [SerializeField]
   private RecipeDefinition _initialRecipe = null;
 
   [SerializeField]
@@ -55,6 +58,8 @@ public class RecipeBoard : MonoBehaviour
 
     if (_recipe != null)
     {
+      _recipeOutputText.text = _recipe.Result.Name;
+
       for (int i = 0; i < _recipe.Ingredients.Length; ++i)
       {
         var ingredient = _recipe.Ingredients[i];
@@ -100,13 +105,18 @@ public class RecipeBoard : MonoBehaviour
         countText.gameObject.SetActive(true);
       }
 
-      _recipeBoardRoot.localScale = _recipeBoardRoot.localScale.WithY(_itemMaxSize * _recipe.Ingredients.Length - _recipeListRoot.localPosition.y);
+      _recipeBoardRoot.localScale = _recipeBoardRoot.localScale.WithY(_itemMaxSize * _recipe.Ingredients.Length - _recipeListRoot.localPosition.y * 0.5f);
 
       // Duplicate the list onto the reverse side 
       Transform boardOtherSide = Instantiate(_recipeListRoot, transform);
       boardOtherSide.localPosition = boardOtherSide.localPosition.WithZ(-boardOtherSide.localPosition.z);
-      boardOtherSide.localRotation = Quaternion.Euler(0, 180, 0);
+      boardOtherSide.Rotate(0, 180, 0, Space.Self);
       boardOtherSide.localPosition = boardOtherSide.localPosition.WithX(-boardOtherSide.localPosition.x);
+
+      var recipeNameOtherSide = Instantiate(_recipeOutputText, transform);
+      recipeNameOtherSide.transform.localPosition = recipeNameOtherSide.transform.localPosition.WithZ(-recipeNameOtherSide.transform.localPosition.z);
+      recipeNameOtherSide.transform.Rotate(0, 180, 0, Space.Self);
+      recipeNameOtherSide.transform.localPosition = recipeNameOtherSide.transform.localPosition.WithX(-recipeNameOtherSide.transform.localPosition.x);
 
       transform.rotation = originalRotation;
     }
