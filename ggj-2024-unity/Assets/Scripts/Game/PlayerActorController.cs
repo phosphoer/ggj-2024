@@ -32,6 +32,12 @@ public class PlayerActorController : Singleton<PlayerActorController>
   [SerializeField]
   private PerchController[] _staffPerches = null;
 
+  [SerializeField]
+  private SoundBank _sfxPickup = null;
+
+  [SerializeField]
+  private SoundBank _sfxAttack = null;
+
   private Rewired.Player _rewiredPlayer;
   private CameraControllerPlayer _cameraPlayer;
   private CrowBehaviorManager _commandingCrow = null;

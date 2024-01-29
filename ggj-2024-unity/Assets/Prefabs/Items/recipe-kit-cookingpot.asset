@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7337d14769a6a424084e9324fd7be45c, type: 3}
   m_Name: recipe-kit-cookingpot
   m_EditorClassIdentifier: 
-  Name: Cooking Pot Kit
   Result: {fileID: 11400000, guid: f291c1b84a8244ee6b6472195fb8b2fc, type: 2}
-  CookDuration: 5
+  CookDuration: 3
   Ingredients:
   - Item: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
     Count: 1
