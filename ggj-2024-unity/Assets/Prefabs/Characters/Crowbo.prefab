@@ -213,6 +213,7 @@ MonoBehaviour:
   _itemSpawnAnchor: {fileID: 959448567414112341}
   _itemCollectAnchor: {fileID: 0}
   _sfxToss: {fileID: 11400000, guid: c5e2bccf929b34aa78532d6f8e3a2c95, type: 2}
+  _sfxCollect: {fileID: 0}
 --- !u!114 &4088988399815621296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,6 +453,10 @@ MonoBehaviour:
   - FXKey: Call
     FXObj: {fileID: 6105069819486056908, guid: 4ea521abd5c74234eb1296b64814a869, type: 3}
     SpawnLocation: {fileID: 2822638720796671857}
+    ParentFX: 0
+  - FXKey: Attack
+    FXObj: {fileID: 6105069819486056908, guid: c0500c7787a419c409ccbda0077c10dd, type: 3}
+    SpawnLocation: {fileID: 7731201296418163614}
     ParentFX: 0
 --- !u!4 &5568470705204194600 stripped
 Transform:
