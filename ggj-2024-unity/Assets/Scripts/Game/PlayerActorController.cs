@@ -48,7 +48,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
   private static readonly int kAnimIsCalling = Animator.StringToHash("IsCalling");
   private static readonly int kAnimIsAttacking = Animator.StringToHash("IsAttacking");
 
-  public const float kSelectAngleThreshold = 30f;
+  public const float kSelectAngleThreshold = 45f;
   public const float kSelectMaxRadius = 30f;
 
 

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 448907164243894907}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111,9 +111,9 @@ MonoBehaviour:
   FieldOfView: 65
   _mountPoint: {fileID: 8068003140959716535}
   TargetTransform: {fileID: 0}
+  LookOffset: {x: 0, y: 1, z: 0}
   _yawRoot: {fileID: 207742480423699366}
   _pitchRoot: {fileID: 5469041832084846486}
-  LookOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &7809412622970611668
 GameObject:
   m_ObjectHideFlags: 0
