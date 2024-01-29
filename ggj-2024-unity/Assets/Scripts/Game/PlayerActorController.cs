@@ -42,6 +42,7 @@ public class PlayerActorController : Singleton<PlayerActorController>
   private CameraControllerPlayer _cameraPlayer;
   private CrowBehaviorManager _commandingCrow = null;
   private CrowTarget _currentCrowTarget = null;
+  private float _attackCooldownTimer = 0;
 
   private static readonly int kAnimMoveSpeed = Animator.StringToHash("MoveSpeed");
   private static readonly int kAnimIsPickingUp = Animator.StringToHash("IsPickingUp");
@@ -64,6 +65,8 @@ public class PlayerActorController : Singleton<PlayerActorController>
 
   private void Update()
   {
+    _attackCooldownTimer -= Time.deltaTime;
+
     // Reset some animator state 
     _animator.SetBool(kAnimIsCalling, false);
     _animator.SetBool(kAnimIsAttacking, false);
@@ -168,9 +171,23 @@ public class PlayerActorController : Singleton<PlayerActorController>
     }
 
     // Attack
-    if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Attack))
+    if (_rewiredPlayer.GetButtonDown(RewiredConsts.Action.Attack) && _attackCooldownTimer <= 0)
     {
+      if (_sfxAttack != null)
+        AudioManager.Instance.PlaySound(gameObject, _sfxAttack);
+
       _animator.SetBool(kAnimIsAttacking, true);
+      _attackCooldownTimer = 1.5f;
+
+      foreach (var crow in CrowBehaviorManager.Instances)
+      {
+        float dist = Vector3.Distance(transform.position, crow.transform.position);
+        if (dist < 1f && crow != _commandingCrow)
+        {
+          crow.SetBehaviorState(CrowBehaviorManager.BehaviorState.MoveToPublicPerch);
+          crow.BirdMovement.TakeOff();
+        }
+      }
     }
 
     // Camera controls

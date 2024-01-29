@@ -10,7 +10,7 @@ public class TitleCardUI : UIPageBase
 
   private IEnumerator Start()
   {
-    yield return Tween.CustomTween(10, t =>
+    yield return Tween.CustomTween(20, t =>
     {
       _titleCardAlpha.alpha = _titleCardAlphaCurve.Evaluate(t);
     });
