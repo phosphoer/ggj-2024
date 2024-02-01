@@ -5594,7 +5594,6 @@ MonoBehaviour:
   _recipes:
   - {fileID: 11400000, guid: 7cb7a04593e7743fe941c7c0d1db7e6b, type: 2}
   - {fileID: 11400000, guid: 27be824f4c7c94d52bad04ccfbe9b5b2, type: 2}
-  - {fileID: 11400000, guid: 9088fa5db067f4c899e257cf78aadd5b, type: 2}
   _invalidRecipe: {fileID: 11400000, guid: 073a6e18cfae44819abcde664e5ef72d, type: 2}
   _recipeCostText: {fileID: 0}
   _returnMaterialString: Return Materials
@@ -5602,6 +5601,7 @@ MonoBehaviour:
   _sfxIngredientAdded: {fileID: 0}
   _sfxCraftingStarted: {fileID: 11400000, guid: 6c2abfc46bf7d46fbbc7bcb02b295128, type: 2}
   _sfxCraftingComplete: {fileID: 0}
+  _sfxCraftingFail: {fileID: 0}
 --- !u!114 &4975563140439197111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5638,6 +5638,7 @@ MonoBehaviour:
   _itemSpawnAnchor: {fileID: 9141362690417789430}
   _itemCollectAnchor: {fileID: 0}
   _sfxToss: {fileID: 11400000, guid: c5e2bccf929b34aa78532d6f8e3a2c95, type: 2}
+  _sfxCollect: {fileID: 0}
 --- !u!54 &463323274615269655
 Rigidbody:
   m_ObjectHideFlags: 0
