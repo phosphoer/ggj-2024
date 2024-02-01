@@ -17,4 +17,4 @@ MonoBehaviour:
   IsIngredient: 0
   IsCrowFood: 1
   CrowXP: 200
-  ShopValue: 1
+  ShopValue: 6

@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea2ba34335fc3a49ae2cdaa123e1b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsWalkablePerch: 0
+  IsPublicPerch: 0
 --- !u!114 &8517252826437088391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,10 +59,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc5410b34b69433b8894416a76078cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GatherTime: 10
+  GatherTimeLvl0: 30
+  GatherTimeLvl1: 25
+  GatherTimeLvl2: 20
+  GatherTimeLvl3: 15
+  GatherTimeLvl4: 10
+  GatherTimeLvl5: 5
   _targetedHighlightPrefab: {fileID: 7937580347531802412, guid: fb19aba768e834de3814c5bb8b1c0079, type: 3}
   _itemReward: {fileID: 11400000, guid: e44a7c1cd321e4ccd8019ae423022d62, type: 2}
   _perch: {fileID: 4620361875235039408}
+--- !u!1 &5998120012849314281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3509011217940115765}
+  - component: {fileID: 5295937177818963514}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3509011217940115765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5998120012849314281}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: -0.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1880580172107189673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5295937177818963514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5998120012849314281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c56cd401c7e384fa225aa45a66fb45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourceDefinition: {fileID: 11400000, guid: d9e7122e2f8ccfe48990cb2d54ec0ee1, type: 2}
+  _respawnInterval:
+    MinValue: 180
+    MaxValue: 300
+  _initiallySpawned: 0
 --- !u!1 &8541281161978508514
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +146,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3509011217940115765}
   - {fileID: 734597290543444431}
   - {fileID: 3071752141547033677}
   - {fileID: 3572126253175359340}

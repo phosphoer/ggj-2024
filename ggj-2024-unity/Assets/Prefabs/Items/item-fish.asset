@@ -15,3 +15,6 @@ MonoBehaviour:
   Name: Fish
   Prefab: {fileID: 5595659566637781942, guid: d573d23d891f7ba48821b50921f793ff, type: 3}
   IsIngredient: 1
+  IsCrowFood: 0
+  CrowXP: 0
+  ShopValue: 3

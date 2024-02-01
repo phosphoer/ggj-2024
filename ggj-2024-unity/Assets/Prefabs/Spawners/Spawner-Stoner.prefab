@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourceDefinition: {fileID: 11400000, guid: 11a91830993461b4181046d189a4233b, type: 2}
   _respawnInterval:
-    MinValue: 1000
-    MaxValue: 5000
+    MinValue: 180
+    MaxValue: 300
   _initiallySpawned: 1
 --- !u!1 &3810053803419729721
 GameObject:
@@ -94,6 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea2ba34335fc3a49ae2cdaa123e1b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsWalkablePerch: 0
+  IsPublicPerch: 0
 --- !u!114 &7041644122552369777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc5410b34b69433b8894416a76078cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GatherTime: 10
+  GatherTimeLvl0: 30
+  GatherTimeLvl1: 25
+  GatherTimeLvl2: 20
+  GatherTimeLvl3: 15
+  GatherTimeLvl4: 10
+  GatherTimeLvl5: 5
   _targetedHighlightPrefab: {fileID: 7937580347531802412, guid: fb19aba768e834de3814c5bb8b1c0079, type: 3}
   _itemReward: {fileID: 11400000, guid: 5fbcb2bc32a7c8343ab88a3b896f70f0, type: 2}
   _perch: {fileID: 7630012610307679929}

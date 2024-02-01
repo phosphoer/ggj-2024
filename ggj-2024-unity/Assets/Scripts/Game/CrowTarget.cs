@@ -7,7 +7,12 @@ public class CrowTarget : MonoBehaviour
 
   public bool IsVisible => _targetHighlightRoot != null;
 
-  public float GatherTime = 10.0f;
+  public float GatherTimeLvl0 = 30.0f;
+  public float GatherTimeLvl1 = 25.0f;
+  public float GatherTimeLvl2 = 20.0f;
+  public float GatherTimeLvl3 = 15.0f;
+  public float GatherTimeLvl4 = 10.0f;
+  public float GatherTimeLvl5 = 5.0f;
 
   [SerializeField]
   private GameObject _targetedHighlightPrefab = null;

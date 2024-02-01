@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31cc4c727ef9b44ef8bdcddb5805aafa, type: 3}
-  m_Name: item-worm
+  m_Script: {fileID: 11500000, guid: c39429c8582b4f14f83ff6927b42ea3a, type: 3}
+  m_Name: resource-froot
   m_EditorClassIdentifier: 
-  Name: Worm
-  Prefab: {fileID: 3556670924485579011, guid: f9e9cfec841bf3e4394b3ab5e4fe09c1, type: 3}
-  IsIngredient: 1
-  IsCrowFood: 0
-  CrowXP: 0
-  ShopValue: 2
+  Name: Froot
+  SpawnPhase: 0
+  MinSpawnFrequency: 100
+  MaxSpawnFrequency: 500
+  Prefab: {fileID: 8905827581726730297, guid: 0fdf4d6be6bae47438490a3c73bd732a, type: 3}

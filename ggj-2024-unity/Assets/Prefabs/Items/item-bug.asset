@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bug
   Prefab: {fileID: 5595659566637781942, guid: 7f34689936db64827bffff5b6acfa9c9, type: 3}
+  IsIngredient: 1
+  IsCrowFood: 0
+  CrowXP: 0
+  ShopValue: 2

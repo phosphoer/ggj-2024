@@ -476,7 +476,30 @@ public class CrowBehaviorManager : MonoBehaviour
   {
     BehaviorState nextBehavior = BehaviorState.GatherItem;
 
-    if (_timeInBehavior >= _currentCrowTarget.GatherTime)
+    float thisWaitTime = 30.0f;
+    switch (_statsManager.gatherLevel)
+    {
+      case 1:
+        thisWaitTime = _currentCrowTarget.GatherTimeLvl1;
+        break;
+      case 2:
+        thisWaitTime = _currentCrowTarget.GatherTimeLvl2;
+        break;
+      case 3:
+        thisWaitTime = _currentCrowTarget.GatherTimeLvl3;
+        break;
+      case 4:
+        thisWaitTime = _currentCrowTarget.GatherTimeLvl4;
+        break;
+      case 5:
+        thisWaitTime = _currentCrowTarget.GatherTimeLvl5;
+        break;
+      default:
+        thisWaitTime = 30;
+        break;
+    }
+
+    if (_timeInBehavior >= thisWaitTime)
     {
       ItemDefinition itemDefinition = _currentCrowTarget.GetItemRewardDefinition();
 

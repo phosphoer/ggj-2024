@@ -12,6 +12,8 @@ public class CrowStatsManager : MonoBehaviour
   public int Level => _level;
   private int _level= 0;
 
+  public int gatherLevel= 0;
+
   public event System.Action<int> LeveledUp;
 
   public void ApplyItemStats(ItemController item)
@@ -40,6 +42,7 @@ public class CrowStatsManager : MonoBehaviour
         break;
       }
     }
+    gatherLevel = level;
     return level;
   }
 }
