@@ -3377,6 +3377,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8908929885194655966, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 6326395805079485350, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 5922290433354247904, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 3624258862036100490, guid: 9c3b804463f15ea4a8b02cd80d63e3b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}

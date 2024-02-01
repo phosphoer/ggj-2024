@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1780481580081939289}
   - component: {fileID: 2874904481558846707}
   m_Layer: 0
-  m_Name: ItemKitLeafyCrowShelter
+  m_Name: ItemKitScarecrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 957320879314357148}
+  - {fileID: 79888023650611396}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &87506204956846299
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47f4433062d84f25a6fe057d0276ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemDefinition: {fileID: 11400000, guid: 1a40ce5f365b54763b6ff34d7cb12424, type: 2}
+  ItemDefinition: {fileID: 11400000, guid: f3760b914b2d58e48ae9b13e23125a18, type: 2}
   _interactable: {fileID: 87506204956846299}
   _rb: {fileID: 2874904481558846707}
 --- !u!114 &1780481580081939289
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemController: {fileID: 5595659566637781942}
-  _constructPrefab: {fileID: 3241135231911254547, guid: 1f8a97b5916560f43a5a6ff17ebbb8c4, type: 3}
+  _constructPrefab: {fileID: 1754180952917167034, guid: 1d16bbd8cd2d77e4a9f0f157073385d8, type: 3}
   _fxConstructPoofPrefab: {fileID: 198122108360337520, guid: fe0603d69e17942c39ed76ac7b79865c, type: 3}
   _constructTerrainMask:
     serializedVersion: 2
@@ -117,7 +117,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &775656224432958583
+--- !u!1001 &473274637765957423
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -195,20 +195,25 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 692b4d0212c7680418a778673937aec6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5800830561871207657}
+      addedObject: {fileID: 1517079628215020312}
   m_SourcePrefab: {fileID: 100100000, guid: 692b4d0212c7680418a778673937aec6, type: 3}
---- !u!1 &433127214337790246 stripped
+--- !u!4 &79888023650611396 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 692b4d0212c7680418a778673937aec6, type: 3}
+  m_PrefabInstance: {fileID: 473274637765957423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &743095138643929726 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 692b4d0212c7680418a778673937aec6, type: 3}
-  m_PrefabInstance: {fileID: 775656224432958583}
+  m_PrefabInstance: {fileID: 473274637765957423}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &5800830561871207657
+--- !u!65 &1517079628215020312
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433127214337790246}
+  m_GameObject: {fileID: 743095138643929726}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -223,8 +228,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5036861, y: 0.40525848, z: 0.44013548}
   m_Center: {x: 0, y: 0.20262925, z: 0}
---- !u!4 &957320879314357148 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 692b4d0212c7680418a778673937aec6, type: 3}
-  m_PrefabInstance: {fileID: 775656224432958583}
-  m_PrefabAsset: {fileID: 0}

@@ -51,14 +51,14 @@ PrefabInstance:
     - target: {fileID: 5303587878296716391, guid: d2e750a9ea4ad499d955b8a497723190, type: 3}
       propertyPath: ItemDefinition
       value: 
-      objectReference: {fileID: 11400000, guid: a7468dc28dc1949e285bfc084f40b3fc, type: 2}
+      objectReference: {fileID: 11400000, guid: 67edcdfb1376cb3449e820a195344514, type: 2}
     - target: {fileID: 6741678345502296370, guid: d2e750a9ea4ad499d955b8a497723190, type: 3}
       propertyPath: _initialRecipe
       value: 
-      objectReference: {fileID: 11400000, guid: 9088fa5db067f4c899e257cf78aadd5b, type: 2}
+      objectReference: {fileID: 11400000, guid: 474096c433e465b4b8df1a10d802f365, type: 2}
     - target: {fileID: 7777632985897156297, guid: d2e750a9ea4ad499d955b8a497723190, type: 3}
       propertyPath: m_Name
-      value: RecipeBoard_Kit_CrowShelterLeaves
+      value: RecipeBoard_Kit_Scarecrow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

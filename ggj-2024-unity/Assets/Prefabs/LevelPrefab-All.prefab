@@ -2179,6 +2179,7 @@ Transform:
   - {fileID: 8636728539639747320}
   - {fileID: 6427820726539149906}
   - {fileID: 2628362567311477614}
+  - {fileID: 1002898188017696080}
   m_Father: {fileID: 3640596592797555645}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3370642774265113830
@@ -6485,6 +6486,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8679112930115641302, guid: 0dc6121231f637941869725aafa40ee5, type: 3}
   m_PrefabInstance: {fileID: 81511941020971870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &98508224612762614
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3740248407398186055}
+    m_Modifications:
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -48.172
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.542
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.577
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6779681
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.15021232
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.71149975
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.107534826
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -20.898
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 93.534
+      objectReference: {fileID: 0}
+    - target: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -4.171
+      objectReference: {fileID: 0}
+    - target: {fileID: 5815291085822966291, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+      propertyPath: m_Name
+      value: RecipeBoard_Kit_Scarecrow
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+--- !u!4 &1002898188017696080 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 916194606571519654, guid: 4bd36497ec025f347a10a62849c03af6, type: 3}
+  m_PrefabInstance: {fileID: 98508224612762614}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &279411384181306176
 PrefabInstance:
@@ -19112,7 +19175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6357400429900610685, guid: d1fd3b440ca48d644a6eada230fba824, type: 3}
       propertyPath: _recipes.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6357400429900610685, guid: d1fd3b440ca48d644a6eada230fba824, type: 3}
       propertyPath: _recipes.Array.data[2]
@@ -19125,7 +19188,7 @@ PrefabInstance:
     - target: {fileID: 6357400429900610685, guid: d1fd3b440ca48d644a6eada230fba824, type: 3}
       propertyPath: _recipes.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: 52465d68c6b732f4394485f5102e0c0b, type: 2}
+      objectReference: {fileID: 11400000, guid: 474096c433e465b4b8df1a10d802f365, type: 2}
     - target: {fileID: 6444941659091406563, guid: d1fd3b440ca48d644a6eada230fba824, type: 3}
       propertyPath: m_Name
       value: Hut

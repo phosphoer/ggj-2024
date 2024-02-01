@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31cc4c727ef9b44ef8bdcddb5805aafa, type: 3}
-  m_Name: item-recipeboard-kit-crowshelter-leaves
+  m_Name: item-kit-scarecrow
   m_EditorClassIdentifier: 
-  Name: Leafy Crow Shelter Recipe
-  Prefab: {fileID: 8269033893719048381, guid: f5240b96433b841dd955da40695f4adc, type: 3}
+  Name: Scarecrow
+  Prefab: {fileID: 5595659566637781942, guid: 1f1b62118b2a4184880c2e72042d53d1, type: 3}
   IsIngredient: 0
   IsCrowFood: 0
   CrowXP: 0
-  ShopValue: 5
+  ShopValue: 1
