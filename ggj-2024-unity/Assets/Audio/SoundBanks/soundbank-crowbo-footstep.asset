@@ -22,7 +22,7 @@ MonoBehaviour:
   IsSpatial: 1
   MaxDistance: 20
   MinDistance: 10
-  VolumeScale: 1
+  VolumeScale: 0.25
   DopplerLevel: 0
   PitchOffset: 0
   PitchOffsetRange:
